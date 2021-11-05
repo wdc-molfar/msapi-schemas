@@ -4,6 +4,8 @@
 
 *   [Consumer options](./consumer.md "Bla bla bla") – `http://molfar.wdc.org.ua/schemas/consumer`
 
+*   [Untitled object in undefined](./connection.md) – `-`
+
 *   [Untitled object in undefined](./publisher.md) – `-`
 
 ## Other Schemas
