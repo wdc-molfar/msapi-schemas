@@ -4,7 +4,8 @@ const YAML = require("js-yaml")
 const schemas = [
 	"consumer",
 	"publisher",
-        "connection"
+    "connection",
+    "temp"
 ]
 
 let res = {}
