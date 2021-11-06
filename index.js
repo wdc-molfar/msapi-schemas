@@ -1,24 +1,24 @@
 
 const YAML = require("js-yaml")
+const consumer = require(`./schemas/json/consumer.schema.json`)
+const publisher = require(`./schemas/json/publisher.schema.json`)
+const connection = require(`./schemas/json/connection.schema.json`)
 
-const schemas = [
-	"consumer",
-	"publisher",
-    "connection",
-    "temp"
-]
+const schemas = {
+	"consumer": {
+		json: consumer,
+		yaml: YAML.dump(consumer)
+	},
+	"publisher": {
+		json: publisher,
+		yaml: YAML.dump(publisher)
+	},
+    "connection": {
+    	json: connection,
+		yaml: YAML.dump(connection)
+	}
+}
 
-let res = {}
-
-schemas.forEach( sch => {
-	
-	const json = require(`./schemas/json/${sch}.schema.json`)
-	const yaml = YAML.dump(json)
-	
-	res[sch] = { yaml, json }
-
-})
-
-module.exports = res
+module.exports = schemas
 
 
