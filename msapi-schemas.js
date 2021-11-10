@@ -618,6 +618,7 @@
   });
 
   var description$2 = "Validation schema for MSAPI Specification 1.0.X.";
+  var $schema$2 = "http://json-schema.org/draft-04/schema#";
   var type$5 = "object";
   var required$2 = [
   	"msapi",
@@ -747,6 +748,7 @@
   };
   var msapi = {
   	description: description$2,
+  	$schema: $schema$2,
   	type: type$5,
   	required: required$2,
   	properties: properties$2
