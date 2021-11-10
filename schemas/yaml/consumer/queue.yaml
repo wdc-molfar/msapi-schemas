@@ -1,27 +1,4 @@
-title: Consumer options
-description: Bla bla bla
-$id: "http://molfar.wdc.org.ua/schemas/consumer"
 
-type: object
-required:
-  - amqp
-  - queue
-  - message
-properties:  
-
-  amqp: 
-    type: object
-    required: 
-      - url
-    properties:
-      url:
-        type: string  
-
-    errorMessage:
-      properties:
-        url: url should be a valid AMQP-connection string    
-
-  queue:
     type: object
     title: Consumes queue options
     $id: "http://molfar.wdc.org.ua/schemas/consumer/#/properties/queue"
@@ -79,20 +56,4 @@ properties:
           autoDelete: 
             type: boolean 
           prefetch:
-            type: number       
-  message:
-    type: object
-    required:
-        - options
-    properties:
-      options:
-        type: object
-        required: 
-          - noAck
-          - exclusive
-        properties:
-          noAck: 
-            type: boolean
-          exclusive: 
-            type: boolean
-                
+            type: number   
