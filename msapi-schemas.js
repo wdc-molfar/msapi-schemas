@@ -353,7 +353,6 @@
 
   var title = "Consumer options";
   var description$3 = "Bla bla bla";
-  var $id = "http://molfar.wdc.org.ua/schemas/consumer";
   var type$7 = "object";
   var required$4 = [
   	"amqp",
@@ -380,7 +379,6 @@
   	queue: {
   		type: "object",
   		title: "Consumes queue options",
-  		$id: "http://molfar.wdc.org.ua/schemas/consumer/#/properties/queue",
   		description: "Options for queue configuration",
   		required: [
   			"exchange",
@@ -489,7 +487,6 @@
   var consumer = {
   	title: title,
   	description: description$3,
-  	$id: $id,
   	type: type$7,
   	required: required$4,
   	properties: properties$4
@@ -618,7 +615,6 @@
   });
 
   var description$2 = "Validation schema for MSAPI Specification 1.0.X.";
-  var $schema$2 = "http://json-schema.org/draft-04/schema#";
   var type$5 = "object";
   var required$2 = [
   	"msapi",
@@ -748,7 +744,6 @@
   };
   var msapi = {
   	description: description$2,
-  	$schema: $schema$2,
   	type: type$5,
   	required: required$2,
   	properties: properties$2
@@ -4951,7 +4946,7 @@
       	json: connection,
   		yaml: jsYaml.dump(connection)
   	},
-  	"connection": {
+  	"msapi": {
       	json: msapi,
   		yaml: jsYaml.dump(msapi)
   	}
