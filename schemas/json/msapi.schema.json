@@ -1,0 +1,125 @@
+{
+ "description": "Validation schema for MSAPI Specification 1.0.X.",
+ "type": "object",
+ "required": [
+  "msapi",
+  "metadata"
+ ],
+ "properties": {
+  "msapi": {
+   "type": "string",
+   "pattern": "^1\\.0\\.\\d(-.+)?$"
+  },
+  "metadata": {
+   "type": "object",
+   "required": [
+    "id",
+    "title"
+   ],
+   "properties": {
+    "id": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    },
+    "description": {
+     "type": "string"
+    },
+    "contact": {
+     "type": "object",
+     "properties": {
+      "name": {
+       "type": "string"
+      },
+      "url": {
+       "type": "string",
+       "format": "uri-reference"
+      },
+      "email": {
+       "type": "string",
+       "format": "email"
+      }
+     },
+     "patternProperties": {
+      "^x-": {}
+     },
+     "additionalProperties": false
+    },
+    "license": {
+     "type": "object",
+     "required": [
+      "name"
+     ],
+     "properties": {
+      "name": {
+       "type": "string"
+      },
+      "url": {
+       "type": "string",
+       "format": "uri-reference"
+      }
+     },
+     "patternProperties": {
+      "^x-": {}
+     },
+     "additionalProperties": false
+    }
+   },
+   "patternProperties": {
+    "^x-": {}
+   },
+   "additionalProperties": true,
+   "definitions": {
+    "Contact": {
+     "type": "object",
+     "properties": {
+      "name": {
+       "type": "string"
+      },
+      "url": {
+       "type": "string",
+       "format": "uri-reference"
+      },
+      "email": {
+       "type": "string",
+       "format": "email"
+      }
+     },
+     "patternProperties": {
+      "^x-": {}
+     },
+     "additionalProperties": false
+    },
+    "License": {
+     "type": "object",
+     "required": [
+      "name"
+     ],
+     "properties": {
+      "name": {
+       "type": "string"
+      },
+      "url": {
+       "type": "string",
+       "format": "uri-reference"
+      }
+     },
+     "patternProperties": {
+      "^x-": {}
+     },
+     "additionalProperties": false
+    }
+   }
+  },
+  "components": {
+   "type": "object"
+  },
+  "service": {
+   "type": "object"
+  },
+  "workflow": {
+   "type": "object"
+  }
+ }
+}

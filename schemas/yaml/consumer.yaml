@@ -1,6 +1,5 @@
 title: Consumer options
 description: Bla bla bla
-$id: "http://molfar.wdc.org.ua/schemas/consumer"
 
 type: object
 required:
@@ -24,7 +23,6 @@ properties:
   queue:
     type: object
     title: Consumes queue options
-    $id: "http://molfar.wdc.org.ua/schemas/consumer/#/properties/queue"
     description: Options for queue configuration 
     required:
       - exchange

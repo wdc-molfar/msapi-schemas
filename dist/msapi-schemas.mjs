@@ -1,10 +1,328 @@
 
 /*! @molfar/msapi-schemas 1.0.0 https://github.com/[object Object] @license ISC */
-var type$4 = "object";
-var required$3 = [
+var definitions$2 = {
+	Reference: {
+		type: "object",
+		required: [
+			"$ref"
+		],
+		patternProperties: {
+			"^\\$ref$": {
+				type: "string",
+				format: "uri-reference"
+			}
+		}
+	},
+	Version: {
+		type: "string",
+		pattern: "^1\\.0\\.\\d(-.+)?$"
+	},
+	Schema: {
+		type: "object",
+		properties: {
+			title: {
+				type: "string"
+			},
+			multipleOf: {
+				type: "number",
+				minimum: 0,
+				exclusiveMinimum: true
+			},
+			maximum: {
+				type: "number"
+			},
+			exclusiveMaximum: {
+				type: "boolean",
+				"default": false
+			},
+			minimum: {
+				type: "number"
+			},
+			exclusiveMinimum: {
+				type: "boolean",
+				"default": false
+			},
+			maxLength: {
+				type: "integer",
+				minimum: 0
+			},
+			minLength: {
+				type: "integer",
+				minimum: 0,
+				"default": 0
+			},
+			pattern: {
+				type: "string",
+				format: "regex"
+			},
+			maxItems: {
+				type: "integer",
+				minimum: 0
+			},
+			minItems: {
+				type: "integer",
+				minimum: 0,
+				"default": 0
+			},
+			uniqueItems: {
+				type: "boolean",
+				"default": false
+			},
+			maxProperties: {
+				type: "integer",
+				minimum: 0
+			},
+			minProperties: {
+				type: "integer",
+				minimum: 0,
+				"default": 0
+			},
+			required: {
+				type: "array",
+				items: {
+					type: "string"
+				},
+				minItems: 1,
+				uniqueItems: true
+			},
+			"enum": {
+				type: "array",
+				items: {
+				},
+				minItems: 1,
+				uniqueItems: false
+			},
+			type: {
+				type: "string",
+				"enum": [
+					"array",
+					"boolean",
+					"integer",
+					"number",
+					"object",
+					"string"
+				]
+			},
+			not: {
+				oneOf: [
+					{
+						$ref: "#/definitions/Schema"
+					},
+					{
+						type: "object",
+						required: [
+							"$ref"
+						],
+						patternProperties: {
+							"^\\$ref$": {
+								type: "string",
+								format: "uri-reference"
+							}
+						}
+					}
+				]
+			},
+			allOf: {
+				type: "array",
+				items: {
+					oneOf: [
+						{
+							$ref: "#/definitions/Schema"
+						},
+						{
+							type: "object",
+							required: [
+								"$ref"
+							],
+							patternProperties: {
+								"^\\$ref$": {
+									type: "string",
+									format: "uri-reference"
+								}
+							}
+						}
+					]
+				}
+			},
+			oneOf: {
+				type: "array",
+				items: {
+					oneOf: [
+						{
+							$ref: "#/definitions/Schema"
+						},
+						{
+							type: "object",
+							required: [
+								"$ref"
+							],
+							patternProperties: {
+								"^\\$ref$": {
+									type: "string",
+									format: "uri-reference"
+								}
+							}
+						}
+					]
+				}
+			},
+			anyOf: {
+				type: "array",
+				items: {
+					oneOf: [
+						{
+							$ref: "#/definitions/Schema"
+						},
+						{
+							type: "object",
+							required: [
+								"$ref"
+							],
+							patternProperties: {
+								"^\\$ref$": {
+									type: "string",
+									format: "uri-reference"
+								}
+							}
+						}
+					]
+				}
+			},
+			items: {
+				oneOf: [
+					{
+						$ref: "#/definitions/Schema"
+					},
+					{
+						type: "object",
+						required: [
+							"$ref"
+						],
+						patternProperties: {
+							"^\\$ref$": {
+								type: "string",
+								format: "uri-reference"
+							}
+						}
+					}
+				]
+			},
+			properties: {
+				type: "object",
+				additionalProperties: {
+					oneOf: [
+						{
+							$ref: "#/definitions/Schema"
+						},
+						{
+							type: "object",
+							required: [
+								"$ref"
+							],
+							patternProperties: {
+								"^\\$ref$": {
+									type: "string",
+									format: "uri-reference"
+								}
+							}
+						}
+					]
+				}
+			},
+			additionalProperties: {
+				oneOf: [
+					{
+						$ref: "#/definitions/Schema"
+					},
+					{
+						type: "object",
+						required: [
+							"$ref"
+						],
+						patternProperties: {
+							"^\\$ref$": {
+								type: "string",
+								format: "uri-reference"
+							}
+						}
+					},
+					{
+						type: "boolean"
+					}
+				],
+				"default": true
+			},
+			description: {
+				type: "string"
+			},
+			format: {
+				type: "string"
+			},
+			"default": {
+			},
+			nullable: {
+				type: "boolean",
+				"default": false
+			},
+			discriminator: {
+				$ref: "#/definitions/Discriminator"
+			},
+			readOnly: {
+				type: "boolean",
+				"default": false
+			},
+			writeOnly: {
+				type: "boolean",
+				"default": false
+			},
+			example: {
+			},
+			externalDocs: {
+				$ref: "#/definitions/ExternalDocumentation"
+			},
+			deprecated: {
+				type: "boolean",
+				"default": false
+			},
+			xml: {
+				$ref: "#/definitions/XML"
+			}
+		},
+		patternProperties: {
+			"^x-": {
+			}
+		},
+		additionalProperties: false
+	}
+};
+var require$$0$6 = {
+	definitions: definitions$2
+};
+
+function commonjsRegister (path, loader) {
+	DYNAMIC_REQUIRE_LOADERS[path] = loader;
+}
+
+const DYNAMIC_REQUIRE_LOADERS = Object.create(null);
+
+commonjsRegister("/$$rollup_base$$/schemas/json/common-definitions.schema.json", function (module, exports) {
+  module.exports = require$$0$6;
+});
+
+var type$9 = "object";
+var require$$0$5 = {
+	type: type$9
+};
+
+commonjsRegister("/$$rollup_base$$/schemas/json/components.schema.json", function (module, exports) {
+  module.exports = require$$0$5;
+});
+
+var type$8 = "object";
+var required$5 = [
 	"url"
 ];
-var properties$3 = {
+var properties$5 = {
 	url: {
 		type: "string"
 	}
@@ -17,32 +335,25 @@ var errorMessage$1 = {
 	}
 };
 var connection = {
-	type: type$4,
-	required: required$3,
-	properties: properties$3,
+	type: type$8,
+	required: required$5,
+	properties: properties$5,
 	errorMessage: errorMessage$1
 };
-
-function commonjsRegister (path, loader) {
-	DYNAMIC_REQUIRE_LOADERS[path] = loader;
-}
-
-const DYNAMIC_REQUIRE_LOADERS = Object.create(null);
 
 commonjsRegister("/$$rollup_base$$/schemas/json/connection.schema.json", function (module, exports) {
   module.exports = connection;
 });
 
 var title = "Consumer options";
-var description$2 = "Bla bla bla";
-var $id = "http://molfar.wdc.org.ua/schemas/consumer";
-var type$3 = "object";
-var required$2 = [
+var description$3 = "Bla bla bla";
+var type$7 = "object";
+var required$4 = [
 	"amqp",
 	"queue",
 	"message"
 ];
-var properties$2 = {
+var properties$4 = {
 	amqp: {
 		type: "object",
 		required: [
@@ -62,7 +373,6 @@ var properties$2 = {
 	queue: {
 		type: "object",
 		title: "Consumes queue options",
-		$id: "http://molfar.wdc.org.ua/schemas/consumer/#/properties/queue",
 		description: "Options for queue configuration",
 		required: [
 			"exchange",
@@ -170,18 +480,274 @@ var properties$2 = {
 };
 var consumer = {
 	title: title,
-	description: description$2,
-	$id: $id,
-	type: type$3,
-	required: required$2,
-	properties: properties$2
+	description: description$3,
+	type: type$7,
+	required: required$4,
+	properties: properties$4
 };
 
 commonjsRegister("/$$rollup_base$$/schemas/json/consumer.schema.json", function (module, exports) {
   module.exports = consumer;
 });
 
-var type$2 = "object";
+var type$6 = "object";
+var required$3 = [
+	"id",
+	"title"
+];
+var properties$3 = {
+	id: {
+		type: "string"
+	},
+	title: {
+		type: "string"
+	},
+	description: {
+		type: "string"
+	},
+	contact: {
+		type: "object",
+		properties: {
+			name: {
+				type: "string"
+			},
+			url: {
+				type: "string",
+				format: "uri-reference"
+			},
+			email: {
+				type: "string",
+				format: "email"
+			}
+		},
+		patternProperties: {
+			"^x-": {
+			}
+		},
+		additionalProperties: false
+	},
+	license: {
+		type: "object",
+		required: [
+			"name"
+		],
+		properties: {
+			name: {
+				type: "string"
+			},
+			url: {
+				type: "string",
+				format: "uri-reference"
+			}
+		},
+		patternProperties: {
+			"^x-": {
+			}
+		},
+		additionalProperties: false
+	}
+};
+var patternProperties = {
+	"^x-": {
+	}
+};
+var additionalProperties = true;
+var definitions$1 = {
+	Contact: {
+		type: "object",
+		properties: {
+			name: {
+				type: "string"
+			},
+			url: {
+				type: "string",
+				format: "uri-reference"
+			},
+			email: {
+				type: "string",
+				format: "email"
+			}
+		},
+		patternProperties: {
+			"^x-": {
+			}
+		},
+		additionalProperties: false
+	},
+	License: {
+		type: "object",
+		required: [
+			"name"
+		],
+		properties: {
+			name: {
+				type: "string"
+			},
+			url: {
+				type: "string",
+				format: "uri-reference"
+			}
+		},
+		patternProperties: {
+			"^x-": {
+			}
+		},
+		additionalProperties: false
+	}
+};
+var require$$0$4 = {
+	type: type$6,
+	required: required$3,
+	properties: properties$3,
+	patternProperties: patternProperties,
+	additionalProperties: additionalProperties,
+	definitions: definitions$1
+};
+
+commonjsRegister("/$$rollup_base$$/schemas/json/metadata.schema.json", function (module, exports) {
+  module.exports = require$$0$4;
+});
+
+var description$2 = "Validation schema for MSAPI Specification 1.0.X.";
+var type$5 = "object";
+var required$2 = [
+	"msapi",
+	"metadata"
+];
+var properties$2 = {
+	msapi: {
+		type: "string",
+		pattern: "^1\\.0\\.\\d(-.+)?$"
+	},
+	metadata: {
+		type: "object",
+		required: [
+			"id",
+			"title"
+		],
+		properties: {
+			id: {
+				type: "string"
+			},
+			title: {
+				type: "string"
+			},
+			description: {
+				type: "string"
+			},
+			contact: {
+				type: "object",
+				properties: {
+					name: {
+						type: "string"
+					},
+					url: {
+						type: "string",
+						format: "uri-reference"
+					},
+					email: {
+						type: "string",
+						format: "email"
+					}
+				},
+				patternProperties: {
+					"^x-": {
+					}
+				},
+				additionalProperties: false
+			},
+			license: {
+				type: "object",
+				required: [
+					"name"
+				],
+				properties: {
+					name: {
+						type: "string"
+					},
+					url: {
+						type: "string",
+						format: "uri-reference"
+					}
+				},
+				patternProperties: {
+					"^x-": {
+					}
+				},
+				additionalProperties: false
+			}
+		},
+		patternProperties: {
+			"^x-": {
+			}
+		},
+		additionalProperties: true,
+		definitions: {
+			Contact: {
+				type: "object",
+				properties: {
+					name: {
+						type: "string"
+					},
+					url: {
+						type: "string",
+						format: "uri-reference"
+					},
+					email: {
+						type: "string",
+						format: "email"
+					}
+				},
+				patternProperties: {
+					"^x-": {
+					}
+				},
+				additionalProperties: false
+			},
+			License: {
+				type: "object",
+				required: [
+					"name"
+				],
+				properties: {
+					name: {
+						type: "string"
+					},
+					url: {
+						type: "string",
+						format: "uri-reference"
+					}
+				},
+				patternProperties: {
+					"^x-": {
+					}
+				},
+				additionalProperties: false
+			}
+		}
+	},
+	components: {
+		type: "object"
+	},
+	service: {
+		type: "object"
+	},
+	workflow: {
+		type: "object"
+	}
+};
+var msapi = {
+	description: description$2,
+	type: type$5,
+	required: required$2,
+	properties: properties$2
+};
+
+commonjsRegister("/$$rollup_base$$/schemas/json/msapi.schema.json", function (module, exports) {
+  module.exports = msapi;
+});
+
+var type$4 = "object";
 var required$1 = [
 	"exchange",
 	"message"
@@ -250,7 +816,7 @@ var errorMessage = {
 	}
 };
 var publisher = {
-	type: type$2,
+	type: type$4,
 	required: required$1,
 	properties: properties$1,
 	errorMessage: errorMessage
@@ -258,6 +824,15 @@ var publisher = {
 
 commonjsRegister("/$$rollup_base$$/schemas/json/publisher.schema.json", function (module, exports) {
   module.exports = publisher;
+});
+
+var type$3 = "object";
+var require$$0$3 = {
+	type: type$3
+};
+
+commonjsRegister("/$$rollup_base$$/schemas/json/service.schema.json", function (module, exports) {
+  module.exports = require$$0$3;
 });
 
 var id$1 = "https://spec.openapis.org/oas/3.0/schema/2019-04-02";
@@ -388,7 +963,7 @@ var definitions = {
 		additionalProperties: false
 	}
 };
-var require$$0$1 = {
+var require$$0$2 = {
 	id: id$1,
 	$schema: $schema$1,
 	description: description$1,
@@ -396,13 +971,13 @@ var require$$0$1 = {
 };
 
 commonjsRegister("/$$rollup_base$$/schemas/json/test-external-defs.schema.json", function (module, exports) {
-  module.exports = require$$0$1;
+  module.exports = require$$0$2;
 });
 
 var id = "https://spec.openapis.org/oas/3.0/schema/2019-04-02";
 var $schema = "http://json-schema.org/draft-04/schema#";
 var description = "Validation schema for MSAPI Specification 1.0.X.";
-var type$1 = "object";
+var type$2 = "object";
 var required = [
 	"msapi",
 	"metadata"
@@ -483,16 +1058,25 @@ var properties = {
 		additionalProperties: true
 	}
 };
-var require$$0 = {
+var require$$0$1 = {
 	id: id,
 	$schema: $schema,
 	description: description,
-	type: type$1,
+	type: type$2,
 	required: required,
 	properties: properties
 };
 
 commonjsRegister("/$$rollup_base$$/schemas/json/test-external-refs.schema.json", function (module, exports) {
+  module.exports = require$$0$1;
+});
+
+var type$1 = "object";
+var require$$0 = {
+	type: type$1
+};
+
+commonjsRegister("/$$rollup_base$$/schemas/json/workflow.schema.json", function (module, exports) {
   module.exports = require$$0;
 });
 
@@ -4355,6 +4939,10 @@ const schemas = {
     "connection": {
     	json: connection,
 		yaml: jsYaml.dump(connection)
+	},
+	"msapi": {
+    	json: msapi,
+		yaml: jsYaml.dump(msapi)
 	}
 };
 

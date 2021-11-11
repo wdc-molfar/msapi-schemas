@@ -1,0 +1,49 @@
+type: object
+required:
+  - id
+  - title
+properties:
+  id:
+    type: string
+  title:
+    type: string
+  description:
+    type: string
+  contact:
+    $ref: '#/definitions/Contact'
+  license:
+    $ref: '#/definitions/License'
+patternProperties:
+  '^x-': {}
+additionalProperties: true
+
+definitions:
+
+  Contact:
+    type: object
+    properties:
+      name:
+        type: string
+      url:
+        type: string
+        format: "uri-reference"
+      email:
+        type: string
+        format: email
+    patternProperties:
+      '^x-': {}
+    additionalProperties: false
+
+  License:
+    type: object
+    required:
+      - name
+    properties:
+      name:
+        type: string
+      url:
+        type: string
+        format: "uri-reference"
+    patternProperties:
+      '^x-': {}
+    additionalProperties: false
