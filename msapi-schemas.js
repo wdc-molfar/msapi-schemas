@@ -836,39 +836,29 @@
   			],
   			properties: {
   				instance: {
-  					type: "object",
-  					required: [
-  						"of"
-  					],
-  					patternProperties: {
-  						"^of$": {
-  							oneOf: [
-  								{
-  									type: "object"
-  								},
-  								{
-  									type: "object",
-  									required: [
-  										"$ref"
-  									],
-  									properties: {
-  										$ref: {
-  											type: "string",
-  											format: "uri-reference"
-  										}
-  									}
-  								}
-  							]
-  						}
-  					},
-  					properties: {
-  						name: {
-  							type: "string"
-  						},
-  						configuredBy: {
+  					oneOf: [
+  						{
   							type: "object"
+  						},
+  						{
+  							type: "object",
+  							required: [
+  								"$ref"
+  							],
+  							properties: {
+  								$ref: {
+  									type: "string",
+  									format: "uri-reference"
+  								}
+  							}
   						}
-  					}
+  					]
+  				},
+  				name: {
+  					type: "string"
+  				},
+  				configuredBy: {
+  					type: "object"
   				}
   			}
   		}
@@ -1217,39 +1207,29 @@
   	],
   	properties: {
   		instance: {
-  			type: "object",
-  			required: [
-  				"of"
-  			],
-  			patternProperties: {
-  				"^of$": {
-  					oneOf: [
-  						{
-  							type: "object"
-  						},
-  						{
-  							type: "object",
-  							required: [
-  								"$ref"
-  							],
-  							properties: {
-  								$ref: {
-  									type: "string",
-  									format: "uri-reference"
-  								}
-  							}
-  						}
-  					]
-  				}
-  			},
-  			properties: {
-  				name: {
-  					type: "string"
-  				},
-  				configuredBy: {
+  			oneOf: [
+  				{
   					type: "object"
+  				},
+  				{
+  					type: "object",
+  					required: [
+  						"$ref"
+  					],
+  					properties: {
+  						$ref: {
+  							type: "string",
+  							format: "uri-reference"
+  						}
+  					}
   				}
-  			}
+  			]
+  		},
+  		name: {
+  			type: "string"
+  		},
+  		configuredBy: {
+  			type: "object"
   		}
   	}
   };
