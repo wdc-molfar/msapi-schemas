@@ -316,8 +316,53 @@
   });
 
   var type$9 = "object";
+  var properties$6 = {
+  	Exchanges: {
+  		type: "object",
+  		patternProperties: {
+  			"^[a-zA-Z0-9\\.\\-_]+$": {
+  				oneOf: [
+  					{
+  						type: "object",
+  						required: [
+  							"$ref"
+  						],
+  						patternProperties: {
+  							"^\\$ref$": {
+  								type: "string",
+  								format: "uri-reference"
+  							}
+  						}
+  					}
+  				]
+  			}
+  		}
+  	},
+  	Queues: {
+  		type: "object",
+  		patternProperties: {
+  			"^[a-zA-Z0-9\\.\\-_]+$": {
+  				oneOf: [
+  					{
+  						type: "object",
+  						required: [
+  							"$ref"
+  						],
+  						patternProperties: {
+  							"^\\$ref$": {
+  								type: "string",
+  								format: "uri-reference"
+  							}
+  						}
+  					}
+  				]
+  			}
+  		}
+  	}
+  };
   var require$$0$5 = {
-  	type: type$9
+  	type: type$9,
+  	properties: properties$6
   };
 
   commonjsRegister("/$$rollup_base$$/schemas/json/components.schema.json", function (module, exports) {
@@ -733,13 +778,91 @@
   		}
   	},
   	components: {
-  		type: "object"
+  		type: "object",
+  		properties: {
+  			Exchanges: {
+  				type: "object",
+  				patternProperties: {
+  					"^[a-zA-Z0-9\\.\\-_]+$": {
+  						oneOf: [
+  							{
+  								type: "object",
+  								required: [
+  									"$ref"
+  								],
+  								patternProperties: {
+  									"^\\$ref$": {
+  										type: "string",
+  										format: "uri-reference"
+  									}
+  								}
+  							}
+  						]
+  					}
+  				}
+  			},
+  			Queues: {
+  				type: "object",
+  				patternProperties: {
+  					"^[a-zA-Z0-9\\.\\-_]+$": {
+  						oneOf: [
+  							{
+  								type: "object",
+  								required: [
+  									"$ref"
+  								],
+  								patternProperties: {
+  									"^\\$ref$": {
+  										type: "string",
+  										format: "uri-reference"
+  									}
+  								}
+  							}
+  						]
+  					}
+  				}
+  			}
+  		}
   	},
   	service: {
   		type: "object"
   	},
   	workflow: {
-  		type: "object"
+  		type: "array",
+  		items: {
+  			type: "object",
+  			required: [
+  				"of"
+  			],
+  			properties: {
+  				of: {
+  					type: "object",
+  					oneOf: [
+  						{
+  							type: "object"
+  						},
+  						{
+  							type: "object",
+  							required: [
+  								"$ref"
+  							],
+  							patternProperties: {
+  								"^\\$ref$": {
+  									type: "string",
+  									format: "uri-reference"
+  								}
+  							}
+  						}
+  					]
+  				},
+  				name: {
+  					type: "string"
+  				},
+  				configuredBy: {
+  					type: "object"
+  				}
+  			}
+  		}
   	}
   };
   var msapi = {
@@ -1077,9 +1200,44 @@
     module.exports = require$$0$1;
   });
 
-  var type$1 = "object";
+  var type$1 = "array";
+  var items = {
+  	type: "object",
+  	required: [
+  		"of"
+  	],
+  	properties: {
+  		of: {
+  			type: "object",
+  			oneOf: [
+  				{
+  					type: "object"
+  				},
+  				{
+  					type: "object",
+  					required: [
+  						"$ref"
+  					],
+  					patternProperties: {
+  						"^\\$ref$": {
+  							type: "string",
+  							format: "uri-reference"
+  						}
+  					}
+  				}
+  			]
+  		},
+  		name: {
+  			type: "string"
+  		},
+  		configuredBy: {
+  			type: "object"
+  		}
+  	}
+  };
   var require$$0 = {
-  	type: type$1
+  	type: type$1,
+  	items: items
   };
 
   commonjsRegister("/$$rollup_base$$/schemas/json/workflow.schema.json", function (module, exports) {
