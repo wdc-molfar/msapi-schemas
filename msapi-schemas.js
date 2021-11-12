@@ -12,8 +12,8 @@
   		required: [
   			"$ref"
   		],
-  		patternProperties: {
-  			"^\\$ref$": {
+  		properties: {
+  			$ref: {
   				type: "string",
   				format: "uri-reference"
   			}
@@ -119,8 +119,8 @@
   						required: [
   							"$ref"
   						],
-  						patternProperties: {
-  							"^\\$ref$": {
+  						properties: {
+  							$ref: {
   								type: "string",
   								format: "uri-reference"
   							}
@@ -140,8 +140,8 @@
   							required: [
   								"$ref"
   							],
-  							patternProperties: {
-  								"^\\$ref$": {
+  							properties: {
+  								$ref: {
   									type: "string",
   									format: "uri-reference"
   								}
@@ -162,8 +162,8 @@
   							required: [
   								"$ref"
   							],
-  							patternProperties: {
-  								"^\\$ref$": {
+  							properties: {
+  								$ref: {
   									type: "string",
   									format: "uri-reference"
   								}
@@ -184,8 +184,8 @@
   							required: [
   								"$ref"
   							],
-  							patternProperties: {
-  								"^\\$ref$": {
+  							properties: {
+  								$ref: {
   									type: "string",
   									format: "uri-reference"
   								}
@@ -204,8 +204,8 @@
   						required: [
   							"$ref"
   						],
-  						patternProperties: {
-  							"^\\$ref$": {
+  						properties: {
+  							$ref: {
   								type: "string",
   								format: "uri-reference"
   							}
@@ -225,8 +225,8 @@
   							required: [
   								"$ref"
   							],
-  							patternProperties: {
-  								"^\\$ref$": {
+  							properties: {
+  								$ref: {
   									type: "string",
   									format: "uri-reference"
   								}
@@ -245,8 +245,8 @@
   						required: [
   							"$ref"
   						],
-  						patternProperties: {
-  							"^\\$ref$": {
+  						properties: {
+  							$ref: {
   								type: "string",
   								format: "uri-reference"
   							}
@@ -327,8 +327,8 @@
   						required: [
   							"$ref"
   						],
-  						patternProperties: {
-  							"^\\$ref$": {
+  						properties: {
+  							$ref: {
   								type: "string",
   								format: "uri-reference"
   							}
@@ -348,8 +348,8 @@
   						required: [
   							"$ref"
   						],
-  						patternProperties: {
-  							"^\\$ref$": {
+  						properties: {
+  							$ref: {
   								type: "string",
   								format: "uri-reference"
   							}
@@ -790,8 +790,8 @@
   								required: [
   									"$ref"
   								],
-  								patternProperties: {
-  									"^\\$ref$": {
+  								properties: {
+  									$ref: {
   										type: "string",
   										format: "uri-reference"
   									}
@@ -811,8 +811,8 @@
   								required: [
   									"$ref"
   								],
-  								patternProperties: {
-  									"^\\$ref$": {
+  								properties: {
+  									$ref: {
   										type: "string",
   										format: "uri-reference"
   									}
@@ -845,8 +845,8 @@
   							required: [
   								"$ref"
   							],
-  							patternProperties: {
-  								"^\\$ref$": {
+  							properties: {
+  								$ref: {
   									type: "string",
   									format: "uri-reference"
   								}
@@ -1216,8 +1216,8 @@
   					required: [
   						"$ref"
   					],
-  					patternProperties: {
-  						"^\\$ref$": {
+  					properties: {
+  						$ref: {
   							type: "string",
   							format: "uri-reference"
   						}
