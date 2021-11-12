@@ -828,12 +828,9 @@ var properties$2 = {
 			required: [
 				"instance"
 			],
-			properties: {
-				instance: {
+			patternProperties: {
+				"^instance$": {
 					oneOf: [
-						{
-							type: "object"
-						},
 						{
 							type: "object",
 							required: [
@@ -848,10 +845,10 @@ var properties$2 = {
 						}
 					]
 				},
-				name: {
+				"^name$": {
 					type: "string"
 				},
-				configuredBy: {
+				"^configuredBy$": {
 					type: "object"
 				}
 			}
@@ -1199,12 +1196,9 @@ var items = {
 	required: [
 		"instance"
 	],
-	properties: {
-		instance: {
+	patternProperties: {
+		"^instance$": {
 			oneOf: [
-				{
-					type: "object"
-				},
 				{
 					type: "object",
 					required: [
@@ -1219,10 +1213,10 @@ var items = {
 				}
 			]
 		},
-		name: {
+		"^name$": {
 			type: "string"
 		},
-		configuredBy: {
+		"^configuredBy$": {
 			type: "object"
 		}
 	}

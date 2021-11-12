@@ -834,12 +834,9 @@
   			required: [
   				"instance"
   			],
-  			properties: {
-  				instance: {
+  			patternProperties: {
+  				"^instance$": {
   					oneOf: [
-  						{
-  							type: "object"
-  						},
   						{
   							type: "object",
   							required: [
@@ -854,10 +851,10 @@
   						}
   					]
   				},
-  				name: {
+  				"^name$": {
   					type: "string"
   				},
-  				configuredBy: {
+  				"^configuredBy$": {
   					type: "object"
   				}
   			}
@@ -1205,12 +1202,9 @@
   	required: [
   		"instance"
   	],
-  	properties: {
-  		instance: {
+  	patternProperties: {
+  		"^instance$": {
   			oneOf: [
-  				{
-  					type: "object"
-  				},
   				{
   					type: "object",
   					required: [
@@ -1225,10 +1219,10 @@
   				}
   			]
   		},
-  		name: {
+  		"^name$": {
   			type: "string"
   		},
-  		configuredBy: {
+  		"^configuredBy$": {
   			type: "object"
   		}
   	}
