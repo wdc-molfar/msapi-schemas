@@ -836,7 +836,6 @@
   			],
   			properties: {
   				of: {
-  					type: "object",
   					oneOf: [
   						{
   							type: "object"
@@ -1208,7 +1207,6 @@
   	],
   	properties: {
   		of: {
-  			type: "object",
   			oneOf: [
   				{
   					type: "object"

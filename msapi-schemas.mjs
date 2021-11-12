@@ -830,7 +830,6 @@ var properties$2 = {
 			],
 			properties: {
 				of: {
-					type: "object",
 					oneOf: [
 						{
 							type: "object"
@@ -1202,7 +1201,6 @@ var items = {
 	],
 	properties: {
 		of: {
-			type: "object",
 			oneOf: [
 				{
 					type: "object"
