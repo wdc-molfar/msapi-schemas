@@ -832,33 +832,43 @@
   		items: {
   			type: "object",
   			required: [
-  				"of"
+  				"instance"
   			],
   			properties: {
-  				of: {
-  					oneOf: [
-  						{
-  							type: "object"
-  						},
-  						{
-  							type: "object",
-  							required: [
-  								"$ref"
-  							],
-  							properties: {
-  								$ref: {
-  									type: "string",
-  									format: "uri-reference"
+  				instance: {
+  					type: "object",
+  					required: [
+  						"of"
+  					],
+  					patternProperties: {
+  						"^of$": {
+  							oneOf: [
+  								{
+  									type: "object"
+  								},
+  								{
+  									type: "object",
+  									required: [
+  										"$ref"
+  									],
+  									properties: {
+  										$ref: {
+  											type: "string",
+  											format: "uri-reference"
+  										}
+  									}
   								}
-  							}
+  							]
   						}
-  					]
-  				},
-  				name: {
-  					type: "string"
-  				},
-  				configuredBy: {
-  					type: "object"
+  					},
+  					properties: {
+  						name: {
+  							type: "string"
+  						},
+  						configuredBy: {
+  							type: "object"
+  						}
+  					}
   				}
   			}
   		}
@@ -1203,33 +1213,43 @@
   var items = {
   	type: "object",
   	required: [
-  		"of"
+  		"instance"
   	],
   	properties: {
-  		of: {
-  			oneOf: [
-  				{
-  					type: "object"
-  				},
-  				{
-  					type: "object",
-  					required: [
-  						"$ref"
-  					],
-  					properties: {
-  						$ref: {
-  							type: "string",
-  							format: "uri-reference"
+  		instance: {
+  			type: "object",
+  			required: [
+  				"of"
+  			],
+  			patternProperties: {
+  				"^of$": {
+  					oneOf: [
+  						{
+  							type: "object"
+  						},
+  						{
+  							type: "object",
+  							required: [
+  								"$ref"
+  							],
+  							properties: {
+  								$ref: {
+  									type: "string",
+  									format: "uri-reference"
+  								}
+  							}
   						}
-  					}
+  					]
   				}
-  			]
-  		},
-  		name: {
-  			type: "string"
-  		},
-  		configuredBy: {
-  			type: "object"
+  			},
+  			properties: {
+  				name: {
+  					type: "string"
+  				},
+  				configuredBy: {
+  					type: "object"
+  				}
+  			}
   		}
   	}
   };
