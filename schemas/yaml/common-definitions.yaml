@@ -4,8 +4,8 @@ definitions:
     type: object
     required:
       - $ref
-    patternProperties:
-      '^\$ref$':
+    properties:
+      $ref:
         type: string
         format: "uri-reference"
 
@@ -21,7 +21,7 @@ definitions:
       multipleOf:
         type: number
         minimum: 0
-        exclusiveMinimum: true
+        # exclusiveMinimum: true
       maximum:
         type: number
       exclusiveMaximum:
@@ -144,3 +144,64 @@ definitions:
     patternProperties:
       '^x-': {}
     additionalProperties: false
+
+  ExternalDocumentation:
+    type: object
+    required:
+      - url
+    properties:
+      description:
+        type: string
+      url:
+        type: string
+        format: uri-reference
+    patternProperties:
+      '^x-': {}
+    additionalProperties: false
+    
+  Discriminator:
+    type: object
+    required:
+      - propertyName
+    properties:
+      propertyName:
+        type: string
+      mapping:
+        type: object
+        additionalProperties:
+          type: string
+
+  XML:
+    type: object
+    properties:
+      name:
+        type: string
+      namespace:
+        type: string
+        format: uri
+      prefix:
+        type: string
+      attribute:
+        type: boolean
+        default: false
+      wrapped:
+        type: boolean
+        default: false
+    patternProperties:
+      '^x-': {}
+    additionalProperties: false
+        
+
+  Extensible:
+    type: object
+    required:
+      - def
+    patternProperties:
+      '^def$':
+          $ref: '#/definitions/Reference'
+      '^extendedBy':
+          type: array
+          items:
+            $ref: '#/definitions/Reference'      
+      
+      

@@ -1,14 +1,69 @@
 {
  "type": "object",
  "properties": {
-  "config": {
-   "type": "object"
+  "name": {
+   "type": "string"
   },
-  "consume": {
-   "$ref": "#/definitions/Extensible"
+  "exchange": {
+   "oneOf": [
+    {
+     "$ref": "#/definitions/Reference"
+    },
+    {
+     "type": "object",
+     "properties": {
+      "name": {
+       "type": "string"
+      },
+      "mode": {
+       "enum": [
+        "fanout",
+        "topic",
+        "direct"
+       ],
+       "default": "fanout"
+      },
+      "options": {
+       "type": "object",
+       "properties": {
+        "durable": {
+         "type": "boolean",
+         "default": true
+        },
+        "autoDelete": {
+         "type": "boolean",
+         "default": false
+        }
+       }
+      }
+     }
+    }
+   ]
   },
-  "produce": {
-   "$ref": "#/definitions/Extensible"
+  "options": {
+   "type": "object",
+   "properties": {
+    "noAck": {
+     "type": "boolean",
+     "default": false
+    },
+    "exclusive": {
+     "type": "boolean",
+     "default": false
+    },
+    "durable": {
+     "type": "boolean",
+     "default": true
+    },
+    "autoDelete": {
+     "type": "boolean",
+     "default": false
+    },
+    "prefetch": {
+     "type": "number",
+     "default": 1
+    }
+   }
   }
  },
  "definitions": {

@@ -1,2 +1,20 @@
-# workflow schema stub
-type: object
+# workflow schema 
+
+type: array
+
+items:
+  type: object
+  required:
+    - instance
+  patternProperties:
+      
+      '^instance$':
+          oneOf:
+            #- $ref: './components/exchange'
+            - $ref: './common-definitions/#/definitions/Reference'  
+      
+      '^name$':
+          type: string
+
+      '^configuredBy$': 
+          type: object        

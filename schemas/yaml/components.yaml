@@ -1,2 +1,50 @@
-# components schema stub
+# components schema 
+ 
 type: object
+properties:
+  exchanges:
+    type: object
+    patternProperties:
+      '^[a-zA-Z0-9\.\-_]+$':
+        oneOf:
+          - $ref: './exchange'
+          - $ref: '#/definitions/Reference'
+  queues:
+    type: object
+    patternProperties:
+      '^[a-zA-Z0-9\.\-_]+$':
+        oneOf:
+          - $ref: '#/definitions/Reference'
+          - $ref: './queue'
+  schemas:
+    type: object
+    patternProperties:
+      '^[a-zA-Z0-9\.\-_]+$':
+        oneOf:
+          - $ref: '#/definitions/Reference'
+          - $ref: '#/definitions/Schema'
+
+  messages:
+    type: object
+    patternProperties:
+      '^[a-zA-Z0-9\.\-_]+$':
+        oneOf:
+          - $ref: '#/definitions/Reference'
+          # - $ref: './components/message'
+  consumes:
+    type: object
+    patternProperties:
+      '^[a-zA-Z0-9\.\-_]+$':
+        oneOf:
+          - $ref: '#/definitions/Reference'
+          # - $ref: './omponents/consume'
+  produces:
+    type: object
+    patternProperties:
+      '^[a-zA-Z0-9\.\-_]+$':
+        oneOf:
+          - $ref: '#/definitions/Reference'
+          # - $ref: './components/produce'
+  settings:
+    type: object
+

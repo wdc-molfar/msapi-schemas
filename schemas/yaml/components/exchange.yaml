@@ -1,0 +1,22 @@
+type: object
+
+properties:
+  name: 
+    type: string
+  
+  mode: 
+    enum: 
+      - fanout 
+      - topic
+      - direct
+    default: fanout
+  
+  options:
+    
+    durable:
+      type: boolean
+      default: true
+
+    autoDelete:
+      type: boolean
+      default: false  

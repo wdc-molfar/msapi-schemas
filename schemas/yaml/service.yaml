@@ -1,2 +1,10 @@
-# service schema stub
+# service schema
+
 type: object
+properties:
+  config:
+      type: object
+  consume:
+    $ref: "#/definitions/Extensible"
+  produce:    
+    $ref: "#/definitions/Extensible"

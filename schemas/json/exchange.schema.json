@@ -1,14 +1,29 @@
 {
  "type": "object",
  "properties": {
-  "config": {
-   "type": "object"
+  "name": {
+   "type": "string"
   },
-  "consume": {
-   "$ref": "#/definitions/Extensible"
+  "mode": {
+   "enum": [
+    "fanout",
+    "topic",
+    "direct"
+   ],
+   "default": "fanout"
   },
-  "produce": {
-   "$ref": "#/definitions/Extensible"
+  "options": {
+   "type": "object",
+   "properties": {
+    "durable": {
+     "type": "boolean",
+     "default": true
+    },
+    "autoDelete": {
+     "type": "boolean",
+     "default": false
+    }
+   }
   }
  },
  "definitions": {

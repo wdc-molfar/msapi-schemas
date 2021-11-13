@@ -6,7 +6,7 @@ required:
   - metadata
 properties:
   msapi:
-    $ref: "./common-definitions/#/definitions/Version"
+    $ref: "#/definitions/Version"
   metadata:
     $ref: "./metadata"
   components:

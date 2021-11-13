@@ -13,6 +13,9 @@ properties:
     $ref: '#/definitions/Contact'
   license:
     $ref: '#/definitions/License'
+  repo:
+    type: string
+    format: "uri-reference"  
 patternProperties:
   '^x-': {}
 additionalProperties: true
