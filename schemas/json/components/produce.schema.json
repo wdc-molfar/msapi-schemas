@@ -1,14 +1,125 @@
 {
  "type": "object",
- "properties": {
-  "config": {
-   "type": "object"
+ "additionalProperties": false,
+ "patternProperties": {
+  "^exchange$": {
+   "oneOf": [
+    {
+     "type": "object",
+     "additionalProperties": false,
+     "patternProperties": {
+      "^name$": {
+       "type": "string"
+      },
+      "^mode$": {
+       "enum": [
+        "fanout",
+        "direct",
+        "topic"
+       ],
+       "default": "fanout"
+      },
+      "^options$": {
+       "type": "object",
+       "patternProperties": {
+        "^durable$": {
+         "type": "boolean",
+         "default": true
+        },
+        "^autoDelete$": {
+         "type": "boolean",
+         "default": false
+        }
+       }
+      },
+      "^message$": {
+       "oneOf": [
+        {
+         "type": "object",
+         "additionalProperties": false,
+         "patternProperties": {
+          "^schema$": {
+           "oneOf": [
+            {
+             "$ref": "#/definitions/Reference"
+            },
+            {
+             "$ref": "#/definitions/Schema"
+            }
+           ]
+          },
+          "^options$": {
+           "type": "object",
+           "additionalProperties": false,
+           "patternProperties": {
+            "^noAck$": {
+             "type": "boolean",
+             "default": false
+            },
+            "^exclusive$": {
+             "type": "boolean",
+             "default": false
+            },
+            "^persistent$": {
+             "type": "boolean",
+             "default": true
+            }
+           }
+          }
+         }
+        },
+        {
+         "$ref": "#/definitions/Reference"
+        }
+       ]
+      }
+     }
+    },
+    {
+     "$ref": "#/definitions/Reference"
+    }
+   ]
   },
-  "consume": {
-   "$ref": "#/definitions/Extensible"
-  },
-  "produce": {
-   "$ref": "#/definitions/Extensible"
+  "^message$": {
+   "oneOf": [
+    {
+     "type": "object",
+     "additionalProperties": false,
+     "patternProperties": {
+      "^schema$": {
+       "oneOf": [
+        {
+         "$ref": "#/definitions/Reference"
+        },
+        {
+         "$ref": "#/definitions/Schema"
+        }
+       ]
+      },
+      "^options$": {
+       "type": "object",
+       "additionalProperties": false,
+       "patternProperties": {
+        "^noAck$": {
+         "type": "boolean",
+         "default": false
+        },
+        "^exclusive$": {
+         "type": "boolean",
+         "default": false
+        },
+        "^persistent$": {
+         "type": "boolean",
+         "default": true
+        }
+       }
+      }
+     }
+    },
+    {
+     "$ref": "#/definitions/Reference"
+    }
+   ]
   }
  },
  "definitions": {
@@ -17,10 +128,9 @@
    "required": [
     "$ref"
    ],
-   "properties": {
-    "$ref": {
-     "type": "string",
-     "format": "uri-reference"
+   "patternProperties": {
+    "^\\$ref$": {
+     "type": "string"
     }
    }
   },
@@ -305,6 +415,7 @@
    "required": [
     "def"
    ],
+   "additionalProperties": false,
    "patternProperties": {
     "^def$": {
      "$ref": "#/definitions/Reference"

@@ -1,0 +1,16 @@
+
+type: object
+additionalProperties: false
+patternProperties:
+  
+  '^queue$':
+    oneOf:
+      - $ref: "./queue"
+      - $ref: "#/definitions/Reference"
+  
+  '^message$':
+    oneOf:
+      - $ref: "./message"
+      - $ref: "#/definitions/Reference"
+
+    

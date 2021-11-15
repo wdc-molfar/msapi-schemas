@@ -1,29 +1,18 @@
 {
  "type": "object",
+ "required": [
+  "url"
+ ],
  "properties": {
-  "name": {
+  "url": {
    "type": "string"
-  },
-  "mode": {
-   "enum": [
-    "fanout",
-    "topic",
-    "direct"
-   ],
-   "default": "fanout"
-  },
-  "options": {
-   "type": "object",
-   "properties": {
-    "durable": {
-     "type": "boolean",
-     "default": true
-    },
-    "autoDelete": {
-     "type": "boolean",
-     "default": false
-    }
-   }
+  }
+ },
+ "errorMessage": {
+  "type": "Connection options should be an object.",
+  "required": "Connection url is required.",
+  "properties": {
+   "url": "Connection url should be a valid RabbitMQ connection url."
   }
  },
  "definitions": {
@@ -32,10 +21,9 @@
    "required": [
     "$ref"
    ],
-   "properties": {
-    "$ref": {
-     "type": "string",
-     "format": "uri-reference"
+   "patternProperties": {
+    "^\\$ref$": {
+     "type": "string"
     }
    }
   },
@@ -320,6 +308,7 @@
    "required": [
     "def"
    ],
+   "additionalProperties": false,
    "patternProperties": {
     "^def$": {
      "$ref": "#/definitions/Reference"

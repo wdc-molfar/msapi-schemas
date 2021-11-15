@@ -117,38 +117,81 @@
   },
   "components": {
    "type": "object",
-   "properties": {
-    "exchanges": {
+   "additionalProperties": false,
+   "patternProperties": {
+    "^exchanges$": {
      "type": "object",
      "patternProperties": {
       "^[a-zA-Z0-9\\.\\-_]+$": {
        "oneOf": [
         {
          "type": "object",
-         "properties": {
-          "name": {
+         "additionalProperties": false,
+         "patternProperties": {
+          "^name$": {
            "type": "string"
           },
-          "mode": {
+          "^mode$": {
            "enum": [
             "fanout",
-            "topic",
-            "direct"
+            "direct",
+            "topic"
            ],
            "default": "fanout"
           },
-          "options": {
+          "^options$": {
            "type": "object",
-           "properties": {
-            "durable": {
+           "patternProperties": {
+            "^durable$": {
              "type": "boolean",
              "default": true
             },
-            "autoDelete": {
+            "^autoDelete$": {
              "type": "boolean",
              "default": false
             }
            }
+          },
+          "^message$": {
+           "oneOf": [
+            {
+             "type": "object",
+             "additionalProperties": false,
+             "patternProperties": {
+              "^schema$": {
+               "oneOf": [
+                {
+                 "$ref": "#/definitions/Reference"
+                },
+                {
+                 "$ref": "#/definitions/Schema"
+                }
+               ]
+              },
+              "^options$": {
+               "type": "object",
+               "additionalProperties": false,
+               "patternProperties": {
+                "^noAck$": {
+                 "type": "boolean",
+                 "default": false
+                },
+                "^exclusive$": {
+                 "type": "boolean",
+                 "default": false
+                },
+                "^persistent$": {
+                 "type": "boolean",
+                 "default": true
+                }
+               }
+              }
+             }
+            },
+            {
+             "$ref": "#/definitions/Reference"
+            }
+           ]
           }
          }
         },
@@ -159,7 +202,7 @@
       }
      }
     },
-    "queues": {
+    "^queues$": {
      "type": "object",
      "patternProperties": {
       "^[a-zA-Z0-9\\.\\-_]+$": {
@@ -169,66 +212,109 @@
         },
         {
          "type": "object",
-         "properties": {
-          "name": {
+         "additionalProperties": false,
+         "patternProperties": {
+          "^name$": {
            "type": "string"
           },
-          "exchange": {
+          "^exchange$": {
            "oneOf": [
             {
              "$ref": "#/definitions/Reference"
             },
             {
              "type": "object",
-             "properties": {
-              "name": {
+             "additionalProperties": false,
+             "patternProperties": {
+              "^name$": {
                "type": "string"
               },
-              "mode": {
+              "^mode$": {
                "enum": [
                 "fanout",
-                "topic",
-                "direct"
+                "direct",
+                "topic"
                ],
                "default": "fanout"
               },
-              "options": {
+              "^options$": {
                "type": "object",
-               "properties": {
-                "durable": {
+               "patternProperties": {
+                "^durable$": {
                  "type": "boolean",
                  "default": true
                 },
-                "autoDelete": {
+                "^autoDelete$": {
                  "type": "boolean",
                  "default": false
                 }
                }
+              },
+              "^message$": {
+               "oneOf": [
+                {
+                 "type": "object",
+                 "additionalProperties": false,
+                 "patternProperties": {
+                  "^schema$": {
+                   "oneOf": [
+                    {
+                     "$ref": "#/definitions/Reference"
+                    },
+                    {
+                     "$ref": "#/definitions/Schema"
+                    }
+                   ]
+                  },
+                  "^options$": {
+                   "type": "object",
+                   "additionalProperties": false,
+                   "patternProperties": {
+                    "^noAck$": {
+                     "type": "boolean",
+                     "default": false
+                    },
+                    "^exclusive$": {
+                     "type": "boolean",
+                     "default": false
+                    },
+                    "^persistent$": {
+                     "type": "boolean",
+                     "default": true
+                    }
+                   }
+                  }
+                 }
+                },
+                {
+                 "$ref": "#/definitions/Reference"
+                }
+               ]
               }
              }
             }
            ]
           },
-          "options": {
+          "^options$": {
            "type": "object",
-           "properties": {
-            "noAck": {
+           "patternProperties": {
+            "^noAck$": {
              "type": "boolean",
              "default": false
             },
-            "exclusive": {
+            "^exclusive$": {
              "type": "boolean",
              "default": false
             },
-            "durable": {
+            "^durable$": {
              "type": "boolean",
              "default": true
             },
-            "autoDelete": {
+            "^autoDelete$": {
              "type": "boolean",
              "default": false
             },
-            "prefetch": {
+            "^prefetch$": {
              "type": "number",
              "default": 1
             }
@@ -240,7 +326,7 @@
       }
      }
     },
-    "schemas": {
+    "^schemas$": {
      "type": "object",
      "patternProperties": {
       "^[a-zA-Z0-9\\.\\-_]+$": {
@@ -255,58 +341,683 @@
       }
      }
     },
-    "messages": {
+    "^messages$": {
      "type": "object",
      "patternProperties": {
       "^[a-zA-Z0-9\\.\\-_]+$": {
        "oneOf": [
         {
          "$ref": "#/definitions/Reference"
+        },
+        {
+         "type": "object",
+         "additionalProperties": false,
+         "patternProperties": {
+          "^schema$": {
+           "oneOf": [
+            {
+             "$ref": "#/definitions/Reference"
+            },
+            {
+             "$ref": "#/definitions/Schema"
+            }
+           ]
+          },
+          "^options$": {
+           "type": "object",
+           "additionalProperties": false,
+           "patternProperties": {
+            "^noAck$": {
+             "type": "boolean",
+             "default": false
+            },
+            "^exclusive$": {
+             "type": "boolean",
+             "default": false
+            },
+            "^persistent$": {
+             "type": "boolean",
+             "default": true
+            }
+           }
+          }
+         }
         }
        ]
       }
      }
     },
-    "consumes": {
+    "^consumes$": {
      "type": "object",
      "patternProperties": {
       "^[a-zA-Z0-9\\.\\-_]+$": {
        "oneOf": [
         {
          "$ref": "#/definitions/Reference"
+        },
+        {
+         "type": "object",
+         "additionalProperties": false,
+         "patternProperties": {
+          "^queue$": {
+           "oneOf": [
+            {
+             "type": "object",
+             "additionalProperties": false,
+             "patternProperties": {
+              "^name$": {
+               "type": "string"
+              },
+              "^exchange$": {
+               "oneOf": [
+                {
+                 "$ref": "#/definitions/Reference"
+                },
+                {
+                 "type": "object",
+                 "additionalProperties": false,
+                 "patternProperties": {
+                  "^name$": {
+                   "type": "string"
+                  },
+                  "^mode$": {
+                   "enum": [
+                    "fanout",
+                    "direct",
+                    "topic"
+                   ],
+                   "default": "fanout"
+                  },
+                  "^options$": {
+                   "type": "object",
+                   "patternProperties": {
+                    "^durable$": {
+                     "type": "boolean",
+                     "default": true
+                    },
+                    "^autoDelete$": {
+                     "type": "boolean",
+                     "default": false
+                    }
+                   }
+                  },
+                  "^message$": {
+                   "oneOf": [
+                    {
+                     "type": "object",
+                     "additionalProperties": false,
+                     "patternProperties": {
+                      "^schema$": {
+                       "oneOf": [
+                        {
+                         "$ref": "#/definitions/Reference"
+                        },
+                        {
+                         "$ref": "#/definitions/Schema"
+                        }
+                       ]
+                      },
+                      "^options$": {
+                       "type": "object",
+                       "additionalProperties": false,
+                       "patternProperties": {
+                        "^noAck$": {
+                         "type": "boolean",
+                         "default": false
+                        },
+                        "^exclusive$": {
+                         "type": "boolean",
+                         "default": false
+                        },
+                        "^persistent$": {
+                         "type": "boolean",
+                         "default": true
+                        }
+                       }
+                      }
+                     }
+                    },
+                    {
+                     "$ref": "#/definitions/Reference"
+                    }
+                   ]
+                  }
+                 }
+                }
+               ]
+              },
+              "^options$": {
+               "type": "object",
+               "patternProperties": {
+                "^noAck$": {
+                 "type": "boolean",
+                 "default": false
+                },
+                "^exclusive$": {
+                 "type": "boolean",
+                 "default": false
+                },
+                "^durable$": {
+                 "type": "boolean",
+                 "default": true
+                },
+                "^autoDelete$": {
+                 "type": "boolean",
+                 "default": false
+                },
+                "^prefetch$": {
+                 "type": "number",
+                 "default": 1
+                }
+               }
+              }
+             }
+            },
+            {
+             "$ref": "#/definitions/Reference"
+            }
+           ]
+          },
+          "^message$": {
+           "oneOf": [
+            {
+             "type": "object",
+             "additionalProperties": false,
+             "patternProperties": {
+              "^schema$": {
+               "oneOf": [
+                {
+                 "$ref": "#/definitions/Reference"
+                },
+                {
+                 "$ref": "#/definitions/Schema"
+                }
+               ]
+              },
+              "^options$": {
+               "type": "object",
+               "additionalProperties": false,
+               "patternProperties": {
+                "^noAck$": {
+                 "type": "boolean",
+                 "default": false
+                },
+                "^exclusive$": {
+                 "type": "boolean",
+                 "default": false
+                },
+                "^persistent$": {
+                 "type": "boolean",
+                 "default": true
+                }
+               }
+              }
+             }
+            },
+            {
+             "$ref": "#/definitions/Reference"
+            }
+           ]
+          }
+         }
         }
        ]
       }
      }
     },
-    "produces": {
+    "^produces$": {
      "type": "object",
      "patternProperties": {
       "^[a-zA-Z0-9\\.\\-_]+$": {
        "oneOf": [
         {
          "$ref": "#/definitions/Reference"
+        },
+        {
+         "type": "object",
+         "additionalProperties": false,
+         "patternProperties": {
+          "^exchange$": {
+           "oneOf": [
+            {
+             "type": "object",
+             "additionalProperties": false,
+             "patternProperties": {
+              "^name$": {
+               "type": "string"
+              },
+              "^mode$": {
+               "enum": [
+                "fanout",
+                "direct",
+                "topic"
+               ],
+               "default": "fanout"
+              },
+              "^options$": {
+               "type": "object",
+               "patternProperties": {
+                "^durable$": {
+                 "type": "boolean",
+                 "default": true
+                },
+                "^autoDelete$": {
+                 "type": "boolean",
+                 "default": false
+                }
+               }
+              },
+              "^message$": {
+               "oneOf": [
+                {
+                 "type": "object",
+                 "additionalProperties": false,
+                 "patternProperties": {
+                  "^schema$": {
+                   "oneOf": [
+                    {
+                     "$ref": "#/definitions/Reference"
+                    },
+                    {
+                     "$ref": "#/definitions/Schema"
+                    }
+                   ]
+                  },
+                  "^options$": {
+                   "type": "object",
+                   "additionalProperties": false,
+                   "patternProperties": {
+                    "^noAck$": {
+                     "type": "boolean",
+                     "default": false
+                    },
+                    "^exclusive$": {
+                     "type": "boolean",
+                     "default": false
+                    },
+                    "^persistent$": {
+                     "type": "boolean",
+                     "default": true
+                    }
+                   }
+                  }
+                 }
+                },
+                {
+                 "$ref": "#/definitions/Reference"
+                }
+               ]
+              }
+             }
+            },
+            {
+             "$ref": "#/definitions/Reference"
+            }
+           ]
+          },
+          "^message$": {
+           "oneOf": [
+            {
+             "type": "object",
+             "additionalProperties": false,
+             "patternProperties": {
+              "^schema$": {
+               "oneOf": [
+                {
+                 "$ref": "#/definitions/Reference"
+                },
+                {
+                 "$ref": "#/definitions/Schema"
+                }
+               ]
+              },
+              "^options$": {
+               "type": "object",
+               "additionalProperties": false,
+               "patternProperties": {
+                "^noAck$": {
+                 "type": "boolean",
+                 "default": false
+                },
+                "^exclusive$": {
+                 "type": "boolean",
+                 "default": false
+                },
+                "^persistent$": {
+                 "type": "boolean",
+                 "default": true
+                }
+               }
+              }
+             }
+            },
+            {
+             "$ref": "#/definitions/Reference"
+            }
+           ]
+          }
+         }
         }
        ]
       }
      }
     },
-    "settings": {
+    "^settings$": {
      "type": "object"
     }
    }
   },
   "service": {
    "type": "object",
-   "properties": {
-    "config": {
+   "additionalProperties": false,
+   "patternProperties": {
+    "^config$": {
      "type": "object"
     },
-    "consume": {
-     "$ref": "#/definitions/Extensible"
+    "^consume$": {
+     "oneOf": [
+      {
+       "type": "object",
+       "additionalProperties": false,
+       "patternProperties": {
+        "^queue$": {
+         "oneOf": [
+          {
+           "type": "object",
+           "additionalProperties": false,
+           "patternProperties": {
+            "^name$": {
+             "type": "string"
+            },
+            "^exchange$": {
+             "oneOf": [
+              {
+               "$ref": "#/definitions/Reference"
+              },
+              {
+               "type": "object",
+               "additionalProperties": false,
+               "patternProperties": {
+                "^name$": {
+                 "type": "string"
+                },
+                "^mode$": {
+                 "enum": [
+                  "fanout",
+                  "direct",
+                  "topic"
+                 ],
+                 "default": "fanout"
+                },
+                "^options$": {
+                 "type": "object",
+                 "patternProperties": {
+                  "^durable$": {
+                   "type": "boolean",
+                   "default": true
+                  },
+                  "^autoDelete$": {
+                   "type": "boolean",
+                   "default": false
+                  }
+                 }
+                },
+                "^message$": {
+                 "oneOf": [
+                  {
+                   "type": "object",
+                   "additionalProperties": false,
+                   "patternProperties": {
+                    "^schema$": {
+                     "oneOf": [
+                      {
+                       "$ref": "#/definitions/Reference"
+                      },
+                      {
+                       "$ref": "#/definitions/Schema"
+                      }
+                     ]
+                    },
+                    "^options$": {
+                     "type": "object",
+                     "additionalProperties": false,
+                     "patternProperties": {
+                      "^noAck$": {
+                       "type": "boolean",
+                       "default": false
+                      },
+                      "^exclusive$": {
+                       "type": "boolean",
+                       "default": false
+                      },
+                      "^persistent$": {
+                       "type": "boolean",
+                       "default": true
+                      }
+                     }
+                    }
+                   }
+                  },
+                  {
+                   "$ref": "#/definitions/Reference"
+                  }
+                 ]
+                }
+               }
+              }
+             ]
+            },
+            "^options$": {
+             "type": "object",
+             "patternProperties": {
+              "^noAck$": {
+               "type": "boolean",
+               "default": false
+              },
+              "^exclusive$": {
+               "type": "boolean",
+               "default": false
+              },
+              "^durable$": {
+               "type": "boolean",
+               "default": true
+              },
+              "^autoDelete$": {
+               "type": "boolean",
+               "default": false
+              },
+              "^prefetch$": {
+               "type": "number",
+               "default": 1
+              }
+             }
+            }
+           }
+          },
+          {
+           "$ref": "#/definitions/Reference"
+          }
+         ]
+        },
+        "^message$": {
+         "oneOf": [
+          {
+           "type": "object",
+           "additionalProperties": false,
+           "patternProperties": {
+            "^schema$": {
+             "oneOf": [
+              {
+               "$ref": "#/definitions/Reference"
+              },
+              {
+               "$ref": "#/definitions/Schema"
+              }
+             ]
+            },
+            "^options$": {
+             "type": "object",
+             "additionalProperties": false,
+             "patternProperties": {
+              "^noAck$": {
+               "type": "boolean",
+               "default": false
+              },
+              "^exclusive$": {
+               "type": "boolean",
+               "default": false
+              },
+              "^persistent$": {
+               "type": "boolean",
+               "default": true
+              }
+             }
+            }
+           }
+          },
+          {
+           "$ref": "#/definitions/Reference"
+          }
+         ]
+        }
+       }
+      },
+      {
+       "$ref": "#/definitions/Extensible"
+      }
+     ]
     },
-    "produce": {
-     "$ref": "#/definitions/Extensible"
+    "^produce$": {
+     "oneOf": [
+      {
+       "type": "object",
+       "additionalProperties": false,
+       "patternProperties": {
+        "^exchange$": {
+         "oneOf": [
+          {
+           "type": "object",
+           "additionalProperties": false,
+           "patternProperties": {
+            "^name$": {
+             "type": "string"
+            },
+            "^mode$": {
+             "enum": [
+              "fanout",
+              "direct",
+              "topic"
+             ],
+             "default": "fanout"
+            },
+            "^options$": {
+             "type": "object",
+             "patternProperties": {
+              "^durable$": {
+               "type": "boolean",
+               "default": true
+              },
+              "^autoDelete$": {
+               "type": "boolean",
+               "default": false
+              }
+             }
+            },
+            "^message$": {
+             "oneOf": [
+              {
+               "type": "object",
+               "additionalProperties": false,
+               "patternProperties": {
+                "^schema$": {
+                 "oneOf": [
+                  {
+                   "$ref": "#/definitions/Reference"
+                  },
+                  {
+                   "$ref": "#/definitions/Schema"
+                  }
+                 ]
+                },
+                "^options$": {
+                 "type": "object",
+                 "additionalProperties": false,
+                 "patternProperties": {
+                  "^noAck$": {
+                   "type": "boolean",
+                   "default": false
+                  },
+                  "^exclusive$": {
+                   "type": "boolean",
+                   "default": false
+                  },
+                  "^persistent$": {
+                   "type": "boolean",
+                   "default": true
+                  }
+                 }
+                }
+               }
+              },
+              {
+               "$ref": "#/definitions/Reference"
+              }
+             ]
+            }
+           }
+          },
+          {
+           "$ref": "#/definitions/Reference"
+          }
+         ]
+        },
+        "^message$": {
+         "oneOf": [
+          {
+           "type": "object",
+           "additionalProperties": false,
+           "patternProperties": {
+            "^schema$": {
+             "oneOf": [
+              {
+               "$ref": "#/definitions/Reference"
+              },
+              {
+               "$ref": "#/definitions/Schema"
+              }
+             ]
+            },
+            "^options$": {
+             "type": "object",
+             "additionalProperties": false,
+             "patternProperties": {
+              "^noAck$": {
+               "type": "boolean",
+               "default": false
+              },
+              "^exclusive$": {
+               "type": "boolean",
+               "default": false
+              },
+              "^persistent$": {
+               "type": "boolean",
+               "default": true
+              }
+             }
+            }
+           }
+          },
+          {
+           "$ref": "#/definitions/Reference"
+          }
+         ]
+        }
+       }
+      },
+      {
+       "$ref": "#/definitions/Extensible"
+      }
+     ]
     }
    }
   },
@@ -317,20 +1028,326 @@
     "required": [
      "instance"
     ],
+    "additionalProperties": false,
     "patternProperties": {
      "^instance$": {
       "oneOf": [
        {
         "type": "object",
-        "required": [
-         "$ref"
-        ],
-        "properties": {
-         "$ref": {
-          "type": "string",
-          "format": "uri-reference"
+        "additionalProperties": false,
+        "patternProperties": {
+         "^config$": {
+          "type": "object"
+         },
+         "^consume$": {
+          "oneOf": [
+           {
+            "type": "object",
+            "additionalProperties": false,
+            "patternProperties": {
+             "^queue$": {
+              "oneOf": [
+               {
+                "type": "object",
+                "additionalProperties": false,
+                "patternProperties": {
+                 "^name$": {
+                  "type": "string"
+                 },
+                 "^exchange$": {
+                  "oneOf": [
+                   {
+                    "$ref": "#/definitions/Reference"
+                   },
+                   {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "patternProperties": {
+                     "^name$": {
+                      "type": "string"
+                     },
+                     "^mode$": {
+                      "enum": [
+                       "fanout",
+                       "direct",
+                       "topic"
+                      ],
+                      "default": "fanout"
+                     },
+                     "^options$": {
+                      "type": "object",
+                      "patternProperties": {
+                       "^durable$": {
+                        "type": "boolean",
+                        "default": true
+                       },
+                       "^autoDelete$": {
+                        "type": "boolean",
+                        "default": false
+                       }
+                      }
+                     },
+                     "^message$": {
+                      "oneOf": [
+                       {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "patternProperties": {
+                         "^schema$": {
+                          "oneOf": [
+                           {
+                            "$ref": "#/definitions/Reference"
+                           },
+                           {
+                            "$ref": "#/definitions/Schema"
+                           }
+                          ]
+                         },
+                         "^options$": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "patternProperties": {
+                           "^noAck$": {
+                            "type": "boolean",
+                            "default": false
+                           },
+                           "^exclusive$": {
+                            "type": "boolean",
+                            "default": false
+                           },
+                           "^persistent$": {
+                            "type": "boolean",
+                            "default": true
+                           }
+                          }
+                         }
+                        }
+                       },
+                       {
+                        "$ref": "#/definitions/Reference"
+                       }
+                      ]
+                     }
+                    }
+                   }
+                  ]
+                 },
+                 "^options$": {
+                  "type": "object",
+                  "patternProperties": {
+                   "^noAck$": {
+                    "type": "boolean",
+                    "default": false
+                   },
+                   "^exclusive$": {
+                    "type": "boolean",
+                    "default": false
+                   },
+                   "^durable$": {
+                    "type": "boolean",
+                    "default": true
+                   },
+                   "^autoDelete$": {
+                    "type": "boolean",
+                    "default": false
+                   },
+                   "^prefetch$": {
+                    "type": "number",
+                    "default": 1
+                   }
+                  }
+                 }
+                }
+               },
+               {
+                "$ref": "#/definitions/Reference"
+               }
+              ]
+             },
+             "^message$": {
+              "oneOf": [
+               {
+                "type": "object",
+                "additionalProperties": false,
+                "patternProperties": {
+                 "^schema$": {
+                  "oneOf": [
+                   {
+                    "$ref": "#/definitions/Reference"
+                   },
+                   {
+                    "$ref": "#/definitions/Schema"
+                   }
+                  ]
+                 },
+                 "^options$": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "patternProperties": {
+                   "^noAck$": {
+                    "type": "boolean",
+                    "default": false
+                   },
+                   "^exclusive$": {
+                    "type": "boolean",
+                    "default": false
+                   },
+                   "^persistent$": {
+                    "type": "boolean",
+                    "default": true
+                   }
+                  }
+                 }
+                }
+               },
+               {
+                "$ref": "#/definitions/Reference"
+               }
+              ]
+             }
+            }
+           },
+           {
+            "$ref": "#/definitions/Extensible"
+           }
+          ]
+         },
+         "^produce$": {
+          "oneOf": [
+           {
+            "type": "object",
+            "additionalProperties": false,
+            "patternProperties": {
+             "^exchange$": {
+              "oneOf": [
+               {
+                "type": "object",
+                "additionalProperties": false,
+                "patternProperties": {
+                 "^name$": {
+                  "type": "string"
+                 },
+                 "^mode$": {
+                  "enum": [
+                   "fanout",
+                   "direct",
+                   "topic"
+                  ],
+                  "default": "fanout"
+                 },
+                 "^options$": {
+                  "type": "object",
+                  "patternProperties": {
+                   "^durable$": {
+                    "type": "boolean",
+                    "default": true
+                   },
+                   "^autoDelete$": {
+                    "type": "boolean",
+                    "default": false
+                   }
+                  }
+                 },
+                 "^message$": {
+                  "oneOf": [
+                   {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "patternProperties": {
+                     "^schema$": {
+                      "oneOf": [
+                       {
+                        "$ref": "#/definitions/Reference"
+                       },
+                       {
+                        "$ref": "#/definitions/Schema"
+                       }
+                      ]
+                     },
+                     "^options$": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "patternProperties": {
+                       "^noAck$": {
+                        "type": "boolean",
+                        "default": false
+                       },
+                       "^exclusive$": {
+                        "type": "boolean",
+                        "default": false
+                       },
+                       "^persistent$": {
+                        "type": "boolean",
+                        "default": true
+                       }
+                      }
+                     }
+                    }
+                   },
+                   {
+                    "$ref": "#/definitions/Reference"
+                   }
+                  ]
+                 }
+                }
+               },
+               {
+                "$ref": "#/definitions/Reference"
+               }
+              ]
+             },
+             "^message$": {
+              "oneOf": [
+               {
+                "type": "object",
+                "additionalProperties": false,
+                "patternProperties": {
+                 "^schema$": {
+                  "oneOf": [
+                   {
+                    "$ref": "#/definitions/Reference"
+                   },
+                   {
+                    "$ref": "#/definitions/Schema"
+                   }
+                  ]
+                 },
+                 "^options$": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "patternProperties": {
+                   "^noAck$": {
+                    "type": "boolean",
+                    "default": false
+                   },
+                   "^exclusive$": {
+                    "type": "boolean",
+                    "default": false
+                   },
+                   "^persistent$": {
+                    "type": "boolean",
+                    "default": true
+                   }
+                  }
+                 }
+                }
+               },
+               {
+                "$ref": "#/definitions/Reference"
+               }
+              ]
+             }
+            }
+           },
+           {
+            "$ref": "#/definitions/Extensible"
+           }
+          ]
          }
         }
+       },
+       {
+        "$ref": "#/definitions/Reference"
        }
       ]
      },
@@ -350,10 +1367,9 @@
    "required": [
     "$ref"
    ],
-   "properties": {
-    "$ref": {
-     "type": "string",
-     "format": "uri-reference"
+   "patternProperties": {
+    "^\\$ref$": {
+     "type": "string"
     }
    }
   },
@@ -638,6 +1654,7 @@
    "required": [
     "def"
    ],
+   "additionalProperties": false,
    "patternProperties": {
     "^def$": {
      "$ref": "#/definitions/Reference"

@@ -5,10 +5,9 @@
    "required": [
     "$ref"
    ],
-   "properties": {
-    "$ref": {
-     "type": "string",
-     "format": "uri-reference"
+   "patternProperties": {
+    "^\\$ref$": {
+     "type": "string"
     }
    }
   },
@@ -293,6 +292,7 @@
    "required": [
     "def"
    ],
+   "additionalProperties": false,
    "patternProperties": {
     "^def$": {
      "$ref": "#/definitions/Reference"

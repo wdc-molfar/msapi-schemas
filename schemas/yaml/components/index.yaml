@@ -1,22 +1,27 @@
 # components schema 
  
 type: object
-properties:
-  exchanges:
+additionalProperties: false
+
+patternProperties:
+  
+  '^exchanges$':
     type: object
     patternProperties:
       '^[a-zA-Z0-9\.\-_]+$':
         oneOf:
           - $ref: './exchange'
           - $ref: '#/definitions/Reference'
-  queues:
+
+  '^queues$':
     type: object
     patternProperties:
       '^[a-zA-Z0-9\.\-_]+$':
         oneOf:
           - $ref: '#/definitions/Reference'
           - $ref: './queue'
-  schemas:
+  
+  '^schemas$':
     type: object
     patternProperties:
       '^[a-zA-Z0-9\.\-_]+$':
@@ -24,27 +29,31 @@ properties:
           - $ref: '#/definitions/Reference'
           - $ref: '#/definitions/Schema'
 
-  messages:
+  '^messages$':
     type: object
     patternProperties:
       '^[a-zA-Z0-9\.\-_]+$':
         oneOf:
           - $ref: '#/definitions/Reference'
-          # - $ref: './components/message'
-  consumes:
+          - $ref: './message'
+  
+  '^consumes$':
     type: object
     patternProperties:
       '^[a-zA-Z0-9\.\-_]+$':
         oneOf:
           - $ref: '#/definitions/Reference'
-          # - $ref: './omponents/consume'
-  produces:
+          - $ref: './consume'
+  
+  '^produces$':
     type: object
     patternProperties:
       '^[a-zA-Z0-9\.\-_]+$':
         oneOf:
           - $ref: '#/definitions/Reference'
-          # - $ref: './components/produce'
-  settings:
+          - $ref: './produce'
+  
+  '^settings$':
     type: object
+
 

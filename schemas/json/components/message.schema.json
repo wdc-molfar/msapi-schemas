@@ -1,32 +1,33 @@
 {
- "type": "array",
- "items": {
-  "type": "object",
-  "required": [
-   "instance"
-  ],
-  "patternProperties": {
-   "^instance$": {
-    "oneOf": [
-     {
-      "type": "object",
-      "required": [
-       "$ref"
-      ],
-      "properties": {
-       "$ref": {
-        "type": "string",
-        "format": "uri-reference"
-       }
-      }
-     }
-    ]
-   },
-   "^name$": {
-    "type": "string"
-   },
-   "^configuredBy$": {
-    "type": "object"
+ "type": "object",
+ "additionalProperties": false,
+ "patternProperties": {
+  "^schema$": {
+   "oneOf": [
+    {
+     "$ref": "#/definitions/Reference"
+    },
+    {
+     "$ref": "#/definitions/Schema"
+    }
+   ]
+  },
+  "^options$": {
+   "type": "object",
+   "additionalProperties": false,
+   "patternProperties": {
+    "^noAck$": {
+     "type": "boolean",
+     "default": false
+    },
+    "^exclusive$": {
+     "type": "boolean",
+     "default": false
+    },
+    "^persistent$": {
+     "type": "boolean",
+     "default": true
+    }
    }
   }
  },
@@ -36,10 +37,9 @@
    "required": [
     "$ref"
    ],
-   "properties": {
-    "$ref": {
-     "type": "string",
-     "format": "uri-reference"
+   "patternProperties": {
+    "^\\$ref$": {
+     "type": "string"
     }
    }
   },
@@ -324,6 +324,7 @@
    "required": [
     "def"
    ],
+   "additionalProperties": false,
    "patternProperties": {
     "^def$": {
      "$ref": "#/definitions/Reference"

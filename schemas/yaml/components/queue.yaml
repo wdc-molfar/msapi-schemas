@@ -1,30 +1,31 @@
 
 type: object
-properties:
-  name:
+additionalProperties: false
+patternProperties:
+  '^name$':
     type: string
   
-  exchange:
+  '^exchange$':
     oneOf:
       - $ref: "#/definitions/Reference"
       - $ref: "./exchange"
 
-  options:
+  '^options$':
     type: object
-    properties:
+    patternProperties:
 
-      noAck: 
+      '^noAck$': 
         type: boolean
         default: false                
-      exclusive: 
+      '^exclusive$': 
         type: boolean
         default: false            # if true, scopes the queue to the connection (defaults to false)
-      durable:
+      '^durable$':
         type: boolean
         default: true               # if true, the queue will survive broker restarts, modulo the effects of exclusive and autoDelete; this defaults to true if not supplied, unlike the others
-      autoDelete: 
+      '^autoDelete$': 
         type: boolean
         default: false           # if true, the queue will be deleted when the number of consumers drops to zero (defaults to false)
-      prefetch: 
+      '^prefetch$': 
         type: number
         default: 1

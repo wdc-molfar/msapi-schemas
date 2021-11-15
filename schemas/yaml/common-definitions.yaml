@@ -4,10 +4,10 @@ definitions:
     type: object
     required:
       - $ref
-    properties:
-      $ref:
+    patternProperties:
+      '^\$ref$':
         type: string
-        format: "uri-reference"
+        # format: uri-reference
 
   Version:
     type: string
@@ -196,6 +196,7 @@ definitions:
     type: object
     required:
       - def
+    additionalProperties: false  
     patternProperties:
       '^def$':
           $ref: '#/definitions/Reference'

@@ -1,181 +1,71 @@
 {
  "type": "object",
- "properties": {
-  "exchanges": {
+ "additionalProperties": false,
+ "patternProperties": {
+  "^name$": {
+   "type": "string"
+  },
+  "^mode$": {
+   "enum": [
+    "fanout",
+    "direct",
+    "topic"
+   ],
+   "default": "fanout"
+  },
+  "^options$": {
    "type": "object",
    "patternProperties": {
-    "^[a-zA-Z0-9\\.\\-_]+$": {
-     "oneOf": [
-      {
-       "type": "object",
-       "properties": {
-        "name": {
-         "type": "string"
-        },
-        "mode": {
-         "enum": [
-          "fanout",
-          "topic",
-          "direct"
-         ],
-         "default": "fanout"
-        },
-        "options": {
-         "type": "object",
-         "properties": {
-          "durable": {
-           "type": "boolean",
-           "default": true
-          },
-          "autoDelete": {
-           "type": "boolean",
-           "default": false
-          }
-         }
-        }
-       }
-      },
-      {
-       "$ref": "#/definitions/Reference"
-      }
-     ]
+    "^durable$": {
+     "type": "boolean",
+     "default": true
+    },
+    "^autoDelete$": {
+     "type": "boolean",
+     "default": false
     }
    }
   },
-  "queues": {
-   "type": "object",
-   "patternProperties": {
-    "^[a-zA-Z0-9\\.\\-_]+$": {
-     "oneOf": [
-      {
-       "$ref": "#/definitions/Reference"
+  "^message$": {
+   "oneOf": [
+    {
+     "type": "object",
+     "additionalProperties": false,
+     "patternProperties": {
+      "^schema$": {
+       "oneOf": [
+        {
+         "$ref": "#/definitions/Reference"
+        },
+        {
+         "$ref": "#/definitions/Schema"
+        }
+       ]
       },
-      {
+      "^options$": {
        "type": "object",
-       "properties": {
-        "name": {
-         "type": "string"
+       "additionalProperties": false,
+       "patternProperties": {
+        "^noAck$": {
+         "type": "boolean",
+         "default": false
         },
-        "exchange": {
-         "oneOf": [
-          {
-           "$ref": "#/definitions/Reference"
-          },
-          {
-           "type": "object",
-           "properties": {
-            "name": {
-             "type": "string"
-            },
-            "mode": {
-             "enum": [
-              "fanout",
-              "topic",
-              "direct"
-             ],
-             "default": "fanout"
-            },
-            "options": {
-             "type": "object",
-             "properties": {
-              "durable": {
-               "type": "boolean",
-               "default": true
-              },
-              "autoDelete": {
-               "type": "boolean",
-               "default": false
-              }
-             }
-            }
-           }
-          }
-         ]
+        "^exclusive$": {
+         "type": "boolean",
+         "default": false
         },
-        "options": {
-         "type": "object",
-         "properties": {
-          "noAck": {
-           "type": "boolean",
-           "default": false
-          },
-          "exclusive": {
-           "type": "boolean",
-           "default": false
-          },
-          "durable": {
-           "type": "boolean",
-           "default": true
-          },
-          "autoDelete": {
-           "type": "boolean",
-           "default": false
-          },
-          "prefetch": {
-           "type": "number",
-           "default": 1
-          }
-         }
+        "^persistent$": {
+         "type": "boolean",
+         "default": true
         }
        }
       }
-     ]
+     }
+    },
+    {
+     "$ref": "#/definitions/Reference"
     }
-   }
-  },
-  "schemas": {
-   "type": "object",
-   "patternProperties": {
-    "^[a-zA-Z0-9\\.\\-_]+$": {
-     "oneOf": [
-      {
-       "$ref": "#/definitions/Reference"
-      },
-      {
-       "$ref": "#/definitions/Schema"
-      }
-     ]
-    }
-   }
-  },
-  "messages": {
-   "type": "object",
-   "patternProperties": {
-    "^[a-zA-Z0-9\\.\\-_]+$": {
-     "oneOf": [
-      {
-       "$ref": "#/definitions/Reference"
-      }
-     ]
-    }
-   }
-  },
-  "consumes": {
-   "type": "object",
-   "patternProperties": {
-    "^[a-zA-Z0-9\\.\\-_]+$": {
-     "oneOf": [
-      {
-       "$ref": "#/definitions/Reference"
-      }
-     ]
-    }
-   }
-  },
-  "produces": {
-   "type": "object",
-   "patternProperties": {
-    "^[a-zA-Z0-9\\.\\-_]+$": {
-     "oneOf": [
-      {
-       "$ref": "#/definitions/Reference"
-      }
-     ]
-    }
-   }
-  },
-  "settings": {
-   "type": "object"
+   ]
   }
  },
  "definitions": {
@@ -184,10 +74,9 @@
    "required": [
     "$ref"
    ],
-   "properties": {
-    "$ref": {
-     "type": "string",
-     "format": "uri-reference"
+   "patternProperties": {
+    "^\\$ref$": {
+     "type": "string"
     }
    }
   },
@@ -472,6 +361,7 @@
    "required": [
     "def"
    ],
+   "additionalProperties": false,
    "patternProperties": {
     "^def$": {
      "$ref": "#/definitions/Reference"

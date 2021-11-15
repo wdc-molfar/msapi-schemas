@@ -1,0 +1,16 @@
+
+type: object
+additionalProperties: false
+patternProperties:
+  
+  '^exchange$':
+    oneOf:
+      - $ref: "./exchange"
+      - $ref: "#/definitions/Reference"
+  
+  '^message$':
+    oneOf:
+      - $ref: "./message"
+      - $ref: "#/definitions/Reference"
+
+    

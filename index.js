@@ -1,8 +1,8 @@
 
 const YAML = require("js-yaml")
-const consumer = require(`./schemas/json/consumer.schema.json`)
-const publisher = require(`./schemas/json/publisher.schema.json`)
-const connection = require(`./schemas/json/connection.schema.json`)
+const consumer = require(`./schemas/json/misc/consumer.schema.json`)
+const publisher = require(`./schemas/json/misc/publisher.schema.json`)
+const connection = require(`./schemas/json/misc/connection.schema.json`)
 const msapi = require(`./schemas/json/msapi.schema.json`)
 
 const schemas = {

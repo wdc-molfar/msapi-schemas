@@ -1,81 +1,82 @@
 {
  "type": "object",
+ "required": [
+  "id",
+  "title"
+ ],
  "properties": {
-  "name": {
+  "id": {
    "type": "string"
   },
-  "exchange": {
-   "oneOf": [
-    {
-     "$ref": "#/definitions/Reference"
-    },
-    {
-     "type": "object",
-     "properties": {
-      "name": {
-       "type": "string"
-      },
-      "mode": {
-       "enum": [
-        "fanout",
-        "topic",
-        "direct"
-       ],
-       "default": "fanout"
-      },
-      "options": {
-       "type": "object",
-       "properties": {
-        "durable": {
-         "type": "boolean",
-         "default": true
-        },
-        "autoDelete": {
-         "type": "boolean",
-         "default": false
-        }
-       }
-      }
-     }
-    }
-   ]
+  "title": {
+   "type": "string"
   },
-  "options": {
-   "type": "object",
-   "properties": {
-    "noAck": {
-     "type": "boolean",
-     "default": false
-    },
-    "exclusive": {
-     "type": "boolean",
-     "default": false
-    },
-    "durable": {
-     "type": "boolean",
-     "default": true
-    },
-    "autoDelete": {
-     "type": "boolean",
-     "default": false
-    },
-    "prefetch": {
-     "type": "number",
-     "default": 1
-    }
-   }
+  "description": {
+   "type": "string"
+  },
+  "contact": {
+   "$ref": "#/definitions/Contact"
+  },
+  "license": {
+   "$ref": "#/definitions/License"
+  },
+  "repo": {
+   "type": "string",
+   "format": "uri-reference"
   }
  },
+ "patternProperties": {
+  "^x-": {}
+ },
+ "additionalProperties": true,
  "definitions": {
+  "Contact": {
+   "type": "object",
+   "properties": {
+    "name": {
+     "type": "string"
+    },
+    "url": {
+     "type": "string",
+     "format": "uri-reference"
+    },
+    "email": {
+     "type": "string",
+     "format": "email"
+    }
+   },
+   "patternProperties": {
+    "^x-": {}
+   },
+   "additionalProperties": false
+  },
+  "License": {
+   "type": "object",
+   "required": [
+    "name"
+   ],
+   "properties": {
+    "name": {
+     "type": "string"
+    },
+    "url": {
+     "type": "string",
+     "format": "uri-reference"
+    }
+   },
+   "patternProperties": {
+    "^x-": {}
+   },
+   "additionalProperties": false
+  },
   "Reference": {
    "type": "object",
    "required": [
     "$ref"
    ],
-   "properties": {
-    "$ref": {
-     "type": "string",
-     "format": "uri-reference"
+   "patternProperties": {
+    "^\\$ref$": {
+     "type": "string"
     }
    }
   },
@@ -360,6 +361,7 @@
    "required": [
     "def"
    ],
+   "additionalProperties": false,
    "patternProperties": {
     "^def$": {
      "$ref": "#/definitions/Reference"

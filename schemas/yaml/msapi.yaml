@@ -1,18 +1,25 @@
 description: Validation schema for MSAPI Specification 1.0.X.
 #$schema: http://json-schema.org/draft-04/schema#
 type: object
+
 required:
   - msapi
   - metadata
+
 properties:
+  
   msapi:
     $ref: "#/definitions/Version"
+  
   metadata:
-    $ref: "./metadata"
+    $ref: "./metadata/index"
+  
   components:
-    $ref: "./components"  
+    $ref: "./components/index"  
+  
   service:
-    $ref: "./service"  
+    $ref: "./service/index"  
+  
   workflow:
-    $ref: "./workflow"  
+    $ref: "./workflow/index"  
   

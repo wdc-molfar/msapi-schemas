@@ -1,22 +1,32 @@
-type: object
 
-properties:
-  name: 
+type: object
+additionalProperties: false
+patternProperties:
+  '^name$':
     type: string
   
-  mode: 
-    enum: 
-      - fanout 
-      - topic
-      - direct
-    default: fanout
-  
-  options:
-    
-    durable:
-      type: boolean
-      default: true
+  '^mode$':
+      enum:
+        - fanout
+        - direct
+        - topic
+      default: "fanout"  
+   
+  '^options$':
+    type: object
+    patternProperties:
 
-    autoDelete:
-      type: boolean
-      default: false  
+      '^durable$': 
+        type: boolean
+        default: true                
+      
+      '^autoDelete$': 
+        type: boolean
+        default: false            # if true, scopes the queue to the connection (defaults to false)
+
+  '^message$':
+    oneOf:
+      - $ref: "./message"
+      - $ref: "#/definitions/Reference"
+
+    

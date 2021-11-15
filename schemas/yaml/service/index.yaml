@@ -1,0 +1,18 @@
+# service schema
+
+type: object
+additionalProperties: false
+
+patternProperties:
+  '^config$':
+      type: object
+  '^consume$':
+    oneOf:
+      - $ref: "../components/consume"
+      - $ref: "#/definitions/Extensible"
+  
+  '^produce$':    
+    oneOf:
+      - $ref: "../components/produce"
+      - $ref: "#/definitions/Extensible"
+

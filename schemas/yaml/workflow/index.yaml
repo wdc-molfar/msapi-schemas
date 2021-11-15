@@ -4,14 +4,18 @@ type: array
 
 items:
   type: object
+  
   required:
     - instance
+  
+  additionalProperties: false
+    
   patternProperties:
       
       '^instance$':
           oneOf:
-            #- $ref: './components/exchange'
-            - $ref: './common-definitions/#/definitions/Reference'  
+            - $ref: '../service/index'
+            - $ref: '#/definitions/Reference'  
       
       '^name$':
           type: string
