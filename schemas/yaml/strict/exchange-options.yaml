@@ -1,0 +1,6 @@
+type: object
+allOf:
+  - required
+    - durable
+    - autodelete
+  - $ref: "../components/exchange-options"  

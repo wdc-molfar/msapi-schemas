@@ -1,0 +1,10 @@
+
+type: object
+allOf:
+  - required:
+     - noAck
+     - exclusive
+     - durable
+     - autoDelete
+     - prefetch 
+  - $ref: "../components/queue-options"   

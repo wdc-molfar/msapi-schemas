@@ -1,0 +1,22 @@
+# workflow schema 
+
+type: array
+
+items:
+  type: object
+  
+  required:
+    - instance
+  
+  additionalProperties: false
+    
+  patternProperties:
+      
+      '^instance$':
+        $ref: './service'
+        
+      '^name$':
+          type: string
+
+      '^configuredBy$': 
+          type: object        

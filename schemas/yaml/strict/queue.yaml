@@ -1,0 +1,8 @@
+
+type: object
+allOf:
+  - required:
+    - name
+    - exchange
+    - options
+  - $ref: "../components/queue"    

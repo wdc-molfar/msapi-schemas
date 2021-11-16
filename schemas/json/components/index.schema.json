@@ -32,49 +32,12 @@
           "^autoDelete$": {
            "type": "boolean",
            "default": false
+          },
+          "^persistent$": {
+           "type": "boolean",
+           "default": true
           }
          }
-        },
-        "^message$": {
-         "oneOf": [
-          {
-           "type": "object",
-           "additionalProperties": false,
-           "patternProperties": {
-            "^schema$": {
-             "oneOf": [
-              {
-               "$ref": "#/definitions/Reference"
-              },
-              {
-               "$ref": "#/definitions/Schema"
-              }
-             ]
-            },
-            "^options$": {
-             "type": "object",
-             "additionalProperties": false,
-             "patternProperties": {
-              "^noAck$": {
-               "type": "boolean",
-               "default": false
-              },
-              "^exclusive$": {
-               "type": "boolean",
-               "default": false
-              },
-              "^persistent$": {
-               "type": "boolean",
-               "default": true
-              }
-             }
-            }
-           }
-          },
-          {
-           "$ref": "#/definitions/Reference"
-          }
-         ]
         }
        }
       },
@@ -130,49 +93,12 @@
               "^autoDelete$": {
                "type": "boolean",
                "default": false
+              },
+              "^persistent$": {
+               "type": "boolean",
+               "default": true
               }
              }
-            },
-            "^message$": {
-             "oneOf": [
-              {
-               "type": "object",
-               "additionalProperties": false,
-               "patternProperties": {
-                "^schema$": {
-                 "oneOf": [
-                  {
-                   "$ref": "#/definitions/Reference"
-                  },
-                  {
-                   "$ref": "#/definitions/Schema"
-                  }
-                 ]
-                },
-                "^options$": {
-                 "type": "object",
-                 "additionalProperties": false,
-                 "patternProperties": {
-                  "^noAck$": {
-                   "type": "boolean",
-                   "default": false
-                  },
-                  "^exclusive$": {
-                   "type": "boolean",
-                   "default": false
-                  },
-                  "^persistent$": {
-                   "type": "boolean",
-                   "default": true
-                  }
-                 }
-                }
-               }
-              },
-              {
-               "$ref": "#/definitions/Reference"
-              }
-             ]
             }
            }
           }
@@ -224,52 +150,6 @@
     }
    }
   },
-  "^messages$": {
-   "type": "object",
-   "patternProperties": {
-    "^[a-zA-Z0-9\\.\\-_]+$": {
-     "oneOf": [
-      {
-       "$ref": "#/definitions/Reference"
-      },
-      {
-       "type": "object",
-       "additionalProperties": false,
-       "patternProperties": {
-        "^schema$": {
-         "oneOf": [
-          {
-           "$ref": "#/definitions/Reference"
-          },
-          {
-           "$ref": "#/definitions/Schema"
-          }
-         ]
-        },
-        "^options$": {
-         "type": "object",
-         "additionalProperties": false,
-         "patternProperties": {
-          "^noAck$": {
-           "type": "boolean",
-           "default": false
-          },
-          "^exclusive$": {
-           "type": "boolean",
-           "default": false
-          },
-          "^persistent$": {
-           "type": "boolean",
-           "default": true
-          }
-         }
-        }
-       }
-      }
-     ]
-    }
-   }
-  },
   "^consumes$": {
    "type": "object",
    "patternProperties": {
@@ -282,6 +162,25 @@
        "type": "object",
        "additionalProperties": false,
        "patternProperties": {
+        "^amqp": {
+         "type": "object",
+         "required": [
+          "url"
+         ],
+         "patternProperties": {
+          "^url$": {
+           "type": "string",
+           "format": "uri-reference"
+          }
+         },
+         "errorMessage": {
+          "type": "Connection options should be an object.",
+          "required": "Connection url is required.",
+          "properties": {
+           "url": "Connection url should be a valid RabbitMQ connection url."
+          }
+         }
+        },
         "^queue$": {
          "oneOf": [
           {
@@ -321,49 +220,12 @@
                   "^autoDelete$": {
                    "type": "boolean",
                    "default": false
+                  },
+                  "^persistent$": {
+                   "type": "boolean",
+                   "default": true
                   }
                  }
-                },
-                "^message$": {
-                 "oneOf": [
-                  {
-                   "type": "object",
-                   "additionalProperties": false,
-                   "patternProperties": {
-                    "^schema$": {
-                     "oneOf": [
-                      {
-                       "$ref": "#/definitions/Reference"
-                      },
-                      {
-                       "$ref": "#/definitions/Schema"
-                      }
-                     ]
-                    },
-                    "^options$": {
-                     "type": "object",
-                     "additionalProperties": false,
-                     "patternProperties": {
-                      "^noAck$": {
-                       "type": "boolean",
-                       "default": false
-                      },
-                      "^exclusive$": {
-                       "type": "boolean",
-                       "default": false
-                      },
-                      "^persistent$": {
-                       "type": "boolean",
-                       "default": true
-                      }
-                     }
-                    }
-                   }
-                  },
-                  {
-                   "$ref": "#/definitions/Reference"
-                  }
-                 ]
                 }
                }
               }
@@ -404,38 +266,7 @@
         "^message$": {
          "oneOf": [
           {
-           "type": "object",
-           "additionalProperties": false,
-           "patternProperties": {
-            "^schema$": {
-             "oneOf": [
-              {
-               "$ref": "#/definitions/Reference"
-              },
-              {
-               "$ref": "#/definitions/Schema"
-              }
-             ]
-            },
-            "^options$": {
-             "type": "object",
-             "additionalProperties": false,
-             "patternProperties": {
-              "^noAck$": {
-               "type": "boolean",
-               "default": false
-              },
-              "^exclusive$": {
-               "type": "boolean",
-               "default": false
-              },
-              "^persistent$": {
-               "type": "boolean",
-               "default": true
-              }
-             }
-            }
-           }
+           "$ref": "#/definitions/Schema"
           },
           {
            "$ref": "#/definitions/Reference"
@@ -460,6 +291,25 @@
        "type": "object",
        "additionalProperties": false,
        "patternProperties": {
+        "^amqp": {
+         "type": "object",
+         "required": [
+          "url"
+         ],
+         "patternProperties": {
+          "^url$": {
+           "type": "string",
+           "format": "uri-reference"
+          }
+         },
+         "errorMessage": {
+          "type": "Connection options should be an object.",
+          "required": "Connection url is required.",
+          "properties": {
+           "url": "Connection url should be a valid RabbitMQ connection url."
+          }
+         }
+        },
         "^exchange$": {
          "oneOf": [
           {
@@ -487,49 +337,12 @@
               "^autoDelete$": {
                "type": "boolean",
                "default": false
+              },
+              "^persistent$": {
+               "type": "boolean",
+               "default": true
               }
              }
-            },
-            "^message$": {
-             "oneOf": [
-              {
-               "type": "object",
-               "additionalProperties": false,
-               "patternProperties": {
-                "^schema$": {
-                 "oneOf": [
-                  {
-                   "$ref": "#/definitions/Reference"
-                  },
-                  {
-                   "$ref": "#/definitions/Schema"
-                  }
-                 ]
-                },
-                "^options$": {
-                 "type": "object",
-                 "additionalProperties": false,
-                 "patternProperties": {
-                  "^noAck$": {
-                   "type": "boolean",
-                   "default": false
-                  },
-                  "^exclusive$": {
-                   "type": "boolean",
-                   "default": false
-                  },
-                  "^persistent$": {
-                   "type": "boolean",
-                   "default": true
-                  }
-                 }
-                }
-               }
-              },
-              {
-               "$ref": "#/definitions/Reference"
-              }
-             ]
             }
            }
           },
@@ -541,38 +354,7 @@
         "^message$": {
          "oneOf": [
           {
-           "type": "object",
-           "additionalProperties": false,
-           "patternProperties": {
-            "^schema$": {
-             "oneOf": [
-              {
-               "$ref": "#/definitions/Reference"
-              },
-              {
-               "$ref": "#/definitions/Schema"
-              }
-             ]
-            },
-            "^options$": {
-             "type": "object",
-             "additionalProperties": false,
-             "patternProperties": {
-              "^noAck$": {
-               "type": "boolean",
-               "default": false
-              },
-              "^exclusive$": {
-               "type": "boolean",
-               "default": false
-              },
-              "^persistent$": {
-               "type": "boolean",
-               "default": true
-              }
-             }
-            }
-           }
+           "$ref": "#/definitions/Schema"
           },
           {
            "$ref": "#/definitions/Reference"

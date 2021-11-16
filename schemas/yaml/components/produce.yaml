@@ -3,6 +3,9 @@ type: object
 additionalProperties: false
 patternProperties:
   
+  '^amqp':
+    $ref: "./connection"
+
   '^exchange$':
     oneOf:
       - $ref: "./exchange"
@@ -10,7 +13,7 @@ patternProperties:
   
   '^message$':
     oneOf:
-      - $ref: "./message"
+      - $ref: "#/definitions/Schema"
       - $ref: "#/definitions/Reference"
 
     

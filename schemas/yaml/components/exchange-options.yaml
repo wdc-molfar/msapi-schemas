@@ -1,0 +1,14 @@
+type: object
+patternProperties:
+
+  '^durable$': 
+    type: boolean
+    default: true                
+  
+  '^autoDelete$': 
+    type: boolean
+    default: false            # if true, scopes the queue to the connection (defaults to false)
+
+  '^persistent$':
+      type: boolean
+      default: true

@@ -1,52 +1,16 @@
 {
  "type": "object",
- "additionalProperties": false,
- "patternProperties": {
-  "^name$": {
-   "type": "string"
-  },
-  "^exchange$": {
-   "oneOf": [
-    {
-     "$ref": "#/definitions/Reference"
-    },
-    {
-     "type": "object",
-     "additionalProperties": false,
-     "patternProperties": {
-      "^name$": {
-       "type": "string"
-      },
-      "^mode$": {
-       "enum": [
-        "fanout",
-        "direct",
-        "topic"
-       ],
-       "default": "fanout"
-      },
-      "^options$": {
-       "type": "object",
-       "patternProperties": {
-        "^durable$": {
-         "type": "boolean",
-         "default": true
-        },
-        "^autoDelete$": {
-         "type": "boolean",
-         "default": false
-        },
-        "^persistent$": {
-         "type": "boolean",
-         "default": true
-        }
-       }
-      }
-     }
-    }
+ "allOf": [
+  {
+   "required": [
+    "noAck",
+    "exclusive",
+    "durable",
+    "autoDelete",
+    "prefetch"
    ]
   },
-  "^options$": {
+  {
    "type": "object",
    "patternProperties": {
     "^noAck$": {
@@ -71,7 +35,7 @@
     }
    }
   }
- },
+ ],
  "definitions": {
   "Reference": {
    "type": "object",

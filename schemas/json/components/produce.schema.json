@@ -2,6 +2,25 @@
  "type": "object",
  "additionalProperties": false,
  "patternProperties": {
+  "^amqp": {
+   "type": "object",
+   "required": [
+    "url"
+   ],
+   "patternProperties": {
+    "^url$": {
+     "type": "string",
+     "format": "uri-reference"
+    }
+   },
+   "errorMessage": {
+    "type": "Connection options should be an object.",
+    "required": "Connection url is required.",
+    "properties": {
+     "url": "Connection url should be a valid RabbitMQ connection url."
+    }
+   }
+  },
   "^exchange$": {
    "oneOf": [
     {
@@ -29,49 +48,12 @@
         "^autoDelete$": {
          "type": "boolean",
          "default": false
+        },
+        "^persistent$": {
+         "type": "boolean",
+         "default": true
         }
        }
-      },
-      "^message$": {
-       "oneOf": [
-        {
-         "type": "object",
-         "additionalProperties": false,
-         "patternProperties": {
-          "^schema$": {
-           "oneOf": [
-            {
-             "$ref": "#/definitions/Reference"
-            },
-            {
-             "$ref": "#/definitions/Schema"
-            }
-           ]
-          },
-          "^options$": {
-           "type": "object",
-           "additionalProperties": false,
-           "patternProperties": {
-            "^noAck$": {
-             "type": "boolean",
-             "default": false
-            },
-            "^exclusive$": {
-             "type": "boolean",
-             "default": false
-            },
-            "^persistent$": {
-             "type": "boolean",
-             "default": true
-            }
-           }
-          }
-         }
-        },
-        {
-         "$ref": "#/definitions/Reference"
-        }
-       ]
       }
      }
     },
@@ -83,38 +65,7 @@
   "^message$": {
    "oneOf": [
     {
-     "type": "object",
-     "additionalProperties": false,
-     "patternProperties": {
-      "^schema$": {
-       "oneOf": [
-        {
-         "$ref": "#/definitions/Reference"
-        },
-        {
-         "$ref": "#/definitions/Schema"
-        }
-       ]
-      },
-      "^options$": {
-       "type": "object",
-       "additionalProperties": false,
-       "patternProperties": {
-        "^noAck$": {
-         "type": "boolean",
-         "default": false
-        },
-        "^exclusive$": {
-         "type": "boolean",
-         "default": false
-        },
-        "^persistent$": {
-         "type": "boolean",
-         "default": true
-        }
-       }
-      }
-     }
+     "$ref": "#/definitions/Schema"
     },
     {
      "$ref": "#/definitions/Reference"

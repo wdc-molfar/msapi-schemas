@@ -2,6 +2,7 @@
 type: object
 additionalProperties: false
 patternProperties:
+  
   '^name$':
     type: string
   
@@ -13,20 +14,6 @@ patternProperties:
       default: "fanout"  
    
   '^options$':
-    type: object
-    patternProperties:
-
-      '^durable$': 
-        type: boolean
-        default: true                
-      
-      '^autoDelete$': 
-        type: boolean
-        default: false            # if true, scopes the queue to the connection (defaults to false)
-
-  '^message$':
-    oneOf:
-      - $ref: "./message"
-      - $ref: "#/definitions/Reference"
-
+    $ref: "./exchange-options"
+  
     

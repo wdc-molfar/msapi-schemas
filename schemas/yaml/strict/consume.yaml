@@ -1,0 +1,9 @@
+
+type: object
+allOf:
+  - required:
+    - amqp
+    - queue
+    # - message     ######         message schema validation is optional
+  - $ref: "../components/consume"  
+    

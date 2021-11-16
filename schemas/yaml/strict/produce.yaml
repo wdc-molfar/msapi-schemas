@@ -1,0 +1,8 @@
+
+type: object
+allOf:
+    - required:
+      - amqp
+      - exchange
+      #- message    ######         message schema validation is optional
+    - $ref: "../components/produce"

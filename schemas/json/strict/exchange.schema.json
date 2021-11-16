@@ -1,77 +1,48 @@
 {
  "type": "object",
- "additionalProperties": false,
- "patternProperties": {
-  "^name$": {
-   "type": "string"
+ "allOf": [
+  {
+   "required": [
+    "name",
+    "mode",
+    "options"
+   ]
   },
-  "^exchange$": {
-   "oneOf": [
-    {
-     "$ref": "#/definitions/Reference"
+  {
+   "type": "object",
+   "additionalProperties": false,
+   "patternProperties": {
+    "^name$": {
+     "type": "string"
     },
-    {
+    "^mode$": {
+     "enum": [
+      "fanout",
+      "direct",
+      "topic"
+     ],
+     "default": "fanout"
+    },
+    "^options$": {
      "type": "object",
-     "additionalProperties": false,
      "patternProperties": {
-      "^name$": {
-       "type": "string"
+      "^durable$": {
+       "type": "boolean",
+       "default": true
       },
-      "^mode$": {
-       "enum": [
-        "fanout",
-        "direct",
-        "topic"
-       ],
-       "default": "fanout"
+      "^autoDelete$": {
+       "type": "boolean",
+       "default": false
       },
-      "^options$": {
-       "type": "object",
-       "patternProperties": {
-        "^durable$": {
-         "type": "boolean",
-         "default": true
-        },
-        "^autoDelete$": {
-         "type": "boolean",
-         "default": false
-        },
-        "^persistent$": {
-         "type": "boolean",
-         "default": true
-        }
-       }
+      "^persistent$": {
+       "type": "boolean",
+       "default": true
       }
      }
     }
-   ]
-  },
-  "^options$": {
-   "type": "object",
-   "patternProperties": {
-    "^noAck$": {
-     "type": "boolean",
-     "default": false
-    },
-    "^exclusive$": {
-     "type": "boolean",
-     "default": false
-    },
-    "^durable$": {
-     "type": "boolean",
-     "default": true
-    },
-    "^autoDelete$": {
-     "type": "boolean",
-     "default": false
-    },
-    "^prefetch$": {
-     "type": "number",
-     "default": 1
-    }
    }
   }
- },
+ ],
  "definitions": {
   "Reference": {
    "type": "object",

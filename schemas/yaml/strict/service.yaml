@@ -1,0 +1,15 @@
+# service schema
+
+type: object
+additionalProperties: false
+
+patternProperties:
+  '^config$':
+      type: object
+  
+  '^consume$':
+    $ref: "../components/consume"
+    
+  '^produce$':    
+    $ref: "../components/produce"
+   

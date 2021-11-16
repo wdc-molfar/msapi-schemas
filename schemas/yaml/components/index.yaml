@@ -29,14 +29,6 @@ patternProperties:
           - $ref: '#/definitions/Reference'
           - $ref: '#/definitions/Schema'
 
-  '^messages$':
-    type: object
-    patternProperties:
-      '^[a-zA-Z0-9\.\-_]+$':
-        oneOf:
-          - $ref: '#/definitions/Reference'
-          - $ref: './message'
-  
   '^consumes$':
     type: object
     patternProperties:

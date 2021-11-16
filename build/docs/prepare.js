@@ -139,41 +139,9 @@
 	
 	await processFolderRecursive(SCHEMA_DIR, removeTempFiles)
 	
-	// readDir(`${YAML_DIR}/*.yaml`).forEach( async yamlFile => {
-		
-	// 	let jsonSch = YAML.load(fs.readFileSync(yamlFile).toString())
-	// 	console.log("Temp > "+path.resolve(`${TEMP_DIR}/${path.basename(yamlFile,".yaml")}`))
-	// 	fs.writeFileSync(path.resolve(`${TEMP_DIR}/${path.basename(yamlFile,".yaml")}`), JSON.stringify(jsonSch, null," ") )	
 	
-	// })
 
-	// let commonDefinitions = JSON.parse(fs.readFileSync(path.resolve(TEMP_DIR,"./common-definitions")).toString())
-	
-	// await Promise.all(readDir(`${TEMP_DIR}/*`).map( async file => {
-		
-	// 	file = path.resolve(file) 
-		
-	// 	console.log("Resolve > "+path.resolve(`${SCHEMA_DIR}/${path.basename(file)}.schema.json`))
-		
-	// 	let {resolved, refs} = await JsonRefs.resolveRefs(
-	// 		deepExtend( JSON.parse(fs.readFileSync(file).toString()), commonDefinitions),
-	// 		{ 
-	// 			location: file,
-	// 			filter: (refDetails, path) => {
-	// 				if(/^\#\/definitions\//.test(refDetails.uri)){
-	// 					console.log("ignore ", refDetails.uri)
-	// 					return false
-	// 				}
-	// 				return true
-	// 			}
-	// 		}
-	// 	)
-		
-	// 	fs.writeFileSync(path.resolve(`${SCHEMA_DIR}/${path.basename(file)}.schema.json`), JSON.stringify(resolved, null," ") )	
-	
-	// }))
-
-	fs.rmdirSync(TEMP_DIR, {recursive: true})
+	// fs.rmdirSync(TEMP_DIR, {recursive: true})
 
 
 

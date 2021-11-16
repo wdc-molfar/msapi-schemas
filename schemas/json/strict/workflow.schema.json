@@ -1,74 +1,219 @@
 {
- "type": "object",
- "additionalProperties": false,
- "patternProperties": {
-  "^name$": {
-   "type": "string"
-  },
-  "^exchange$": {
-   "oneOf": [
-    {
-     "$ref": "#/definitions/Reference"
-    },
-    {
-     "type": "object",
-     "additionalProperties": false,
-     "patternProperties": {
-      "^name$": {
-       "type": "string"
-      },
-      "^mode$": {
-       "enum": [
-        "fanout",
-        "direct",
-        "topic"
-       ],
-       "default": "fanout"
-      },
-      "^options$": {
-       "type": "object",
-       "patternProperties": {
-        "^durable$": {
-         "type": "boolean",
-         "default": true
+ "type": "array",
+ "items": {
+  "type": "object",
+  "required": [
+   "instance"
+  ],
+  "additionalProperties": false,
+  "patternProperties": {
+   "^instance$": {
+    "type": "object",
+    "additionalProperties": false,
+    "patternProperties": {
+     "^config$": {
+      "type": "object"
+     },
+     "^consume$": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+       "^amqp": {
+        "type": "object",
+        "required": [
+         "url"
+        ],
+        "patternProperties": {
+         "^url$": {
+          "type": "string",
+          "format": "uri-reference"
+         }
         },
-        "^autoDelete$": {
-         "type": "boolean",
-         "default": false
-        },
-        "^persistent$": {
-         "type": "boolean",
-         "default": true
+        "errorMessage": {
+         "type": "Connection options should be an object.",
+         "required": "Connection url is required.",
+         "properties": {
+          "url": "Connection url should be a valid RabbitMQ connection url."
+         }
         }
+       },
+       "^queue$": {
+        "oneOf": [
+         {
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {
+           "^name$": {
+            "type": "string"
+           },
+           "^exchange$": {
+            "oneOf": [
+             {
+              "$ref": "#/definitions/Reference"
+             },
+             {
+              "type": "object",
+              "additionalProperties": false,
+              "patternProperties": {
+               "^name$": {
+                "type": "string"
+               },
+               "^mode$": {
+                "enum": [
+                 "fanout",
+                 "direct",
+                 "topic"
+                ],
+                "default": "fanout"
+               },
+               "^options$": {
+                "type": "object",
+                "patternProperties": {
+                 "^durable$": {
+                  "type": "boolean",
+                  "default": true
+                 },
+                 "^autoDelete$": {
+                  "type": "boolean",
+                  "default": false
+                 },
+                 "^persistent$": {
+                  "type": "boolean",
+                  "default": true
+                 }
+                }
+               }
+              }
+             }
+            ]
+           },
+           "^options$": {
+            "type": "object",
+            "patternProperties": {
+             "^noAck$": {
+              "type": "boolean",
+              "default": false
+             },
+             "^exclusive$": {
+              "type": "boolean",
+              "default": false
+             },
+             "^durable$": {
+              "type": "boolean",
+              "default": true
+             },
+             "^autoDelete$": {
+              "type": "boolean",
+              "default": false
+             },
+             "^prefetch$": {
+              "type": "number",
+              "default": 1
+             }
+            }
+           }
+          }
+         },
+         {
+          "$ref": "#/definitions/Reference"
+         }
+        ]
+       },
+       "^message$": {
+        "oneOf": [
+         {
+          "$ref": "#/definitions/Schema"
+         },
+         {
+          "$ref": "#/definitions/Reference"
+         }
+        ]
+       }
+      }
+     },
+     "^produce$": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+       "^amqp": {
+        "type": "object",
+        "required": [
+         "url"
+        ],
+        "patternProperties": {
+         "^url$": {
+          "type": "string",
+          "format": "uri-reference"
+         }
+        },
+        "errorMessage": {
+         "type": "Connection options should be an object.",
+         "required": "Connection url is required.",
+         "properties": {
+          "url": "Connection url should be a valid RabbitMQ connection url."
+         }
+        }
+       },
+       "^exchange$": {
+        "oneOf": [
+         {
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {
+           "^name$": {
+            "type": "string"
+           },
+           "^mode$": {
+            "enum": [
+             "fanout",
+             "direct",
+             "topic"
+            ],
+            "default": "fanout"
+           },
+           "^options$": {
+            "type": "object",
+            "patternProperties": {
+             "^durable$": {
+              "type": "boolean",
+              "default": true
+             },
+             "^autoDelete$": {
+              "type": "boolean",
+              "default": false
+             },
+             "^persistent$": {
+              "type": "boolean",
+              "default": true
+             }
+            }
+           }
+          }
+         },
+         {
+          "$ref": "#/definitions/Reference"
+         }
+        ]
+       },
+       "^message$": {
+        "oneOf": [
+         {
+          "$ref": "#/definitions/Schema"
+         },
+         {
+          "$ref": "#/definitions/Reference"
+         }
+        ]
        }
       }
      }
     }
-   ]
-  },
-  "^options$": {
-   "type": "object",
-   "patternProperties": {
-    "^noAck$": {
-     "type": "boolean",
-     "default": false
-    },
-    "^exclusive$": {
-     "type": "boolean",
-     "default": false
-    },
-    "^durable$": {
-     "type": "boolean",
-     "default": true
-    },
-    "^autoDelete$": {
-     "type": "boolean",
-     "default": false
-    },
-    "^prefetch$": {
-     "type": "number",
-     "default": 1
-    }
+   },
+   "^name$": {
+    "type": "string"
+   },
+   "^configuredBy$": {
+    "type": "object"
    }
   }
  },

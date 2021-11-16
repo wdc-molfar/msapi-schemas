@@ -1,0 +1,9 @@
+
+type: object
+allOf:
+    - required:
+      - name
+      - mode
+      - options
+    - $ref: "../components/exchange"  
+    

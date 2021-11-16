@@ -1,6 +1,6 @@
 
 /*! @molfar/msapi-schemas 1.0.0 https://github.com/[object Object] @license ISC */
-var definitions$4 = {
+var definitions$8 = {
 	Reference: {
 		type: "object",
 		required: [
@@ -314,7 +314,7 @@ var definitions$4 = {
 	}
 };
 var require$$0 = {
-	definitions: definitions$4
+	definitions: definitions$8
 };
 
 function commonjsRegister (path, loader) {
@@ -328,8 +328,8 @@ commonjsRegister("/$$rollup_base$$/schemas/json/common-definitions.schema.json",
 });
 
 var description$1 = "Validation schema for MSAPI Specification 1.0.X.";
-var type$4 = "object";
-var required$3 = [
+var type$9 = "object";
+var required$4 = [
 	"msapi",
 	"metadata"
 ];
@@ -482,49 +482,12 @@ var properties$3 = {
 											"^autoDelete$": {
 												type: "boolean",
 												"default": false
+											},
+											"^persistent$": {
+												type: "boolean",
+												"default": true
 											}
 										}
-									},
-									"^message$": {
-										oneOf: [
-											{
-												type: "object",
-												additionalProperties: false,
-												patternProperties: {
-													"^schema$": {
-														oneOf: [
-															{
-																$ref: "#/definitions/Reference"
-															},
-															{
-																$ref: "#/definitions/Schema"
-															}
-														]
-													},
-													"^options$": {
-														type: "object",
-														additionalProperties: false,
-														patternProperties: {
-															"^noAck$": {
-																type: "boolean",
-																"default": false
-															},
-															"^exclusive$": {
-																type: "boolean",
-																"default": false
-															},
-															"^persistent$": {
-																type: "boolean",
-																"default": true
-															}
-														}
-													}
-												}
-											},
-											{
-												$ref: "#/definitions/Reference"
-											}
-										]
 									}
 								}
 							},
@@ -580,49 +543,12 @@ var properties$3 = {
 															"^autoDelete$": {
 																type: "boolean",
 																"default": false
+															},
+															"^persistent$": {
+																type: "boolean",
+																"default": true
 															}
 														}
-													},
-													"^message$": {
-														oneOf: [
-															{
-																type: "object",
-																additionalProperties: false,
-																patternProperties: {
-																	"^schema$": {
-																		oneOf: [
-																			{
-																				$ref: "#/definitions/Reference"
-																			},
-																			{
-																				$ref: "#/definitions/Schema"
-																			}
-																		]
-																	},
-																	"^options$": {
-																		type: "object",
-																		additionalProperties: false,
-																		patternProperties: {
-																			"^noAck$": {
-																				type: "boolean",
-																				"default": false
-																			},
-																			"^exclusive$": {
-																				type: "boolean",
-																				"default": false
-																			},
-																			"^persistent$": {
-																				type: "boolean",
-																				"default": true
-																			}
-																		}
-																	}
-																}
-															},
-															{
-																$ref: "#/definitions/Reference"
-															}
-														]
 													}
 												}
 											}
@@ -674,52 +600,6 @@ var properties$3 = {
 					}
 				}
 			},
-			"^messages$": {
-				type: "object",
-				patternProperties: {
-					"^[a-zA-Z0-9\\.\\-_]+$": {
-						oneOf: [
-							{
-								$ref: "#/definitions/Reference"
-							},
-							{
-								type: "object",
-								additionalProperties: false,
-								patternProperties: {
-									"^schema$": {
-										oneOf: [
-											{
-												$ref: "#/definitions/Reference"
-											},
-											{
-												$ref: "#/definitions/Schema"
-											}
-										]
-									},
-									"^options$": {
-										type: "object",
-										additionalProperties: false,
-										patternProperties: {
-											"^noAck$": {
-												type: "boolean",
-												"default": false
-											},
-											"^exclusive$": {
-												type: "boolean",
-												"default": false
-											},
-											"^persistent$": {
-												type: "boolean",
-												"default": true
-											}
-										}
-									}
-								}
-							}
-						]
-					}
-				}
-			},
 			"^consumes$": {
 				type: "object",
 				patternProperties: {
@@ -732,6 +612,25 @@ var properties$3 = {
 								type: "object",
 								additionalProperties: false,
 								patternProperties: {
+									"^amqp": {
+										type: "object",
+										required: [
+											"url"
+										],
+										patternProperties: {
+											"^url$": {
+												type: "string",
+												format: "uri-reference"
+											}
+										},
+										errorMessage: {
+											type: "Connection options should be an object.",
+											required: "Connection url is required.",
+											properties: {
+												url: "Connection url should be a valid RabbitMQ connection url."
+											}
+										}
+									},
 									"^queue$": {
 										oneOf: [
 											{
@@ -771,49 +670,12 @@ var properties$3 = {
 																			"^autoDelete$": {
 																				type: "boolean",
 																				"default": false
+																			},
+																			"^persistent$": {
+																				type: "boolean",
+																				"default": true
 																			}
 																		}
-																	},
-																	"^message$": {
-																		oneOf: [
-																			{
-																				type: "object",
-																				additionalProperties: false,
-																				patternProperties: {
-																					"^schema$": {
-																						oneOf: [
-																							{
-																								$ref: "#/definitions/Reference"
-																							},
-																							{
-																								$ref: "#/definitions/Schema"
-																							}
-																						]
-																					},
-																					"^options$": {
-																						type: "object",
-																						additionalProperties: false,
-																						patternProperties: {
-																							"^noAck$": {
-																								type: "boolean",
-																								"default": false
-																							},
-																							"^exclusive$": {
-																								type: "boolean",
-																								"default": false
-																							},
-																							"^persistent$": {
-																								type: "boolean",
-																								"default": true
-																							}
-																						}
-																					}
-																				}
-																			},
-																			{
-																				$ref: "#/definitions/Reference"
-																			}
-																		]
 																	}
 																}
 															}
@@ -854,38 +716,7 @@ var properties$3 = {
 									"^message$": {
 										oneOf: [
 											{
-												type: "object",
-												additionalProperties: false,
-												patternProperties: {
-													"^schema$": {
-														oneOf: [
-															{
-																$ref: "#/definitions/Reference"
-															},
-															{
-																$ref: "#/definitions/Schema"
-															}
-														]
-													},
-													"^options$": {
-														type: "object",
-														additionalProperties: false,
-														patternProperties: {
-															"^noAck$": {
-																type: "boolean",
-																"default": false
-															},
-															"^exclusive$": {
-																type: "boolean",
-																"default": false
-															},
-															"^persistent$": {
-																type: "boolean",
-																"default": true
-															}
-														}
-													}
-												}
+												$ref: "#/definitions/Schema"
 											},
 											{
 												$ref: "#/definitions/Reference"
@@ -910,6 +741,25 @@ var properties$3 = {
 								type: "object",
 								additionalProperties: false,
 								patternProperties: {
+									"^amqp": {
+										type: "object",
+										required: [
+											"url"
+										],
+										patternProperties: {
+											"^url$": {
+												type: "string",
+												format: "uri-reference"
+											}
+										},
+										errorMessage: {
+											type: "Connection options should be an object.",
+											required: "Connection url is required.",
+											properties: {
+												url: "Connection url should be a valid RabbitMQ connection url."
+											}
+										}
+									},
 									"^exchange$": {
 										oneOf: [
 											{
@@ -937,49 +787,12 @@ var properties$3 = {
 															"^autoDelete$": {
 																type: "boolean",
 																"default": false
+															},
+															"^persistent$": {
+																type: "boolean",
+																"default": true
 															}
 														}
-													},
-													"^message$": {
-														oneOf: [
-															{
-																type: "object",
-																additionalProperties: false,
-																patternProperties: {
-																	"^schema$": {
-																		oneOf: [
-																			{
-																				$ref: "#/definitions/Reference"
-																			},
-																			{
-																				$ref: "#/definitions/Schema"
-																			}
-																		]
-																	},
-																	"^options$": {
-																		type: "object",
-																		additionalProperties: false,
-																		patternProperties: {
-																			"^noAck$": {
-																				type: "boolean",
-																				"default": false
-																			},
-																			"^exclusive$": {
-																				type: "boolean",
-																				"default": false
-																			},
-																			"^persistent$": {
-																				type: "boolean",
-																				"default": true
-																			}
-																		}
-																	}
-																}
-															},
-															{
-																$ref: "#/definitions/Reference"
-															}
-														]
 													}
 												}
 											},
@@ -991,38 +804,7 @@ var properties$3 = {
 									"^message$": {
 										oneOf: [
 											{
-												type: "object",
-												additionalProperties: false,
-												patternProperties: {
-													"^schema$": {
-														oneOf: [
-															{
-																$ref: "#/definitions/Reference"
-															},
-															{
-																$ref: "#/definitions/Schema"
-															}
-														]
-													},
-													"^options$": {
-														type: "object",
-														additionalProperties: false,
-														patternProperties: {
-															"^noAck$": {
-																type: "boolean",
-																"default": false
-															},
-															"^exclusive$": {
-																type: "boolean",
-																"default": false
-															},
-															"^persistent$": {
-																type: "boolean",
-																"default": true
-															}
-														}
-													}
-												}
+												$ref: "#/definitions/Schema"
 											},
 											{
 												$ref: "#/definitions/Reference"
@@ -1053,6 +835,25 @@ var properties$3 = {
 						type: "object",
 						additionalProperties: false,
 						patternProperties: {
+							"^amqp": {
+								type: "object",
+								required: [
+									"url"
+								],
+								patternProperties: {
+									"^url$": {
+										type: "string",
+										format: "uri-reference"
+									}
+								},
+								errorMessage: {
+									type: "Connection options should be an object.",
+									required: "Connection url is required.",
+									properties: {
+										url: "Connection url should be a valid RabbitMQ connection url."
+									}
+								}
+							},
 							"^queue$": {
 								oneOf: [
 									{
@@ -1092,49 +893,12 @@ var properties$3 = {
 																	"^autoDelete$": {
 																		type: "boolean",
 																		"default": false
+																	},
+																	"^persistent$": {
+																		type: "boolean",
+																		"default": true
 																	}
 																}
-															},
-															"^message$": {
-																oneOf: [
-																	{
-																		type: "object",
-																		additionalProperties: false,
-																		patternProperties: {
-																			"^schema$": {
-																				oneOf: [
-																					{
-																						$ref: "#/definitions/Reference"
-																					},
-																					{
-																						$ref: "#/definitions/Schema"
-																					}
-																				]
-																			},
-																			"^options$": {
-																				type: "object",
-																				additionalProperties: false,
-																				patternProperties: {
-																					"^noAck$": {
-																						type: "boolean",
-																						"default": false
-																					},
-																					"^exclusive$": {
-																						type: "boolean",
-																						"default": false
-																					},
-																					"^persistent$": {
-																						type: "boolean",
-																						"default": true
-																					}
-																				}
-																			}
-																		}
-																	},
-																	{
-																		$ref: "#/definitions/Reference"
-																	}
-																]
 															}
 														}
 													}
@@ -1175,38 +939,7 @@ var properties$3 = {
 							"^message$": {
 								oneOf: [
 									{
-										type: "object",
-										additionalProperties: false,
-										patternProperties: {
-											"^schema$": {
-												oneOf: [
-													{
-														$ref: "#/definitions/Reference"
-													},
-													{
-														$ref: "#/definitions/Schema"
-													}
-												]
-											},
-											"^options$": {
-												type: "object",
-												additionalProperties: false,
-												patternProperties: {
-													"^noAck$": {
-														type: "boolean",
-														"default": false
-													},
-													"^exclusive$": {
-														type: "boolean",
-														"default": false
-													},
-													"^persistent$": {
-														type: "boolean",
-														"default": true
-													}
-												}
-											}
-										}
+										$ref: "#/definitions/Schema"
 									},
 									{
 										$ref: "#/definitions/Reference"
@@ -1226,6 +959,25 @@ var properties$3 = {
 						type: "object",
 						additionalProperties: false,
 						patternProperties: {
+							"^amqp": {
+								type: "object",
+								required: [
+									"url"
+								],
+								patternProperties: {
+									"^url$": {
+										type: "string",
+										format: "uri-reference"
+									}
+								},
+								errorMessage: {
+									type: "Connection options should be an object.",
+									required: "Connection url is required.",
+									properties: {
+										url: "Connection url should be a valid RabbitMQ connection url."
+									}
+								}
+							},
 							"^exchange$": {
 								oneOf: [
 									{
@@ -1253,49 +1005,12 @@ var properties$3 = {
 													"^autoDelete$": {
 														type: "boolean",
 														"default": false
+													},
+													"^persistent$": {
+														type: "boolean",
+														"default": true
 													}
 												}
-											},
-											"^message$": {
-												oneOf: [
-													{
-														type: "object",
-														additionalProperties: false,
-														patternProperties: {
-															"^schema$": {
-																oneOf: [
-																	{
-																		$ref: "#/definitions/Reference"
-																	},
-																	{
-																		$ref: "#/definitions/Schema"
-																	}
-																]
-															},
-															"^options$": {
-																type: "object",
-																additionalProperties: false,
-																patternProperties: {
-																	"^noAck$": {
-																		type: "boolean",
-																		"default": false
-																	},
-																	"^exclusive$": {
-																		type: "boolean",
-																		"default": false
-																	},
-																	"^persistent$": {
-																		type: "boolean",
-																		"default": true
-																	}
-																}
-															}
-														}
-													},
-													{
-														$ref: "#/definitions/Reference"
-													}
-												]
 											}
 										}
 									},
@@ -1307,38 +1022,7 @@ var properties$3 = {
 							"^message$": {
 								oneOf: [
 									{
-										type: "object",
-										additionalProperties: false,
-										patternProperties: {
-											"^schema$": {
-												oneOf: [
-													{
-														$ref: "#/definitions/Reference"
-													},
-													{
-														$ref: "#/definitions/Schema"
-													}
-												]
-											},
-											"^options$": {
-												type: "object",
-												additionalProperties: false,
-												patternProperties: {
-													"^noAck$": {
-														type: "boolean",
-														"default": false
-													},
-													"^exclusive$": {
-														type: "boolean",
-														"default": false
-													},
-													"^persistent$": {
-														type: "boolean",
-														"default": true
-													}
-												}
-											}
-										}
+										$ref: "#/definitions/Schema"
 									},
 									{
 										$ref: "#/definitions/Reference"
@@ -1378,6 +1062,25 @@ var properties$3 = {
 											type: "object",
 											additionalProperties: false,
 											patternProperties: {
+												"^amqp": {
+													type: "object",
+													required: [
+														"url"
+													],
+													patternProperties: {
+														"^url$": {
+															type: "string",
+															format: "uri-reference"
+														}
+													},
+													errorMessage: {
+														type: "Connection options should be an object.",
+														required: "Connection url is required.",
+														properties: {
+															url: "Connection url should be a valid RabbitMQ connection url."
+														}
+													}
+												},
 												"^queue$": {
 													oneOf: [
 														{
@@ -1417,49 +1120,12 @@ var properties$3 = {
 																						"^autoDelete$": {
 																							type: "boolean",
 																							"default": false
+																						},
+																						"^persistent$": {
+																							type: "boolean",
+																							"default": true
 																						}
 																					}
-																				},
-																				"^message$": {
-																					oneOf: [
-																						{
-																							type: "object",
-																							additionalProperties: false,
-																							patternProperties: {
-																								"^schema$": {
-																									oneOf: [
-																										{
-																											$ref: "#/definitions/Reference"
-																										},
-																										{
-																											$ref: "#/definitions/Schema"
-																										}
-																									]
-																								},
-																								"^options$": {
-																									type: "object",
-																									additionalProperties: false,
-																									patternProperties: {
-																										"^noAck$": {
-																											type: "boolean",
-																											"default": false
-																										},
-																										"^exclusive$": {
-																											type: "boolean",
-																											"default": false
-																										},
-																										"^persistent$": {
-																											type: "boolean",
-																											"default": true
-																										}
-																									}
-																								}
-																							}
-																						},
-																						{
-																							$ref: "#/definitions/Reference"
-																						}
-																					]
 																				}
 																			}
 																		}
@@ -1500,38 +1166,7 @@ var properties$3 = {
 												"^message$": {
 													oneOf: [
 														{
-															type: "object",
-															additionalProperties: false,
-															patternProperties: {
-																"^schema$": {
-																	oneOf: [
-																		{
-																			$ref: "#/definitions/Reference"
-																		},
-																		{
-																			$ref: "#/definitions/Schema"
-																		}
-																	]
-																},
-																"^options$": {
-																	type: "object",
-																	additionalProperties: false,
-																	patternProperties: {
-																		"^noAck$": {
-																			type: "boolean",
-																			"default": false
-																		},
-																		"^exclusive$": {
-																			type: "boolean",
-																			"default": false
-																		},
-																		"^persistent$": {
-																			type: "boolean",
-																			"default": true
-																		}
-																	}
-																}
-															}
+															$ref: "#/definitions/Schema"
 														},
 														{
 															$ref: "#/definitions/Reference"
@@ -1551,6 +1186,25 @@ var properties$3 = {
 											type: "object",
 											additionalProperties: false,
 											patternProperties: {
+												"^amqp": {
+													type: "object",
+													required: [
+														"url"
+													],
+													patternProperties: {
+														"^url$": {
+															type: "string",
+															format: "uri-reference"
+														}
+													},
+													errorMessage: {
+														type: "Connection options should be an object.",
+														required: "Connection url is required.",
+														properties: {
+															url: "Connection url should be a valid RabbitMQ connection url."
+														}
+													}
+												},
 												"^exchange$": {
 													oneOf: [
 														{
@@ -1578,49 +1232,12 @@ var properties$3 = {
 																		"^autoDelete$": {
 																			type: "boolean",
 																			"default": false
+																		},
+																		"^persistent$": {
+																			type: "boolean",
+																			"default": true
 																		}
 																	}
-																},
-																"^message$": {
-																	oneOf: [
-																		{
-																			type: "object",
-																			additionalProperties: false,
-																			patternProperties: {
-																				"^schema$": {
-																					oneOf: [
-																						{
-																							$ref: "#/definitions/Reference"
-																						},
-																						{
-																							$ref: "#/definitions/Schema"
-																						}
-																					]
-																				},
-																				"^options$": {
-																					type: "object",
-																					additionalProperties: false,
-																					patternProperties: {
-																						"^noAck$": {
-																							type: "boolean",
-																							"default": false
-																						},
-																						"^exclusive$": {
-																							type: "boolean",
-																							"default": false
-																						},
-																						"^persistent$": {
-																							type: "boolean",
-																							"default": true
-																						}
-																					}
-																				}
-																			}
-																		},
-																		{
-																			$ref: "#/definitions/Reference"
-																		}
-																	]
 																}
 															}
 														},
@@ -1632,38 +1249,7 @@ var properties$3 = {
 												"^message$": {
 													oneOf: [
 														{
-															type: "object",
-															additionalProperties: false,
-															patternProperties: {
-																"^schema$": {
-																	oneOf: [
-																		{
-																			$ref: "#/definitions/Reference"
-																		},
-																		{
-																			$ref: "#/definitions/Schema"
-																		}
-																	]
-																},
-																"^options$": {
-																	type: "object",
-																	additionalProperties: false,
-																	patternProperties: {
-																		"^noAck$": {
-																			type: "boolean",
-																			"default": false
-																		},
-																		"^exclusive$": {
-																			type: "boolean",
-																			"default": false
-																		},
-																		"^persistent$": {
-																			type: "boolean",
-																			"default": true
-																		}
-																	}
-																}
-															}
+															$ref: "#/definitions/Schema"
 														},
 														{
 															$ref: "#/definitions/Reference"
@@ -1694,7 +1280,7 @@ var properties$3 = {
 		}
 	}
 };
-var definitions$3 = {
+var definitions$7 = {
 	Reference: {
 		type: "object",
 		required: [
@@ -2009,10 +1595,10 @@ var definitions$3 = {
 };
 var msapi = {
 	description: description$1,
-	type: type$4,
-	required: required$3,
+	type: type$9,
+	required: required$4,
 	properties: properties$3,
-	definitions: definitions$3
+	definitions: definitions$7
 };
 
 commonjsRegister("/$$rollup_base$$/schemas/json/msapi.schema.json", function (module, exports) {
@@ -2296,7 +1882,7 @@ function Type$1(tag, options) {
   }
 }
 
-var type$3 = Type$1;
+var type$8 = Type$1;
 
 /*eslint-disable max-len*/
 
@@ -2365,7 +1951,7 @@ Schema$1.prototype.extend = function extend(definition) {
   var implicit = [];
   var explicit = [];
 
-  if (definition instanceof type$3) {
+  if (definition instanceof type$8) {
     // Schema.extend(type)
     explicit.push(definition);
 
@@ -2384,7 +1970,7 @@ Schema$1.prototype.extend = function extend(definition) {
   }
 
   implicit.forEach(function (type) {
-    if (!(type instanceof type$3)) {
+    if (!(type instanceof type$8)) {
       throw new exception('Specified list of YAML types (or a single Type object) contains a non-Type object.');
     }
 
@@ -2398,7 +1984,7 @@ Schema$1.prototype.extend = function extend(definition) {
   });
 
   explicit.forEach(function (type) {
-    if (!(type instanceof type$3)) {
+    if (!(type instanceof type$8)) {
       throw new exception('Specified list of YAML types (or a single Type object) contains a non-Type object.');
     }
   });
@@ -2418,17 +2004,17 @@ Schema$1.prototype.extend = function extend(definition) {
 
 var schema = Schema$1;
 
-var str = new type$3('tag:yaml.org,2002:str', {
+var str = new type$8('tag:yaml.org,2002:str', {
   kind: 'scalar',
   construct: function (data) { return data !== null ? data : ''; }
 });
 
-var seq = new type$3('tag:yaml.org,2002:seq', {
+var seq = new type$8('tag:yaml.org,2002:seq', {
   kind: 'sequence',
   construct: function (data) { return data !== null ? data : []; }
 });
 
-var map = new type$3('tag:yaml.org,2002:map', {
+var map = new type$8('tag:yaml.org,2002:map', {
   kind: 'mapping',
   construct: function (data) { return data !== null ? data : {}; }
 });
@@ -2458,7 +2044,7 @@ function isNull(object) {
   return object === null;
 }
 
-var _null = new type$3('tag:yaml.org,2002:null', {
+var _null = new type$8('tag:yaml.org,2002:null', {
   kind: 'scalar',
   resolve: resolveYamlNull,
   construct: constructYamlNull,
@@ -2492,7 +2078,7 @@ function isBoolean(object) {
   return Object.prototype.toString.call(object) === '[object Boolean]';
 }
 
-var bool = new type$3('tag:yaml.org,2002:bool', {
+var bool = new type$8('tag:yaml.org,2002:bool', {
   kind: 'scalar',
   resolve: resolveYamlBoolean,
   construct: constructYamlBoolean,
@@ -2636,7 +2222,7 @@ function isInteger(object) {
          (object % 1 === 0 && !common.isNegativeZero(object));
 }
 
-var int = new type$3('tag:yaml.org,2002:int', {
+var int = new type$8('tag:yaml.org,2002:int', {
   kind: 'scalar',
   resolve: resolveYamlInteger,
   construct: constructYamlInteger,
@@ -2741,7 +2327,7 @@ function isFloat(object) {
          (object % 1 !== 0 || common.isNegativeZero(object));
 }
 
-var float = new type$3('tag:yaml.org,2002:float', {
+var float = new type$8('tag:yaml.org,2002:float', {
   kind: 'scalar',
   resolve: resolveYamlFloat,
   construct: constructYamlFloat,
@@ -2838,7 +2424,7 @@ function representYamlTimestamp(object /*, style*/) {
   return object.toISOString();
 }
 
-var timestamp = new type$3('tag:yaml.org,2002:timestamp', {
+var timestamp = new type$8('tag:yaml.org,2002:timestamp', {
   kind: 'scalar',
   resolve: resolveYamlTimestamp,
   construct: constructYamlTimestamp,
@@ -2850,7 +2436,7 @@ function resolveYamlMerge(data) {
   return data === '<<' || data === null;
 }
 
-var merge = new type$3('tag:yaml.org,2002:merge', {
+var merge = new type$8('tag:yaml.org,2002:merge', {
   kind: 'scalar',
   resolve: resolveYamlMerge
 });
@@ -2971,7 +2557,7 @@ function isBinary(obj) {
   return Object.prototype.toString.call(obj) ===  '[object Uint8Array]';
 }
 
-var binary = new type$3('tag:yaml.org,2002:binary', {
+var binary = new type$8('tag:yaml.org,2002:binary', {
   kind: 'scalar',
   resolve: resolveYamlBinary,
   construct: constructYamlBinary,
@@ -3014,7 +2600,7 @@ function constructYamlOmap(data) {
   return data !== null ? data : [];
 }
 
-var omap = new type$3('tag:yaml.org,2002:omap', {
+var omap = new type$8('tag:yaml.org,2002:omap', {
   kind: 'sequence',
   resolve: resolveYamlOmap,
   construct: constructYamlOmap
@@ -3064,7 +2650,7 @@ function constructYamlPairs(data) {
   return result;
 }
 
-var pairs = new type$3('tag:yaml.org,2002:pairs', {
+var pairs = new type$8('tag:yaml.org,2002:pairs', {
   kind: 'sequence',
   resolve: resolveYamlPairs,
   construct: constructYamlPairs
@@ -3090,7 +2676,7 @@ function constructYamlSet(data) {
   return data !== null ? data : {};
 }
 
-var set = new type$3('tag:yaml.org,2002:set', {
+var set = new type$8('tag:yaml.org,2002:set', {
   kind: 'mapping',
   resolve: resolveYamlSet,
   construct: constructYamlSet
@@ -5816,7 +5402,7 @@ function renamed(from, to) {
 }
 
 
-var Type                = type$3;
+var Type                = type$8;
 var Schema              = schema;
 var FAILSAFE_SCHEMA     = failsafe;
 var JSON_SCHEMA         = json;
@@ -5868,8 +5454,8 @@ var jsYaml = {
 
 var title = "Consumer options";
 var description = "Bla bla bla";
-var type$2 = "object";
-var required$2 = [
+var type$7 = "object";
+var required$3 = [
 	"amqp",
 	"queue",
 	"message"
@@ -5999,7 +5585,7 @@ var properties$2 = {
 		}
 	}
 };
-var definitions$2 = {
+var definitions$6 = {
 	Reference: {
 		type: "object",
 		required: [
@@ -6315,14 +5901,14 @@ var definitions$2 = {
 var consumer = {
 	title: title,
 	description: description,
-	type: type$2,
-	required: required$2,
+	type: type$7,
+	required: required$3,
 	properties: properties$2,
-	definitions: definitions$2
+	definitions: definitions$6
 };
 
-var type$1 = "object";
-var required$1 = [
+var type$6 = "object";
+var required$2 = [
 	"exchange",
 	"message"
 ];
@@ -6383,10 +5969,1741 @@ var properties$1 = {
 		}
 	}
 };
-var errorMessage$1 = {
+var errorMessage$2 = {
 	properties: {
 		exchange: "Exchange should be an object",
 		message: "Message should be an object"
+	}
+};
+var definitions$5 = {
+	Reference: {
+		type: "object",
+		required: [
+			"$ref"
+		],
+		patternProperties: {
+			"^\\$ref$": {
+				type: "string"
+			}
+		}
+	},
+	Version: {
+		type: "string",
+		pattern: "^1\\.0\\.\\d(-.+)?$"
+	},
+	Schema: {
+		type: "object",
+		properties: {
+			title: {
+				type: "string"
+			},
+			multipleOf: {
+				type: "number",
+				minimum: 0
+			},
+			maximum: {
+				type: "number"
+			},
+			exclusiveMaximum: {
+				type: "boolean",
+				"default": false
+			},
+			minimum: {
+				type: "number"
+			},
+			exclusiveMinimum: {
+				type: "boolean",
+				"default": false
+			},
+			maxLength: {
+				type: "integer",
+				minimum: 0
+			},
+			minLength: {
+				type: "integer",
+				minimum: 0,
+				"default": 0
+			},
+			pattern: {
+				type: "string",
+				format: "regex"
+			},
+			maxItems: {
+				type: "integer",
+				minimum: 0
+			},
+			minItems: {
+				type: "integer",
+				minimum: 0,
+				"default": 0
+			},
+			uniqueItems: {
+				type: "boolean",
+				"default": false
+			},
+			maxProperties: {
+				type: "integer",
+				minimum: 0
+			},
+			minProperties: {
+				type: "integer",
+				minimum: 0,
+				"default": 0
+			},
+			required: {
+				type: "array",
+				items: {
+					type: "string"
+				},
+				minItems: 1,
+				uniqueItems: true
+			},
+			"enum": {
+				type: "array",
+				items: {
+				},
+				minItems: 1,
+				uniqueItems: false
+			},
+			type: {
+				type: "string",
+				"enum": [
+					"array",
+					"boolean",
+					"integer",
+					"number",
+					"object",
+					"string"
+				]
+			},
+			not: {
+				oneOf: [
+					{
+						$ref: "#/definitions/Schema"
+					},
+					{
+						$ref: "#/definitions/Reference"
+					}
+				]
+			},
+			allOf: {
+				type: "array",
+				items: {
+					oneOf: [
+						{
+							$ref: "#/definitions/Schema"
+						},
+						{
+							$ref: "#/definitions/Reference"
+						}
+					]
+				}
+			},
+			oneOf: {
+				type: "array",
+				items: {
+					oneOf: [
+						{
+							$ref: "#/definitions/Schema"
+						},
+						{
+							$ref: "#/definitions/Reference"
+						}
+					]
+				}
+			},
+			anyOf: {
+				type: "array",
+				items: {
+					oneOf: [
+						{
+							$ref: "#/definitions/Schema"
+						},
+						{
+							$ref: "#/definitions/Reference"
+						}
+					]
+				}
+			},
+			items: {
+				oneOf: [
+					{
+						$ref: "#/definitions/Schema"
+					},
+					{
+						$ref: "#/definitions/Reference"
+					}
+				]
+			},
+			properties: {
+				type: "object",
+				additionalProperties: {
+					oneOf: [
+						{
+							$ref: "#/definitions/Schema"
+						},
+						{
+							$ref: "#/definitions/Reference"
+						}
+					]
+				}
+			},
+			additionalProperties: {
+				oneOf: [
+					{
+						$ref: "#/definitions/Schema"
+					},
+					{
+						$ref: "#/definitions/Reference"
+					},
+					{
+						type: "boolean"
+					}
+				],
+				"default": true
+			},
+			description: {
+				type: "string"
+			},
+			format: {
+				type: "string"
+			},
+			"default": {
+			},
+			nullable: {
+				type: "boolean",
+				"default": false
+			},
+			discriminator: {
+				$ref: "#/definitions/Discriminator"
+			},
+			readOnly: {
+				type: "boolean",
+				"default": false
+			},
+			writeOnly: {
+				type: "boolean",
+				"default": false
+			},
+			example: {
+			},
+			externalDocs: {
+				$ref: "#/definitions/ExternalDocumentation"
+			},
+			deprecated: {
+				type: "boolean",
+				"default": false
+			},
+			xml: {
+				$ref: "#/definitions/XML"
+			}
+		},
+		patternProperties: {
+			"^x-": {
+			}
+		},
+		additionalProperties: false
+	},
+	ExternalDocumentation: {
+		type: "object",
+		required: [
+			"url"
+		],
+		properties: {
+			description: {
+				type: "string"
+			},
+			url: {
+				type: "string",
+				format: "uri-reference"
+			}
+		},
+		patternProperties: {
+			"^x-": {
+			}
+		},
+		additionalProperties: false
+	},
+	Discriminator: {
+		type: "object",
+		required: [
+			"propertyName"
+		],
+		properties: {
+			propertyName: {
+				type: "string"
+			},
+			mapping: {
+				type: "object",
+				additionalProperties: {
+					type: "string"
+				}
+			}
+		}
+	},
+	XML: {
+		type: "object",
+		properties: {
+			name: {
+				type: "string"
+			},
+			namespace: {
+				type: "string",
+				format: "uri"
+			},
+			prefix: {
+				type: "string"
+			},
+			attribute: {
+				type: "boolean",
+				"default": false
+			},
+			wrapped: {
+				type: "boolean",
+				"default": false
+			}
+		},
+		patternProperties: {
+			"^x-": {
+			}
+		},
+		additionalProperties: false
+	},
+	Extensible: {
+		type: "object",
+		required: [
+			"def"
+		],
+		additionalProperties: false,
+		patternProperties: {
+			"^def$": {
+				$ref: "#/definitions/Reference"
+			},
+			"^extendedBy": {
+				type: "array",
+				items: {
+					$ref: "#/definitions/Reference"
+				}
+			}
+		}
+	}
+};
+var publisher = {
+	type: type$6,
+	required: required$2,
+	properties: properties$1,
+	errorMessage: errorMessage$2,
+	definitions: definitions$5
+};
+
+var type$5 = "object";
+var required$1 = [
+	"url"
+];
+var properties = {
+	url: {
+		type: "string"
+	}
+};
+var errorMessage$1 = {
+	type: "Connection options should be an object.",
+	required: "Connection url is required.",
+	properties: {
+		url: "Connection url should be a valid RabbitMQ connection url."
+	}
+};
+var definitions$4 = {
+	Reference: {
+		type: "object",
+		required: [
+			"$ref"
+		],
+		patternProperties: {
+			"^\\$ref$": {
+				type: "string"
+			}
+		}
+	},
+	Version: {
+		type: "string",
+		pattern: "^1\\.0\\.\\d(-.+)?$"
+	},
+	Schema: {
+		type: "object",
+		properties: {
+			title: {
+				type: "string"
+			},
+			multipleOf: {
+				type: "number",
+				minimum: 0
+			},
+			maximum: {
+				type: "number"
+			},
+			exclusiveMaximum: {
+				type: "boolean",
+				"default": false
+			},
+			minimum: {
+				type: "number"
+			},
+			exclusiveMinimum: {
+				type: "boolean",
+				"default": false
+			},
+			maxLength: {
+				type: "integer",
+				minimum: 0
+			},
+			minLength: {
+				type: "integer",
+				minimum: 0,
+				"default": 0
+			},
+			pattern: {
+				type: "string",
+				format: "regex"
+			},
+			maxItems: {
+				type: "integer",
+				minimum: 0
+			},
+			minItems: {
+				type: "integer",
+				minimum: 0,
+				"default": 0
+			},
+			uniqueItems: {
+				type: "boolean",
+				"default": false
+			},
+			maxProperties: {
+				type: "integer",
+				minimum: 0
+			},
+			minProperties: {
+				type: "integer",
+				minimum: 0,
+				"default": 0
+			},
+			required: {
+				type: "array",
+				items: {
+					type: "string"
+				},
+				minItems: 1,
+				uniqueItems: true
+			},
+			"enum": {
+				type: "array",
+				items: {
+				},
+				minItems: 1,
+				uniqueItems: false
+			},
+			type: {
+				type: "string",
+				"enum": [
+					"array",
+					"boolean",
+					"integer",
+					"number",
+					"object",
+					"string"
+				]
+			},
+			not: {
+				oneOf: [
+					{
+						$ref: "#/definitions/Schema"
+					},
+					{
+						$ref: "#/definitions/Reference"
+					}
+				]
+			},
+			allOf: {
+				type: "array",
+				items: {
+					oneOf: [
+						{
+							$ref: "#/definitions/Schema"
+						},
+						{
+							$ref: "#/definitions/Reference"
+						}
+					]
+				}
+			},
+			oneOf: {
+				type: "array",
+				items: {
+					oneOf: [
+						{
+							$ref: "#/definitions/Schema"
+						},
+						{
+							$ref: "#/definitions/Reference"
+						}
+					]
+				}
+			},
+			anyOf: {
+				type: "array",
+				items: {
+					oneOf: [
+						{
+							$ref: "#/definitions/Schema"
+						},
+						{
+							$ref: "#/definitions/Reference"
+						}
+					]
+				}
+			},
+			items: {
+				oneOf: [
+					{
+						$ref: "#/definitions/Schema"
+					},
+					{
+						$ref: "#/definitions/Reference"
+					}
+				]
+			},
+			properties: {
+				type: "object",
+				additionalProperties: {
+					oneOf: [
+						{
+							$ref: "#/definitions/Schema"
+						},
+						{
+							$ref: "#/definitions/Reference"
+						}
+					]
+				}
+			},
+			additionalProperties: {
+				oneOf: [
+					{
+						$ref: "#/definitions/Schema"
+					},
+					{
+						$ref: "#/definitions/Reference"
+					},
+					{
+						type: "boolean"
+					}
+				],
+				"default": true
+			},
+			description: {
+				type: "string"
+			},
+			format: {
+				type: "string"
+			},
+			"default": {
+			},
+			nullable: {
+				type: "boolean",
+				"default": false
+			},
+			discriminator: {
+				$ref: "#/definitions/Discriminator"
+			},
+			readOnly: {
+				type: "boolean",
+				"default": false
+			},
+			writeOnly: {
+				type: "boolean",
+				"default": false
+			},
+			example: {
+			},
+			externalDocs: {
+				$ref: "#/definitions/ExternalDocumentation"
+			},
+			deprecated: {
+				type: "boolean",
+				"default": false
+			},
+			xml: {
+				$ref: "#/definitions/XML"
+			}
+		},
+		patternProperties: {
+			"^x-": {
+			}
+		},
+		additionalProperties: false
+	},
+	ExternalDocumentation: {
+		type: "object",
+		required: [
+			"url"
+		],
+		properties: {
+			description: {
+				type: "string"
+			},
+			url: {
+				type: "string",
+				format: "uri-reference"
+			}
+		},
+		patternProperties: {
+			"^x-": {
+			}
+		},
+		additionalProperties: false
+	},
+	Discriminator: {
+		type: "object",
+		required: [
+			"propertyName"
+		],
+		properties: {
+			propertyName: {
+				type: "string"
+			},
+			mapping: {
+				type: "object",
+				additionalProperties: {
+					type: "string"
+				}
+			}
+		}
+	},
+	XML: {
+		type: "object",
+		properties: {
+			name: {
+				type: "string"
+			},
+			namespace: {
+				type: "string",
+				format: "uri"
+			},
+			prefix: {
+				type: "string"
+			},
+			attribute: {
+				type: "boolean",
+				"default": false
+			},
+			wrapped: {
+				type: "boolean",
+				"default": false
+			}
+		},
+		patternProperties: {
+			"^x-": {
+			}
+		},
+		additionalProperties: false
+	},
+	Extensible: {
+		type: "object",
+		required: [
+			"def"
+		],
+		additionalProperties: false,
+		patternProperties: {
+			"^def$": {
+				$ref: "#/definitions/Reference"
+			},
+			"^extendedBy": {
+				type: "array",
+				items: {
+					$ref: "#/definitions/Reference"
+				}
+			}
+		}
+	}
+};
+var connection = {
+	type: type$5,
+	required: required$1,
+	properties: properties,
+	errorMessage: errorMessage$1,
+	definitions: definitions$4
+};
+
+var type$4 = "object";
+var required = [
+	"url"
+];
+var patternProperties$1 = {
+	"^url$": {
+		type: "string",
+		format: "uri-reference"
+	}
+};
+var errorMessage = {
+	type: "Connection options should be an object.",
+	required: "Connection url is required.",
+	properties: {
+		url: "Connection url should be a valid RabbitMQ connection url."
+	}
+};
+var connectionStrict = {
+	type: type$4,
+	required: required,
+	patternProperties: patternProperties$1,
+	errorMessage: errorMessage
+};
+
+var type$3 = "object";
+var allOf$1 = [
+	{
+		required: [
+			"amqp",
+			"queue"
+		]
+	},
+	{
+		type: "object",
+		additionalProperties: false,
+		patternProperties: {
+			"^amqp": {
+				type: "object",
+				required: [
+					"url"
+				],
+				patternProperties: {
+					"^url$": {
+						type: "string",
+						format: "uri-reference"
+					}
+				},
+				errorMessage: {
+					type: "Connection options should be an object.",
+					required: "Connection url is required.",
+					properties: {
+						url: "Connection url should be a valid RabbitMQ connection url."
+					}
+				}
+			},
+			"^queue$": {
+				oneOf: [
+					{
+						type: "object",
+						additionalProperties: false,
+						patternProperties: {
+							"^name$": {
+								type: "string"
+							},
+							"^exchange$": {
+								oneOf: [
+									{
+										$ref: "#/definitions/Reference"
+									},
+									{
+										type: "object",
+										additionalProperties: false,
+										patternProperties: {
+											"^name$": {
+												type: "string"
+											},
+											"^mode$": {
+												"enum": [
+													"fanout",
+													"direct",
+													"topic"
+												],
+												"default": "fanout"
+											},
+											"^options$": {
+												type: "object",
+												patternProperties: {
+													"^durable$": {
+														type: "boolean",
+														"default": true
+													},
+													"^autoDelete$": {
+														type: "boolean",
+														"default": false
+													},
+													"^persistent$": {
+														type: "boolean",
+														"default": true
+													}
+												}
+											}
+										}
+									}
+								]
+							},
+							"^options$": {
+								type: "object",
+								patternProperties: {
+									"^noAck$": {
+										type: "boolean",
+										"default": false
+									},
+									"^exclusive$": {
+										type: "boolean",
+										"default": false
+									},
+									"^durable$": {
+										type: "boolean",
+										"default": true
+									},
+									"^autoDelete$": {
+										type: "boolean",
+										"default": false
+									},
+									"^prefetch$": {
+										type: "number",
+										"default": 1
+									}
+								}
+							}
+						}
+					},
+					{
+						$ref: "#/definitions/Reference"
+					}
+				]
+			},
+			"^message$": {
+				oneOf: [
+					{
+						$ref: "#/definitions/Schema"
+					},
+					{
+						$ref: "#/definitions/Reference"
+					}
+				]
+			}
+		}
+	}
+];
+var definitions$3 = {
+	Reference: {
+		type: "object",
+		required: [
+			"$ref"
+		],
+		patternProperties: {
+			"^\\$ref$": {
+				type: "string"
+			}
+		}
+	},
+	Version: {
+		type: "string",
+		pattern: "^1\\.0\\.\\d(-.+)?$"
+	},
+	Schema: {
+		type: "object",
+		properties: {
+			title: {
+				type: "string"
+			},
+			multipleOf: {
+				type: "number",
+				minimum: 0
+			},
+			maximum: {
+				type: "number"
+			},
+			exclusiveMaximum: {
+				type: "boolean",
+				"default": false
+			},
+			minimum: {
+				type: "number"
+			},
+			exclusiveMinimum: {
+				type: "boolean",
+				"default": false
+			},
+			maxLength: {
+				type: "integer",
+				minimum: 0
+			},
+			minLength: {
+				type: "integer",
+				minimum: 0,
+				"default": 0
+			},
+			pattern: {
+				type: "string",
+				format: "regex"
+			},
+			maxItems: {
+				type: "integer",
+				minimum: 0
+			},
+			minItems: {
+				type: "integer",
+				minimum: 0,
+				"default": 0
+			},
+			uniqueItems: {
+				type: "boolean",
+				"default": false
+			},
+			maxProperties: {
+				type: "integer",
+				minimum: 0
+			},
+			minProperties: {
+				type: "integer",
+				minimum: 0,
+				"default": 0
+			},
+			required: {
+				type: "array",
+				items: {
+					type: "string"
+				},
+				minItems: 1,
+				uniqueItems: true
+			},
+			"enum": {
+				type: "array",
+				items: {
+				},
+				minItems: 1,
+				uniqueItems: false
+			},
+			type: {
+				type: "string",
+				"enum": [
+					"array",
+					"boolean",
+					"integer",
+					"number",
+					"object",
+					"string"
+				]
+			},
+			not: {
+				oneOf: [
+					{
+						$ref: "#/definitions/Schema"
+					},
+					{
+						$ref: "#/definitions/Reference"
+					}
+				]
+			},
+			allOf: {
+				type: "array",
+				items: {
+					oneOf: [
+						{
+							$ref: "#/definitions/Schema"
+						},
+						{
+							$ref: "#/definitions/Reference"
+						}
+					]
+				}
+			},
+			oneOf: {
+				type: "array",
+				items: {
+					oneOf: [
+						{
+							$ref: "#/definitions/Schema"
+						},
+						{
+							$ref: "#/definitions/Reference"
+						}
+					]
+				}
+			},
+			anyOf: {
+				type: "array",
+				items: {
+					oneOf: [
+						{
+							$ref: "#/definitions/Schema"
+						},
+						{
+							$ref: "#/definitions/Reference"
+						}
+					]
+				}
+			},
+			items: {
+				oneOf: [
+					{
+						$ref: "#/definitions/Schema"
+					},
+					{
+						$ref: "#/definitions/Reference"
+					}
+				]
+			},
+			properties: {
+				type: "object",
+				additionalProperties: {
+					oneOf: [
+						{
+							$ref: "#/definitions/Schema"
+						},
+						{
+							$ref: "#/definitions/Reference"
+						}
+					]
+				}
+			},
+			additionalProperties: {
+				oneOf: [
+					{
+						$ref: "#/definitions/Schema"
+					},
+					{
+						$ref: "#/definitions/Reference"
+					},
+					{
+						type: "boolean"
+					}
+				],
+				"default": true
+			},
+			description: {
+				type: "string"
+			},
+			format: {
+				type: "string"
+			},
+			"default": {
+			},
+			nullable: {
+				type: "boolean",
+				"default": false
+			},
+			discriminator: {
+				$ref: "#/definitions/Discriminator"
+			},
+			readOnly: {
+				type: "boolean",
+				"default": false
+			},
+			writeOnly: {
+				type: "boolean",
+				"default": false
+			},
+			example: {
+			},
+			externalDocs: {
+				$ref: "#/definitions/ExternalDocumentation"
+			},
+			deprecated: {
+				type: "boolean",
+				"default": false
+			},
+			xml: {
+				$ref: "#/definitions/XML"
+			}
+		},
+		patternProperties: {
+			"^x-": {
+			}
+		},
+		additionalProperties: false
+	},
+	ExternalDocumentation: {
+		type: "object",
+		required: [
+			"url"
+		],
+		properties: {
+			description: {
+				type: "string"
+			},
+			url: {
+				type: "string",
+				format: "uri-reference"
+			}
+		},
+		patternProperties: {
+			"^x-": {
+			}
+		},
+		additionalProperties: false
+	},
+	Discriminator: {
+		type: "object",
+		required: [
+			"propertyName"
+		],
+		properties: {
+			propertyName: {
+				type: "string"
+			},
+			mapping: {
+				type: "object",
+				additionalProperties: {
+					type: "string"
+				}
+			}
+		}
+	},
+	XML: {
+		type: "object",
+		properties: {
+			name: {
+				type: "string"
+			},
+			namespace: {
+				type: "string",
+				format: "uri"
+			},
+			prefix: {
+				type: "string"
+			},
+			attribute: {
+				type: "boolean",
+				"default": false
+			},
+			wrapped: {
+				type: "boolean",
+				"default": false
+			}
+		},
+		patternProperties: {
+			"^x-": {
+			}
+		},
+		additionalProperties: false
+	},
+	Extensible: {
+		type: "object",
+		required: [
+			"def"
+		],
+		additionalProperties: false,
+		patternProperties: {
+			"^def$": {
+				$ref: "#/definitions/Reference"
+			},
+			"^extendedBy": {
+				type: "array",
+				items: {
+					$ref: "#/definitions/Reference"
+				}
+			}
+		}
+	}
+};
+var consumeStrict = {
+	type: type$3,
+	allOf: allOf$1,
+	definitions: definitions$3
+};
+
+var type$2 = "object";
+var allOf = [
+	{
+		required: [
+			"amqp",
+			"exchange"
+		]
+	},
+	{
+		type: "object",
+		additionalProperties: false,
+		patternProperties: {
+			"^amqp": {
+				type: "object",
+				required: [
+					"url"
+				],
+				patternProperties: {
+					"^url$": {
+						type: "string",
+						format: "uri-reference"
+					}
+				},
+				errorMessage: {
+					type: "Connection options should be an object.",
+					required: "Connection url is required.",
+					properties: {
+						url: "Connection url should be a valid RabbitMQ connection url."
+					}
+				}
+			},
+			"^exchange$": {
+				oneOf: [
+					{
+						type: "object",
+						additionalProperties: false,
+						patternProperties: {
+							"^name$": {
+								type: "string"
+							},
+							"^mode$": {
+								"enum": [
+									"fanout",
+									"direct",
+									"topic"
+								],
+								"default": "fanout"
+							},
+							"^options$": {
+								type: "object",
+								patternProperties: {
+									"^durable$": {
+										type: "boolean",
+										"default": true
+									},
+									"^autoDelete$": {
+										type: "boolean",
+										"default": false
+									},
+									"^persistent$": {
+										type: "boolean",
+										"default": true
+									}
+								}
+							}
+						}
+					},
+					{
+						$ref: "#/definitions/Reference"
+					}
+				]
+			},
+			"^message$": {
+				oneOf: [
+					{
+						$ref: "#/definitions/Schema"
+					},
+					{
+						$ref: "#/definitions/Reference"
+					}
+				]
+			}
+		}
+	}
+];
+var definitions$2 = {
+	Reference: {
+		type: "object",
+		required: [
+			"$ref"
+		],
+		patternProperties: {
+			"^\\$ref$": {
+				type: "string"
+			}
+		}
+	},
+	Version: {
+		type: "string",
+		pattern: "^1\\.0\\.\\d(-.+)?$"
+	},
+	Schema: {
+		type: "object",
+		properties: {
+			title: {
+				type: "string"
+			},
+			multipleOf: {
+				type: "number",
+				minimum: 0
+			},
+			maximum: {
+				type: "number"
+			},
+			exclusiveMaximum: {
+				type: "boolean",
+				"default": false
+			},
+			minimum: {
+				type: "number"
+			},
+			exclusiveMinimum: {
+				type: "boolean",
+				"default": false
+			},
+			maxLength: {
+				type: "integer",
+				minimum: 0
+			},
+			minLength: {
+				type: "integer",
+				minimum: 0,
+				"default": 0
+			},
+			pattern: {
+				type: "string",
+				format: "regex"
+			},
+			maxItems: {
+				type: "integer",
+				minimum: 0
+			},
+			minItems: {
+				type: "integer",
+				minimum: 0,
+				"default": 0
+			},
+			uniqueItems: {
+				type: "boolean",
+				"default": false
+			},
+			maxProperties: {
+				type: "integer",
+				minimum: 0
+			},
+			minProperties: {
+				type: "integer",
+				minimum: 0,
+				"default": 0
+			},
+			required: {
+				type: "array",
+				items: {
+					type: "string"
+				},
+				minItems: 1,
+				uniqueItems: true
+			},
+			"enum": {
+				type: "array",
+				items: {
+				},
+				minItems: 1,
+				uniqueItems: false
+			},
+			type: {
+				type: "string",
+				"enum": [
+					"array",
+					"boolean",
+					"integer",
+					"number",
+					"object",
+					"string"
+				]
+			},
+			not: {
+				oneOf: [
+					{
+						$ref: "#/definitions/Schema"
+					},
+					{
+						$ref: "#/definitions/Reference"
+					}
+				]
+			},
+			allOf: {
+				type: "array",
+				items: {
+					oneOf: [
+						{
+							$ref: "#/definitions/Schema"
+						},
+						{
+							$ref: "#/definitions/Reference"
+						}
+					]
+				}
+			},
+			oneOf: {
+				type: "array",
+				items: {
+					oneOf: [
+						{
+							$ref: "#/definitions/Schema"
+						},
+						{
+							$ref: "#/definitions/Reference"
+						}
+					]
+				}
+			},
+			anyOf: {
+				type: "array",
+				items: {
+					oneOf: [
+						{
+							$ref: "#/definitions/Schema"
+						},
+						{
+							$ref: "#/definitions/Reference"
+						}
+					]
+				}
+			},
+			items: {
+				oneOf: [
+					{
+						$ref: "#/definitions/Schema"
+					},
+					{
+						$ref: "#/definitions/Reference"
+					}
+				]
+			},
+			properties: {
+				type: "object",
+				additionalProperties: {
+					oneOf: [
+						{
+							$ref: "#/definitions/Schema"
+						},
+						{
+							$ref: "#/definitions/Reference"
+						}
+					]
+				}
+			},
+			additionalProperties: {
+				oneOf: [
+					{
+						$ref: "#/definitions/Schema"
+					},
+					{
+						$ref: "#/definitions/Reference"
+					},
+					{
+						type: "boolean"
+					}
+				],
+				"default": true
+			},
+			description: {
+				type: "string"
+			},
+			format: {
+				type: "string"
+			},
+			"default": {
+			},
+			nullable: {
+				type: "boolean",
+				"default": false
+			},
+			discriminator: {
+				$ref: "#/definitions/Discriminator"
+			},
+			readOnly: {
+				type: "boolean",
+				"default": false
+			},
+			writeOnly: {
+				type: "boolean",
+				"default": false
+			},
+			example: {
+			},
+			externalDocs: {
+				$ref: "#/definitions/ExternalDocumentation"
+			},
+			deprecated: {
+				type: "boolean",
+				"default": false
+			},
+			xml: {
+				$ref: "#/definitions/XML"
+			}
+		},
+		patternProperties: {
+			"^x-": {
+			}
+		},
+		additionalProperties: false
+	},
+	ExternalDocumentation: {
+		type: "object",
+		required: [
+			"url"
+		],
+		properties: {
+			description: {
+				type: "string"
+			},
+			url: {
+				type: "string",
+				format: "uri-reference"
+			}
+		},
+		patternProperties: {
+			"^x-": {
+			}
+		},
+		additionalProperties: false
+	},
+	Discriminator: {
+		type: "object",
+		required: [
+			"propertyName"
+		],
+		properties: {
+			propertyName: {
+				type: "string"
+			},
+			mapping: {
+				type: "object",
+				additionalProperties: {
+					type: "string"
+				}
+			}
+		}
+	},
+	XML: {
+		type: "object",
+		properties: {
+			name: {
+				type: "string"
+			},
+			namespace: {
+				type: "string",
+				format: "uri"
+			},
+			prefix: {
+				type: "string"
+			},
+			attribute: {
+				type: "boolean",
+				"default": false
+			},
+			wrapped: {
+				type: "boolean",
+				"default": false
+			}
+		},
+		patternProperties: {
+			"^x-": {
+			}
+		},
+		additionalProperties: false
+	},
+	Extensible: {
+		type: "object",
+		required: [
+			"def"
+		],
+		additionalProperties: false,
+		patternProperties: {
+			"^def$": {
+				$ref: "#/definitions/Reference"
+			},
+			"^extendedBy": {
+				type: "array",
+				items: {
+					$ref: "#/definitions/Reference"
+				}
+			}
+		}
+	}
+};
+var produceStrict = {
+	type: type$2,
+	allOf: allOf,
+	definitions: definitions$2
+};
+
+var type$1 = "object";
+var additionalProperties = false;
+var patternProperties = {
+	"^config$": {
+		type: "object"
+	},
+	"^consume$": {
+		type: "object",
+		additionalProperties: false,
+		patternProperties: {
+			"^amqp": {
+				type: "object",
+				required: [
+					"url"
+				],
+				patternProperties: {
+					"^url$": {
+						type: "string",
+						format: "uri-reference"
+					}
+				},
+				errorMessage: {
+					type: "Connection options should be an object.",
+					required: "Connection url is required.",
+					properties: {
+						url: "Connection url should be a valid RabbitMQ connection url."
+					}
+				}
+			},
+			"^queue$": {
+				oneOf: [
+					{
+						type: "object",
+						additionalProperties: false,
+						patternProperties: {
+							"^name$": {
+								type: "string"
+							},
+							"^exchange$": {
+								oneOf: [
+									{
+										$ref: "#/definitions/Reference"
+									},
+									{
+										type: "object",
+										additionalProperties: false,
+										patternProperties: {
+											"^name$": {
+												type: "string"
+											},
+											"^mode$": {
+												"enum": [
+													"fanout",
+													"direct",
+													"topic"
+												],
+												"default": "fanout"
+											},
+											"^options$": {
+												type: "object",
+												patternProperties: {
+													"^durable$": {
+														type: "boolean",
+														"default": true
+													},
+													"^autoDelete$": {
+														type: "boolean",
+														"default": false
+													},
+													"^persistent$": {
+														type: "boolean",
+														"default": true
+													}
+												}
+											}
+										}
+									}
+								]
+							},
+							"^options$": {
+								type: "object",
+								patternProperties: {
+									"^noAck$": {
+										type: "boolean",
+										"default": false
+									},
+									"^exclusive$": {
+										type: "boolean",
+										"default": false
+									},
+									"^durable$": {
+										type: "boolean",
+										"default": true
+									},
+									"^autoDelete$": {
+										type: "boolean",
+										"default": false
+									},
+									"^prefetch$": {
+										type: "number",
+										"default": 1
+									}
+								}
+							}
+						}
+					},
+					{
+						$ref: "#/definitions/Reference"
+					}
+				]
+			},
+			"^message$": {
+				oneOf: [
+					{
+						$ref: "#/definitions/Schema"
+					},
+					{
+						$ref: "#/definitions/Reference"
+					}
+				]
+			}
+		}
+	},
+	"^produce$": {
+		type: "object",
+		additionalProperties: false,
+		patternProperties: {
+			"^amqp": {
+				type: "object",
+				required: [
+					"url"
+				],
+				patternProperties: {
+					"^url$": {
+						type: "string",
+						format: "uri-reference"
+					}
+				},
+				errorMessage: {
+					type: "Connection options should be an object.",
+					required: "Connection url is required.",
+					properties: {
+						url: "Connection url should be a valid RabbitMQ connection url."
+					}
+				}
+			},
+			"^exchange$": {
+				oneOf: [
+					{
+						type: "object",
+						additionalProperties: false,
+						patternProperties: {
+							"^name$": {
+								type: "string"
+							},
+							"^mode$": {
+								"enum": [
+									"fanout",
+									"direct",
+									"topic"
+								],
+								"default": "fanout"
+							},
+							"^options$": {
+								type: "object",
+								patternProperties: {
+									"^durable$": {
+										type: "boolean",
+										"default": true
+									},
+									"^autoDelete$": {
+										type: "boolean",
+										"default": false
+									},
+									"^persistent$": {
+										type: "boolean",
+										"default": true
+									}
+								}
+							}
+						}
+					},
+					{
+						$ref: "#/definitions/Reference"
+					}
+				]
+			},
+			"^message$": {
+				oneOf: [
+					{
+						$ref: "#/definitions/Schema"
+					},
+					{
+						$ref: "#/definitions/Reference"
+					}
+				]
+			}
+		}
 	}
 };
 var definitions$1 = {
@@ -6702,28 +8019,229 @@ var definitions$1 = {
 		}
 	}
 };
-var publisher = {
+var serviceStrict = {
 	type: type$1,
-	required: required$1,
-	properties: properties$1,
-	errorMessage: errorMessage$1,
+	additionalProperties: additionalProperties,
+	patternProperties: patternProperties,
 	definitions: definitions$1
 };
 
-var type = "object";
-var required = [
-	"url"
-];
-var properties = {
-	url: {
-		type: "string"
-	}
-};
-var errorMessage = {
-	type: "Connection options should be an object.",
-	required: "Connection url is required.",
-	properties: {
-		url: "Connection url should be a valid RabbitMQ connection url."
+var type = "array";
+var items = {
+	type: "object",
+	required: [
+		"instance"
+	],
+	additionalProperties: false,
+	patternProperties: {
+		"^instance$": {
+			type: "object",
+			additionalProperties: false,
+			patternProperties: {
+				"^config$": {
+					type: "object"
+				},
+				"^consume$": {
+					type: "object",
+					additionalProperties: false,
+					patternProperties: {
+						"^amqp": {
+							type: "object",
+							required: [
+								"url"
+							],
+							patternProperties: {
+								"^url$": {
+									type: "string",
+									format: "uri-reference"
+								}
+							},
+							errorMessage: {
+								type: "Connection options should be an object.",
+								required: "Connection url is required.",
+								properties: {
+									url: "Connection url should be a valid RabbitMQ connection url."
+								}
+							}
+						},
+						"^queue$": {
+							oneOf: [
+								{
+									type: "object",
+									additionalProperties: false,
+									patternProperties: {
+										"^name$": {
+											type: "string"
+										},
+										"^exchange$": {
+											oneOf: [
+												{
+													$ref: "#/definitions/Reference"
+												},
+												{
+													type: "object",
+													additionalProperties: false,
+													patternProperties: {
+														"^name$": {
+															type: "string"
+														},
+														"^mode$": {
+															"enum": [
+																"fanout",
+																"direct",
+																"topic"
+															],
+															"default": "fanout"
+														},
+														"^options$": {
+															type: "object",
+															patternProperties: {
+																"^durable$": {
+																	type: "boolean",
+																	"default": true
+																},
+																"^autoDelete$": {
+																	type: "boolean",
+																	"default": false
+																},
+																"^persistent$": {
+																	type: "boolean",
+																	"default": true
+																}
+															}
+														}
+													}
+												}
+											]
+										},
+										"^options$": {
+											type: "object",
+											patternProperties: {
+												"^noAck$": {
+													type: "boolean",
+													"default": false
+												},
+												"^exclusive$": {
+													type: "boolean",
+													"default": false
+												},
+												"^durable$": {
+													type: "boolean",
+													"default": true
+												},
+												"^autoDelete$": {
+													type: "boolean",
+													"default": false
+												},
+												"^prefetch$": {
+													type: "number",
+													"default": 1
+												}
+											}
+										}
+									}
+								},
+								{
+									$ref: "#/definitions/Reference"
+								}
+							]
+						},
+						"^message$": {
+							oneOf: [
+								{
+									$ref: "#/definitions/Schema"
+								},
+								{
+									$ref: "#/definitions/Reference"
+								}
+							]
+						}
+					}
+				},
+				"^produce$": {
+					type: "object",
+					additionalProperties: false,
+					patternProperties: {
+						"^amqp": {
+							type: "object",
+							required: [
+								"url"
+							],
+							patternProperties: {
+								"^url$": {
+									type: "string",
+									format: "uri-reference"
+								}
+							},
+							errorMessage: {
+								type: "Connection options should be an object.",
+								required: "Connection url is required.",
+								properties: {
+									url: "Connection url should be a valid RabbitMQ connection url."
+								}
+							}
+						},
+						"^exchange$": {
+							oneOf: [
+								{
+									type: "object",
+									additionalProperties: false,
+									patternProperties: {
+										"^name$": {
+											type: "string"
+										},
+										"^mode$": {
+											"enum": [
+												"fanout",
+												"direct",
+												"topic"
+											],
+											"default": "fanout"
+										},
+										"^options$": {
+											type: "object",
+											patternProperties: {
+												"^durable$": {
+													type: "boolean",
+													"default": true
+												},
+												"^autoDelete$": {
+													type: "boolean",
+													"default": false
+												},
+												"^persistent$": {
+													type: "boolean",
+													"default": true
+												}
+											}
+										}
+									}
+								},
+								{
+									$ref: "#/definitions/Reference"
+								}
+							]
+						},
+						"^message$": {
+							oneOf: [
+								{
+									$ref: "#/definitions/Schema"
+								},
+								{
+									$ref: "#/definitions/Reference"
+								}
+							]
+						}
+					}
+				}
+			}
+		},
+		"^name$": {
+			type: "string"
+		},
+		"^configuredBy$": {
+			type: "object"
+		}
 	}
 };
 var definitions = {
@@ -7039,31 +8557,60 @@ var definitions = {
 		}
 	}
 };
-var connection = {
+var workflowStrict = {
 	type: type,
-	required: required,
-	properties: properties,
-	errorMessage: errorMessage,
+	items: items,
 	definitions: definitions
 };
 
 const schemas = {
+
 	"consumer": {
 		json: consumer,
 		yaml: jsYaml.dump(consumer)
 	},
+
 	"publisher": {
 		json: publisher,
 		yaml: jsYaml.dump(publisher)
 	},
+	
     "connection": {
     	json: connection,
 		yaml: jsYaml.dump(connection)
 	},
+
 	"msapi": {
     	json: msapi,
 		yaml: jsYaml.dump(msapi)
+	},
+
+	"connectionStrict": {
+    	json: connectionStrict,
+		yaml: jsYaml.dump(connectionStrict)
+	},
+
+	"consumeStrict": {
+    	json: consumeStrict,
+		yaml: jsYaml.dump(consumeStrict)
+	},
+
+	"produceStrict": {
+    	json: produceStrict,
+		yaml: jsYaml.dump(produceStrict)
+	},
+
+	"serviceStrict": {
+    	json: serviceStrict,
+		yaml: jsYaml.dump(serviceStrict)
+	},
+
+	"workflowStrict": {
+    	json: workflowStrict,
+		yaml: jsYaml.dump(workflowStrict)
 	}
+
+
 };
 
 var msapiSchemas = schemas;
