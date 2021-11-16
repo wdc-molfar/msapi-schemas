@@ -13,6 +13,8 @@
 	const SCHEMA_DIR = "./schemas/json"
 	const YAML_DIR = "./schemas/yaml"
 
+	const SNIPPETS_YAML_DIR = "./snippets/yaml"
+	const SNIPPETS_JSON_DIR = "./snippets/json"
 
 	const processFolderRecursive =  (dir, fileCallback) => Promise.all(
 		fs.readdirSync(dir).map( async element => {
@@ -39,6 +41,17 @@
 		// console.log("Temp > "+path.resolve(`${path.dirname(file)}/${path.basename(file,".yaml")}`))
 
 		fs.writeFileSync(path.resolve(`${path.dirname(file)}/${path.basename(file,".yaml")}`), JSON.stringify(jsonSch, null," ") )	
+	
+	}
+
+	const snYaml2json = file => {
+		if(path.extname(file) != ".yaml") return
+		
+		let jsonSch = YAML.load(fs.readFileSync(file).toString())
+		
+		// console.log("Temp > "+path.resolve(`${path.dirname(file)}/${path.basename(file,".yaml")}`))
+
+		fs.writeFileSync(path.resolve(`${path.dirname(file)}/${path.basename(file,".yaml")}.json`), JSON.stringify(jsonSch, null," ") )	
 	
 	}
 
@@ -114,6 +127,12 @@
     return target;
 };
 
+	if(fs.existsSync(SNIPPETS_JSON_DIR)){
+		fs.rmdirSync(SNIPPETS_JSON_DIR, {recursive: true});
+	}
+	
+	mkdirs(SNIPPETS_JSON_DIR)
+
 
 
 	if(fs.existsSync(SCHEMA_DIR)){
@@ -141,9 +160,16 @@
 	
 	
 
-	// fs.rmdirSync(TEMP_DIR, {recursive: true})
+	fs.rmdirSync(TEMP_DIR, {recursive: true})
 
-
+	
+	
+	copySync(SNIPPETS_YAML_DIR, SNIPPETS_JSON_DIR, { overwrite: true })
+	
+	await processFolderRecursive(SNIPPETS_JSON_DIR, snYaml2json)
+	
+	await processFolderRecursive(SNIPPETS_JSON_DIR, removeTempFiles)
+	
 
 })()
 

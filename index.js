@@ -12,22 +12,41 @@ const produceStrict = require(`./schemas/json/strict/produce.schema.json`)
 const serviceStrict = require(`./schemas/json/strict/service.schema.json`)
 const workflowStrict = require(`./schemas/json/strict/workflow.schema.json`)
 
+const consumeSnippet = require(`./snippets/json/consume.json`)
+const produceSnippet = require(`./snippets/json/produce.json`)
+
 
 const schemas = {
 
 	"consumer": {
-		json: consumer,
-		yaml: YAML.dump(consumer)
+		json: consumeStrict,
+		yaml: YAML.dump(consumeStrict),
+		default: {
+			json: consumeSnippet,
+			yaml: YAML.dump(consumeSnippet)
+		},
+		snippet: {
+			json: consumeSnippet,
+			yaml: YAML.dump(consumeSnippet)
+		}
 	},
 
 	"publisher": {
-		json: publisher,
-		yaml: YAML.dump(publisher)
+		json: produceStrict,
+		yaml: YAML.dump(produceStrict),
+		default: {
+			json: produceSnippet,
+			yaml: YAML.dump(produceSnippet)
+		},
+		snippet: {
+			json: produceSnippet,
+			yaml: YAML.dump(produceSnippet)
+		}	
 	},
-	
+
     "connection": {
-    	json: connection,
-		yaml: YAML.dump(connection)
+    	json: connectionStrict,
+		yaml: YAML.dump(connectionStrict)
 	},
 
 	"msapi": {
@@ -42,12 +61,28 @@ const schemas = {
 
 	"consumeStrict": {
     	json: consumeStrict,
-		yaml: YAML.dump(consumeStrict)
+		yaml: YAML.dump(consumeStrict),
+		default: {
+			json: consumeSnippet,
+			yaml: YAML.dump(consumeSnippet)
+		},
+		snippet: {
+			json: consumeSnippet,
+			yaml: YAML.dump(consumeSnippet)
+		}
 	},
 
 	"produceStrict": {
     	json: produceStrict,
-		yaml: YAML.dump(produceStrict)
+		yaml: YAML.dump(produceStrict),
+		default: {
+			json: produceSnippet,
+			yaml: YAML.dump(produceSnippet)
+		},
+		snippet: {
+			json: produceSnippet,
+			yaml: YAML.dump(produceSnippet)
+		}
 	},
 
 	"serviceStrict": {

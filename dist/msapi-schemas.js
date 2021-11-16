@@ -6,7 +6,7 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.msapischemas = {}));
 })(this, (function (exports) { 'use strict';
 
-  var definitions$8 = {
+  var definitions$5 = {
   	Reference: {
   		type: "object",
   		required: [
@@ -320,7 +320,7 @@
   	}
   };
   var require$$0 = {
-  	definitions: definitions$8
+  	definitions: definitions$5
   };
 
   function commonjsRegister (path, loader) {
@@ -333,13 +333,13 @@
     module.exports = require$$0;
   });
 
-  var description$1 = "Validation schema for MSAPI Specification 1.0.X.";
-  var type$9 = "object";
-  var required$4 = [
+  var description = "Validation schema for MSAPI Specification 1.0.X.";
+  var type$6 = "object";
+  var required$1 = [
   	"msapi",
   	"metadata"
   ];
-  var properties$3 = {
+  var properties = {
   	msapi: {
   		$ref: "#/definitions/Version"
   	},
@@ -1286,7 +1286,7 @@
   		}
   	}
   };
-  var definitions$7 = {
+  var definitions$4 = {
   	Reference: {
   		type: "object",
   		required: [
@@ -1600,11 +1600,11 @@
   	}
   };
   var msapi = {
-  	description: description$1,
-  	type: type$9,
-  	required: required$4,
-  	properties: properties$3,
-  	definitions: definitions$7
+  	description: description,
+  	type: type$6,
+  	required: required$1,
+  	properties: properties,
+  	definitions: definitions$4
   };
 
   commonjsRegister("/$$rollup_base$$/schemas/json/msapi.schema.json", function (module, exports) {
@@ -1888,7 +1888,7 @@
     }
   }
 
-  var type$8 = Type$1;
+  var type$5 = Type$1;
 
   /*eslint-disable max-len*/
 
@@ -1957,7 +1957,7 @@
     var implicit = [];
     var explicit = [];
 
-    if (definition instanceof type$8) {
+    if (definition instanceof type$5) {
       // Schema.extend(type)
       explicit.push(definition);
 
@@ -1976,7 +1976,7 @@
     }
 
     implicit.forEach(function (type) {
-      if (!(type instanceof type$8)) {
+      if (!(type instanceof type$5)) {
         throw new exception('Specified list of YAML types (or a single Type object) contains a non-Type object.');
       }
 
@@ -1990,7 +1990,7 @@
     });
 
     explicit.forEach(function (type) {
-      if (!(type instanceof type$8)) {
+      if (!(type instanceof type$5)) {
         throw new exception('Specified list of YAML types (or a single Type object) contains a non-Type object.');
       }
     });
@@ -2010,17 +2010,17 @@
 
   var schema = Schema$1;
 
-  var str = new type$8('tag:yaml.org,2002:str', {
+  var str = new type$5('tag:yaml.org,2002:str', {
     kind: 'scalar',
     construct: function (data) { return data !== null ? data : ''; }
   });
 
-  var seq = new type$8('tag:yaml.org,2002:seq', {
+  var seq = new type$5('tag:yaml.org,2002:seq', {
     kind: 'sequence',
     construct: function (data) { return data !== null ? data : []; }
   });
 
-  var map = new type$8('tag:yaml.org,2002:map', {
+  var map = new type$5('tag:yaml.org,2002:map', {
     kind: 'mapping',
     construct: function (data) { return data !== null ? data : {}; }
   });
@@ -2050,7 +2050,7 @@
     return object === null;
   }
 
-  var _null = new type$8('tag:yaml.org,2002:null', {
+  var _null = new type$5('tag:yaml.org,2002:null', {
     kind: 'scalar',
     resolve: resolveYamlNull,
     construct: constructYamlNull,
@@ -2084,7 +2084,7 @@
     return Object.prototype.toString.call(object) === '[object Boolean]';
   }
 
-  var bool = new type$8('tag:yaml.org,2002:bool', {
+  var bool = new type$5('tag:yaml.org,2002:bool', {
     kind: 'scalar',
     resolve: resolveYamlBoolean,
     construct: constructYamlBoolean,
@@ -2228,7 +2228,7 @@
            (object % 1 === 0 && !common.isNegativeZero(object));
   }
 
-  var int = new type$8('tag:yaml.org,2002:int', {
+  var int = new type$5('tag:yaml.org,2002:int', {
     kind: 'scalar',
     resolve: resolveYamlInteger,
     construct: constructYamlInteger,
@@ -2333,7 +2333,7 @@
            (object % 1 !== 0 || common.isNegativeZero(object));
   }
 
-  var float = new type$8('tag:yaml.org,2002:float', {
+  var float = new type$5('tag:yaml.org,2002:float', {
     kind: 'scalar',
     resolve: resolveYamlFloat,
     construct: constructYamlFloat,
@@ -2430,7 +2430,7 @@
     return object.toISOString();
   }
 
-  var timestamp = new type$8('tag:yaml.org,2002:timestamp', {
+  var timestamp = new type$5('tag:yaml.org,2002:timestamp', {
     kind: 'scalar',
     resolve: resolveYamlTimestamp,
     construct: constructYamlTimestamp,
@@ -2442,7 +2442,7 @@
     return data === '<<' || data === null;
   }
 
-  var merge = new type$8('tag:yaml.org,2002:merge', {
+  var merge = new type$5('tag:yaml.org,2002:merge', {
     kind: 'scalar',
     resolve: resolveYamlMerge
   });
@@ -2563,7 +2563,7 @@
     return Object.prototype.toString.call(obj) ===  '[object Uint8Array]';
   }
 
-  var binary = new type$8('tag:yaml.org,2002:binary', {
+  var binary = new type$5('tag:yaml.org,2002:binary', {
     kind: 'scalar',
     resolve: resolveYamlBinary,
     construct: constructYamlBinary,
@@ -2606,7 +2606,7 @@
     return data !== null ? data : [];
   }
 
-  var omap = new type$8('tag:yaml.org,2002:omap', {
+  var omap = new type$5('tag:yaml.org,2002:omap', {
     kind: 'sequence',
     resolve: resolveYamlOmap,
     construct: constructYamlOmap
@@ -2656,7 +2656,7 @@
     return result;
   }
 
-  var pairs = new type$8('tag:yaml.org,2002:pairs', {
+  var pairs = new type$5('tag:yaml.org,2002:pairs', {
     kind: 'sequence',
     resolve: resolveYamlPairs,
     construct: constructYamlPairs
@@ -2682,7 +2682,7 @@
     return data !== null ? data : {};
   }
 
-  var set = new type$8('tag:yaml.org,2002:set', {
+  var set = new type$5('tag:yaml.org,2002:set', {
     kind: 'mapping',
     resolve: resolveYamlSet,
     construct: constructYamlSet
@@ -5408,7 +5408,7 @@
   }
 
 
-  var Type                = type$8;
+  var Type                = type$5;
   var Schema              = schema;
   var FAILSAFE_SCHEMA     = failsafe;
   var JSON_SCHEMA         = json;
@@ -5456,1187 +5456,6 @@
   	safeLoad: safeLoad,
   	safeLoadAll: safeLoadAll,
   	safeDump: safeDump
-  };
-
-  var title = "Consumer options";
-  var description = "Bla bla bla";
-  var type$7 = "object";
-  var required$3 = [
-  	"amqp",
-  	"queue",
-  	"message"
-  ];
-  var properties$2 = {
-  	amqp: {
-  		type: "object",
-  		required: [
-  			"url"
-  		],
-  		properties: {
-  			url: {
-  				type: "string"
-  			}
-  		},
-  		errorMessage: {
-  			properties: {
-  				url: "url should be a valid AMQP-connection string"
-  			}
-  		}
-  	},
-  	queue: {
-  		type: "object",
-  		title: "Consumes queue options",
-  		description: "Options for queue configuration",
-  		required: [
-  			"exchange",
-  			"options"
-  		],
-  		properties: {
-  			name: {
-  				anyOf: [
-  					{
-  						type: "string"
-  					},
-  					{
-  						type: "null"
-  					}
-  				]
-  			},
-  			exchange: {
-  				type: "object",
-  				required: [
-  					"name",
-  					"mode",
-  					"options"
-  				],
-  				properties: {
-  					name: {
-  						type: "string"
-  					},
-  					mode: {
-  						type: "string"
-  					},
-  					options: {
-  						type: "object",
-  						required: [
-  							"durable",
-  							"autoDelete"
-  						],
-  						properties: {
-  							durable: {
-  								type: "boolean"
-  							},
-  							autoDelete: {
-  								type: "boolean"
-  							}
-  						}
-  					}
-  				},
-  				errorMessage: {
-  					properties: {
-  						name: "Exchange name is required. It should be a string."
-  					}
-  				}
-  			},
-  			options: {
-  				type: "object",
-  				required: [
-  					"noAck",
-  					"exclusive",
-  					"durable",
-  					"autoDelete",
-  					"prefetch"
-  				],
-  				properties: {
-  					noAck: {
-  						type: "boolean"
-  					},
-  					exclusive: {
-  						type: "boolean"
-  					},
-  					durable: {
-  						type: "boolean"
-  					},
-  					autoDelete: {
-  						type: "boolean"
-  					},
-  					prefetch: {
-  						type: "number"
-  					}
-  				}
-  			}
-  		}
-  	},
-  	message: {
-  		type: "object",
-  		required: [
-  			"options"
-  		],
-  		properties: {
-  			options: {
-  				type: "object",
-  				required: [
-  					"noAck",
-  					"exclusive"
-  				],
-  				properties: {
-  					noAck: {
-  						type: "boolean"
-  					},
-  					exclusive: {
-  						type: "boolean"
-  					}
-  				}
-  			}
-  		}
-  	}
-  };
-  var definitions$6 = {
-  	Reference: {
-  		type: "object",
-  		required: [
-  			"$ref"
-  		],
-  		patternProperties: {
-  			"^\\$ref$": {
-  				type: "string"
-  			}
-  		}
-  	},
-  	Version: {
-  		type: "string",
-  		pattern: "^1\\.0\\.\\d(-.+)?$"
-  	},
-  	Schema: {
-  		type: "object",
-  		properties: {
-  			title: {
-  				type: "string"
-  			},
-  			multipleOf: {
-  				type: "number",
-  				minimum: 0
-  			},
-  			maximum: {
-  				type: "number"
-  			},
-  			exclusiveMaximum: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			minimum: {
-  				type: "number"
-  			},
-  			exclusiveMinimum: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			maxLength: {
-  				type: "integer",
-  				minimum: 0
-  			},
-  			minLength: {
-  				type: "integer",
-  				minimum: 0,
-  				"default": 0
-  			},
-  			pattern: {
-  				type: "string",
-  				format: "regex"
-  			},
-  			maxItems: {
-  				type: "integer",
-  				minimum: 0
-  			},
-  			minItems: {
-  				type: "integer",
-  				minimum: 0,
-  				"default": 0
-  			},
-  			uniqueItems: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			maxProperties: {
-  				type: "integer",
-  				minimum: 0
-  			},
-  			minProperties: {
-  				type: "integer",
-  				minimum: 0,
-  				"default": 0
-  			},
-  			required: {
-  				type: "array",
-  				items: {
-  					type: "string"
-  				},
-  				minItems: 1,
-  				uniqueItems: true
-  			},
-  			"enum": {
-  				type: "array",
-  				items: {
-  				},
-  				minItems: 1,
-  				uniqueItems: false
-  			},
-  			type: {
-  				type: "string",
-  				"enum": [
-  					"array",
-  					"boolean",
-  					"integer",
-  					"number",
-  					"object",
-  					"string"
-  				]
-  			},
-  			not: {
-  				oneOf: [
-  					{
-  						$ref: "#/definitions/Schema"
-  					},
-  					{
-  						$ref: "#/definitions/Reference"
-  					}
-  				]
-  			},
-  			allOf: {
-  				type: "array",
-  				items: {
-  					oneOf: [
-  						{
-  							$ref: "#/definitions/Schema"
-  						},
-  						{
-  							$ref: "#/definitions/Reference"
-  						}
-  					]
-  				}
-  			},
-  			oneOf: {
-  				type: "array",
-  				items: {
-  					oneOf: [
-  						{
-  							$ref: "#/definitions/Schema"
-  						},
-  						{
-  							$ref: "#/definitions/Reference"
-  						}
-  					]
-  				}
-  			},
-  			anyOf: {
-  				type: "array",
-  				items: {
-  					oneOf: [
-  						{
-  							$ref: "#/definitions/Schema"
-  						},
-  						{
-  							$ref: "#/definitions/Reference"
-  						}
-  					]
-  				}
-  			},
-  			items: {
-  				oneOf: [
-  					{
-  						$ref: "#/definitions/Schema"
-  					},
-  					{
-  						$ref: "#/definitions/Reference"
-  					}
-  				]
-  			},
-  			properties: {
-  				type: "object",
-  				additionalProperties: {
-  					oneOf: [
-  						{
-  							$ref: "#/definitions/Schema"
-  						},
-  						{
-  							$ref: "#/definitions/Reference"
-  						}
-  					]
-  				}
-  			},
-  			additionalProperties: {
-  				oneOf: [
-  					{
-  						$ref: "#/definitions/Schema"
-  					},
-  					{
-  						$ref: "#/definitions/Reference"
-  					},
-  					{
-  						type: "boolean"
-  					}
-  				],
-  				"default": true
-  			},
-  			description: {
-  				type: "string"
-  			},
-  			format: {
-  				type: "string"
-  			},
-  			"default": {
-  			},
-  			nullable: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			discriminator: {
-  				$ref: "#/definitions/Discriminator"
-  			},
-  			readOnly: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			writeOnly: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			example: {
-  			},
-  			externalDocs: {
-  				$ref: "#/definitions/ExternalDocumentation"
-  			},
-  			deprecated: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			xml: {
-  				$ref: "#/definitions/XML"
-  			}
-  		},
-  		patternProperties: {
-  			"^x-": {
-  			}
-  		},
-  		additionalProperties: false
-  	},
-  	ExternalDocumentation: {
-  		type: "object",
-  		required: [
-  			"url"
-  		],
-  		properties: {
-  			description: {
-  				type: "string"
-  			},
-  			url: {
-  				type: "string",
-  				format: "uri-reference"
-  			}
-  		},
-  		patternProperties: {
-  			"^x-": {
-  			}
-  		},
-  		additionalProperties: false
-  	},
-  	Discriminator: {
-  		type: "object",
-  		required: [
-  			"propertyName"
-  		],
-  		properties: {
-  			propertyName: {
-  				type: "string"
-  			},
-  			mapping: {
-  				type: "object",
-  				additionalProperties: {
-  					type: "string"
-  				}
-  			}
-  		}
-  	},
-  	XML: {
-  		type: "object",
-  		properties: {
-  			name: {
-  				type: "string"
-  			},
-  			namespace: {
-  				type: "string",
-  				format: "uri"
-  			},
-  			prefix: {
-  				type: "string"
-  			},
-  			attribute: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			wrapped: {
-  				type: "boolean",
-  				"default": false
-  			}
-  		},
-  		patternProperties: {
-  			"^x-": {
-  			}
-  		},
-  		additionalProperties: false
-  	},
-  	Extensible: {
-  		type: "object",
-  		required: [
-  			"def"
-  		],
-  		additionalProperties: false,
-  		patternProperties: {
-  			"^def$": {
-  				$ref: "#/definitions/Reference"
-  			},
-  			"^extendedBy": {
-  				type: "array",
-  				items: {
-  					$ref: "#/definitions/Reference"
-  				}
-  			}
-  		}
-  	}
-  };
-  var consumer = {
-  	title: title,
-  	description: description,
-  	type: type$7,
-  	required: required$3,
-  	properties: properties$2,
-  	definitions: definitions$6
-  };
-
-  var type$6 = "object";
-  var required$2 = [
-  	"exchange",
-  	"message"
-  ];
-  var properties$1 = {
-  	exchange: {
-  		type: "object",
-  		required: [
-  			"name",
-  			"mode",
-  			"options"
-  		],
-  		properties: {
-  			name: {
-  				type: "string"
-  			},
-  			mode: {
-  				type: "string"
-  			},
-  			options: {
-  				type: "object",
-  				required: [
-  					"durable",
-  					"autoDelete"
-  				],
-  				properties: {
-  					durable: {
-  						type: "boolean"
-  					},
-  					autoDelete: {
-  						type: "boolean"
-  					}
-  				}
-  			}
-  		},
-  		errorMessage: {
-  			properties: {
-  				name: "Exchange name is required. It should be a string."
-  			}
-  		}
-  	},
-  	message: {
-  		type: "object",
-  		required: [
-  			"options"
-  		],
-  		properties: {
-  			options: {
-  				type: "object",
-  				required: [
-  					"persistent"
-  				],
-  				properties: {
-  					persistent: {
-  						type: "boolean"
-  					}
-  				}
-  			}
-  		}
-  	}
-  };
-  var errorMessage$2 = {
-  	properties: {
-  		exchange: "Exchange should be an object",
-  		message: "Message should be an object"
-  	}
-  };
-  var definitions$5 = {
-  	Reference: {
-  		type: "object",
-  		required: [
-  			"$ref"
-  		],
-  		patternProperties: {
-  			"^\\$ref$": {
-  				type: "string"
-  			}
-  		}
-  	},
-  	Version: {
-  		type: "string",
-  		pattern: "^1\\.0\\.\\d(-.+)?$"
-  	},
-  	Schema: {
-  		type: "object",
-  		properties: {
-  			title: {
-  				type: "string"
-  			},
-  			multipleOf: {
-  				type: "number",
-  				minimum: 0
-  			},
-  			maximum: {
-  				type: "number"
-  			},
-  			exclusiveMaximum: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			minimum: {
-  				type: "number"
-  			},
-  			exclusiveMinimum: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			maxLength: {
-  				type: "integer",
-  				minimum: 0
-  			},
-  			minLength: {
-  				type: "integer",
-  				minimum: 0,
-  				"default": 0
-  			},
-  			pattern: {
-  				type: "string",
-  				format: "regex"
-  			},
-  			maxItems: {
-  				type: "integer",
-  				minimum: 0
-  			},
-  			minItems: {
-  				type: "integer",
-  				minimum: 0,
-  				"default": 0
-  			},
-  			uniqueItems: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			maxProperties: {
-  				type: "integer",
-  				minimum: 0
-  			},
-  			minProperties: {
-  				type: "integer",
-  				minimum: 0,
-  				"default": 0
-  			},
-  			required: {
-  				type: "array",
-  				items: {
-  					type: "string"
-  				},
-  				minItems: 1,
-  				uniqueItems: true
-  			},
-  			"enum": {
-  				type: "array",
-  				items: {
-  				},
-  				minItems: 1,
-  				uniqueItems: false
-  			},
-  			type: {
-  				type: "string",
-  				"enum": [
-  					"array",
-  					"boolean",
-  					"integer",
-  					"number",
-  					"object",
-  					"string"
-  				]
-  			},
-  			not: {
-  				oneOf: [
-  					{
-  						$ref: "#/definitions/Schema"
-  					},
-  					{
-  						$ref: "#/definitions/Reference"
-  					}
-  				]
-  			},
-  			allOf: {
-  				type: "array",
-  				items: {
-  					oneOf: [
-  						{
-  							$ref: "#/definitions/Schema"
-  						},
-  						{
-  							$ref: "#/definitions/Reference"
-  						}
-  					]
-  				}
-  			},
-  			oneOf: {
-  				type: "array",
-  				items: {
-  					oneOf: [
-  						{
-  							$ref: "#/definitions/Schema"
-  						},
-  						{
-  							$ref: "#/definitions/Reference"
-  						}
-  					]
-  				}
-  			},
-  			anyOf: {
-  				type: "array",
-  				items: {
-  					oneOf: [
-  						{
-  							$ref: "#/definitions/Schema"
-  						},
-  						{
-  							$ref: "#/definitions/Reference"
-  						}
-  					]
-  				}
-  			},
-  			items: {
-  				oneOf: [
-  					{
-  						$ref: "#/definitions/Schema"
-  					},
-  					{
-  						$ref: "#/definitions/Reference"
-  					}
-  				]
-  			},
-  			properties: {
-  				type: "object",
-  				additionalProperties: {
-  					oneOf: [
-  						{
-  							$ref: "#/definitions/Schema"
-  						},
-  						{
-  							$ref: "#/definitions/Reference"
-  						}
-  					]
-  				}
-  			},
-  			additionalProperties: {
-  				oneOf: [
-  					{
-  						$ref: "#/definitions/Schema"
-  					},
-  					{
-  						$ref: "#/definitions/Reference"
-  					},
-  					{
-  						type: "boolean"
-  					}
-  				],
-  				"default": true
-  			},
-  			description: {
-  				type: "string"
-  			},
-  			format: {
-  				type: "string"
-  			},
-  			"default": {
-  			},
-  			nullable: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			discriminator: {
-  				$ref: "#/definitions/Discriminator"
-  			},
-  			readOnly: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			writeOnly: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			example: {
-  			},
-  			externalDocs: {
-  				$ref: "#/definitions/ExternalDocumentation"
-  			},
-  			deprecated: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			xml: {
-  				$ref: "#/definitions/XML"
-  			}
-  		},
-  		patternProperties: {
-  			"^x-": {
-  			}
-  		},
-  		additionalProperties: false
-  	},
-  	ExternalDocumentation: {
-  		type: "object",
-  		required: [
-  			"url"
-  		],
-  		properties: {
-  			description: {
-  				type: "string"
-  			},
-  			url: {
-  				type: "string",
-  				format: "uri-reference"
-  			}
-  		},
-  		patternProperties: {
-  			"^x-": {
-  			}
-  		},
-  		additionalProperties: false
-  	},
-  	Discriminator: {
-  		type: "object",
-  		required: [
-  			"propertyName"
-  		],
-  		properties: {
-  			propertyName: {
-  				type: "string"
-  			},
-  			mapping: {
-  				type: "object",
-  				additionalProperties: {
-  					type: "string"
-  				}
-  			}
-  		}
-  	},
-  	XML: {
-  		type: "object",
-  		properties: {
-  			name: {
-  				type: "string"
-  			},
-  			namespace: {
-  				type: "string",
-  				format: "uri"
-  			},
-  			prefix: {
-  				type: "string"
-  			},
-  			attribute: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			wrapped: {
-  				type: "boolean",
-  				"default": false
-  			}
-  		},
-  		patternProperties: {
-  			"^x-": {
-  			}
-  		},
-  		additionalProperties: false
-  	},
-  	Extensible: {
-  		type: "object",
-  		required: [
-  			"def"
-  		],
-  		additionalProperties: false,
-  		patternProperties: {
-  			"^def$": {
-  				$ref: "#/definitions/Reference"
-  			},
-  			"^extendedBy": {
-  				type: "array",
-  				items: {
-  					$ref: "#/definitions/Reference"
-  				}
-  			}
-  		}
-  	}
-  };
-  var publisher = {
-  	type: type$6,
-  	required: required$2,
-  	properties: properties$1,
-  	errorMessage: errorMessage$2,
-  	definitions: definitions$5
-  };
-
-  var type$5 = "object";
-  var required$1 = [
-  	"url"
-  ];
-  var properties = {
-  	url: {
-  		type: "string"
-  	}
-  };
-  var errorMessage$1 = {
-  	type: "Connection options should be an object.",
-  	required: "Connection url is required.",
-  	properties: {
-  		url: "Connection url should be a valid RabbitMQ connection url."
-  	}
-  };
-  var definitions$4 = {
-  	Reference: {
-  		type: "object",
-  		required: [
-  			"$ref"
-  		],
-  		patternProperties: {
-  			"^\\$ref$": {
-  				type: "string"
-  			}
-  		}
-  	},
-  	Version: {
-  		type: "string",
-  		pattern: "^1\\.0\\.\\d(-.+)?$"
-  	},
-  	Schema: {
-  		type: "object",
-  		properties: {
-  			title: {
-  				type: "string"
-  			},
-  			multipleOf: {
-  				type: "number",
-  				minimum: 0
-  			},
-  			maximum: {
-  				type: "number"
-  			},
-  			exclusiveMaximum: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			minimum: {
-  				type: "number"
-  			},
-  			exclusiveMinimum: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			maxLength: {
-  				type: "integer",
-  				minimum: 0
-  			},
-  			minLength: {
-  				type: "integer",
-  				minimum: 0,
-  				"default": 0
-  			},
-  			pattern: {
-  				type: "string",
-  				format: "regex"
-  			},
-  			maxItems: {
-  				type: "integer",
-  				minimum: 0
-  			},
-  			minItems: {
-  				type: "integer",
-  				minimum: 0,
-  				"default": 0
-  			},
-  			uniqueItems: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			maxProperties: {
-  				type: "integer",
-  				minimum: 0
-  			},
-  			minProperties: {
-  				type: "integer",
-  				minimum: 0,
-  				"default": 0
-  			},
-  			required: {
-  				type: "array",
-  				items: {
-  					type: "string"
-  				},
-  				minItems: 1,
-  				uniqueItems: true
-  			},
-  			"enum": {
-  				type: "array",
-  				items: {
-  				},
-  				minItems: 1,
-  				uniqueItems: false
-  			},
-  			type: {
-  				type: "string",
-  				"enum": [
-  					"array",
-  					"boolean",
-  					"integer",
-  					"number",
-  					"object",
-  					"string"
-  				]
-  			},
-  			not: {
-  				oneOf: [
-  					{
-  						$ref: "#/definitions/Schema"
-  					},
-  					{
-  						$ref: "#/definitions/Reference"
-  					}
-  				]
-  			},
-  			allOf: {
-  				type: "array",
-  				items: {
-  					oneOf: [
-  						{
-  							$ref: "#/definitions/Schema"
-  						},
-  						{
-  							$ref: "#/definitions/Reference"
-  						}
-  					]
-  				}
-  			},
-  			oneOf: {
-  				type: "array",
-  				items: {
-  					oneOf: [
-  						{
-  							$ref: "#/definitions/Schema"
-  						},
-  						{
-  							$ref: "#/definitions/Reference"
-  						}
-  					]
-  				}
-  			},
-  			anyOf: {
-  				type: "array",
-  				items: {
-  					oneOf: [
-  						{
-  							$ref: "#/definitions/Schema"
-  						},
-  						{
-  							$ref: "#/definitions/Reference"
-  						}
-  					]
-  				}
-  			},
-  			items: {
-  				oneOf: [
-  					{
-  						$ref: "#/definitions/Schema"
-  					},
-  					{
-  						$ref: "#/definitions/Reference"
-  					}
-  				]
-  			},
-  			properties: {
-  				type: "object",
-  				additionalProperties: {
-  					oneOf: [
-  						{
-  							$ref: "#/definitions/Schema"
-  						},
-  						{
-  							$ref: "#/definitions/Reference"
-  						}
-  					]
-  				}
-  			},
-  			additionalProperties: {
-  				oneOf: [
-  					{
-  						$ref: "#/definitions/Schema"
-  					},
-  					{
-  						$ref: "#/definitions/Reference"
-  					},
-  					{
-  						type: "boolean"
-  					}
-  				],
-  				"default": true
-  			},
-  			description: {
-  				type: "string"
-  			},
-  			format: {
-  				type: "string"
-  			},
-  			"default": {
-  			},
-  			nullable: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			discriminator: {
-  				$ref: "#/definitions/Discriminator"
-  			},
-  			readOnly: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			writeOnly: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			example: {
-  			},
-  			externalDocs: {
-  				$ref: "#/definitions/ExternalDocumentation"
-  			},
-  			deprecated: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			xml: {
-  				$ref: "#/definitions/XML"
-  			}
-  		},
-  		patternProperties: {
-  			"^x-": {
-  			}
-  		},
-  		additionalProperties: false
-  	},
-  	ExternalDocumentation: {
-  		type: "object",
-  		required: [
-  			"url"
-  		],
-  		properties: {
-  			description: {
-  				type: "string"
-  			},
-  			url: {
-  				type: "string",
-  				format: "uri-reference"
-  			}
-  		},
-  		patternProperties: {
-  			"^x-": {
-  			}
-  		},
-  		additionalProperties: false
-  	},
-  	Discriminator: {
-  		type: "object",
-  		required: [
-  			"propertyName"
-  		],
-  		properties: {
-  			propertyName: {
-  				type: "string"
-  			},
-  			mapping: {
-  				type: "object",
-  				additionalProperties: {
-  					type: "string"
-  				}
-  			}
-  		}
-  	},
-  	XML: {
-  		type: "object",
-  		properties: {
-  			name: {
-  				type: "string"
-  			},
-  			namespace: {
-  				type: "string",
-  				format: "uri"
-  			},
-  			prefix: {
-  				type: "string"
-  			},
-  			attribute: {
-  				type: "boolean",
-  				"default": false
-  			},
-  			wrapped: {
-  				type: "boolean",
-  				"default": false
-  			}
-  		},
-  		patternProperties: {
-  			"^x-": {
-  			}
-  		},
-  		additionalProperties: false
-  	},
-  	Extensible: {
-  		type: "object",
-  		required: [
-  			"def"
-  		],
-  		additionalProperties: false,
-  		patternProperties: {
-  			"^def$": {
-  				$ref: "#/definitions/Reference"
-  			},
-  			"^extendedBy": {
-  				type: "array",
-  				items: {
-  					$ref: "#/definitions/Reference"
-  				}
-  			}
-  		}
-  	}
-  };
-  var connection = {
-  	type: type$5,
-  	required: required$1,
-  	properties: properties,
-  	errorMessage: errorMessage$1,
-  	definitions: definitions$4
   };
 
   var type$4 = "object";
@@ -8569,21 +7388,78 @@
   	definitions: definitions
   };
 
+  var queue = {
+  	name: null,
+  	exchange: {
+  		name: null,
+  		mode: "fanout",
+  		options: {
+  			durable: true,
+  			autoDelete: false
+  		}
+  	},
+  	options: {
+  		noAck: false,
+  		exclusive: false,
+  		durable: true,
+  		autoDelete: false,
+  		prefetch: 1
+  	}
+  };
+  var message = {
+  	options: {
+  		noAck: false,
+  		exclusive: false
+  	}
+  };
+  var consumeSnippet = {
+  	queue: queue,
+  	message: message
+  };
+
+  var exchange = {
+  	name: null,
+  	mode: "fanout",
+  	options: {
+  		durable: true,
+  		autoDelete: false
+  	}
+  };
+  var produceSnippet = {
+  	exchange: exchange
+  };
+
   const schemas = {
 
   	"consumer": {
-  		json: consumer,
-  		yaml: jsYaml.dump(consumer)
+  		json: consumeStrict,
+  		yaml: jsYaml.dump(consumeStrict),
+  		default: {
+  			json: consumeSnippet,
+  			yaml: jsYaml.dump(consumeSnippet)
+  		},
+  		snippet: {
+  			json: consumeSnippet,
+  			yaml: jsYaml.dump(consumeSnippet)
+  		}
   	},
 
   	"publisher": {
-  		json: publisher,
-  		yaml: jsYaml.dump(publisher)
+  		json: produceStrict,
+  		yaml: jsYaml.dump(produceStrict),
+  		default: {
+  			json: produceSnippet,
+  			yaml: jsYaml.dump(produceSnippet)
+  		},
+  		snippet: {
+  			json: produceSnippet,
+  			yaml: jsYaml.dump(produceSnippet)
+  		}	
   	},
-  	
+
       "connection": {
-      	json: connection,
-  		yaml: jsYaml.dump(connection)
+      	json: connectionStrict,
+  		yaml: jsYaml.dump(connectionStrict)
   	},
 
   	"msapi": {
@@ -8598,12 +7474,28 @@
 
   	"consumeStrict": {
       	json: consumeStrict,
-  		yaml: jsYaml.dump(consumeStrict)
+  		yaml: jsYaml.dump(consumeStrict),
+  		default: {
+  			json: consumeSnippet,
+  			yaml: jsYaml.dump(consumeSnippet)
+  		},
+  		snippet: {
+  			json: consumeSnippet,
+  			yaml: jsYaml.dump(consumeSnippet)
+  		}
   	},
 
   	"produceStrict": {
       	json: produceStrict,
-  		yaml: jsYaml.dump(produceStrict)
+  		yaml: jsYaml.dump(produceStrict),
+  		default: {
+  			json: produceSnippet,
+  			yaml: jsYaml.dump(produceSnippet)
+  		},
+  		snippet: {
+  			json: produceSnippet,
+  			yaml: jsYaml.dump(produceSnippet)
+  		}
   	},
 
   	"serviceStrict": {

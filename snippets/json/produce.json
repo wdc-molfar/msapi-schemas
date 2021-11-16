@@ -1,0 +1,10 @@
+{
+ "exchange": {
+  "name": null,
+  "mode": "fanout",
+  "options": {
+   "durable": true,
+   "autoDelete": false
+  }
+ }
+}

@@ -1,0 +1,26 @@
+{
+ "queue": {
+  "name": null,
+  "exchange": {
+   "name": null,
+   "mode": "fanout",
+   "options": {
+    "durable": true,
+    "autoDelete": false
+   }
+  },
+  "options": {
+   "noAck": false,
+   "exclusive": false,
+   "durable": true,
+   "autoDelete": false,
+   "prefetch": 1
+  }
+ },
+ "message": {
+  "options": {
+   "noAck": false,
+   "exclusive": false
+  }
+ }
+}
