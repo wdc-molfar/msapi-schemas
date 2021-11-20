@@ -7400,15 +7400,8 @@ var queue = {
 		prefetch: 1
 	}
 };
-var message = {
-	options: {
-		noAck: false,
-		exclusive: false
-	}
-};
 var consumeSnippet = {
-	queue: queue,
-	message: message
+	queue: queue
 };
 
 var exchange = {
