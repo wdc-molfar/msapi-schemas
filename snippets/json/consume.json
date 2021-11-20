@@ -16,11 +16,5 @@
    "autoDelete": false,
    "prefetch": 1
   }
- },
- "message": {
-  "options": {
-   "noAck": false,
-   "exclusive": false
-  }
  }
 }
