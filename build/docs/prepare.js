@@ -16,6 +16,8 @@
 	const SNIPPETS_YAML_DIR = "./snippets/yaml"
 	const SNIPPETS_JSON_DIR = "./snippets/json"
 
+	// const DOC_TEMP_DIR = "./doc/.temp"
+
 	const processFolderRecursive =  (dir, fileCallback) => Promise.all(
 		fs.readdirSync(dir).map( async element => {
 	        if (fs.lstatSync(path.join(dir, element)).isFile()) {
@@ -127,6 +129,13 @@
     return target;
 };
 
+	// if(fs.existsSync(DOC_TEMP_DIR)){
+	// 	fs.rmdirSync(DOC_TEMP_DIR, {recursive: true});
+	// }
+	
+	// mkdirs(DOC_TEMP_DIR)
+
+
 	if(fs.existsSync(SNIPPETS_JSON_DIR)){
 		fs.rmdirSync(SNIPPETS_JSON_DIR, {recursive: true});
 	}
@@ -148,7 +157,12 @@
 	// console.log(`Create ${TEMP_DIR}`)
 	
 	copySync(YAML_DIR, TEMP_DIR, { overwrite: true })
+	// copySync(YAML_DIR, DOC_TEMP_DIR, { overwrite: true })
 	// console.log(`Copy ${YAML_DIR} -> ${TEMP_DIR}`)
+	
+	// await processFolderRecursive(DOC_TEMP_DIR, yaml2json)
+	
+
 	
 	await processFolderRecursive(TEMP_DIR, yaml2json)
 	await processFolderRecursive(TEMP_DIR, resolveSchema)

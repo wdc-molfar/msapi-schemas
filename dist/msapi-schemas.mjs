@@ -2,6 +2,7 @@
 /*! @molfar/msapi-schemas 1.0.0 https://github.com/[object Object] @license ISC */
 var definitions$5 = {
 	Reference: {
+		title: "Reference",
 		type: "object",
 		required: [
 			"$ref"
@@ -13,10 +14,12 @@ var definitions$5 = {
 		}
 	},
 	Version: {
+		title: "Version",
 		type: "string",
 		pattern: "^1\\.0\\.\\d(-.+)?$"
 	},
 	Schema: {
+		title: "Schema",
 		type: "object",
 		properties: {
 			title: {
@@ -250,6 +253,7 @@ var definitions$5 = {
 		additionalProperties: false
 	},
 	Discriminator: {
+		title: "Discriminator",
 		type: "object",
 		required: [
 			"propertyName"
@@ -267,6 +271,7 @@ var definitions$5 = {
 		}
 	},
 	XML: {
+		title: "XML",
 		type: "object",
 		properties: {
 			name: {
@@ -295,6 +300,7 @@ var definitions$5 = {
 		additionalProperties: false
 	},
 	Extensible: {
+		title: "Extensible",
 		type: "object",
 		required: [
 			"def"
@@ -327,6 +333,7 @@ commonjsRegister("/$$rollup_base$$/schemas/json/common-definitions.schema.json",
   module.exports = require$$0;
 });
 
+var title = "MSAPI";
 var description = "Validation schema for MSAPI Specification 1.0.X.";
 var type$6 = "object";
 var required$1 = [
@@ -1282,6 +1289,7 @@ var properties = {
 };
 var definitions$4 = {
 	Reference: {
+		title: "Reference",
 		type: "object",
 		required: [
 			"$ref"
@@ -1293,10 +1301,12 @@ var definitions$4 = {
 		}
 	},
 	Version: {
+		title: "Version",
 		type: "string",
 		pattern: "^1\\.0\\.\\d(-.+)?$"
 	},
 	Schema: {
+		title: "Schema",
 		type: "object",
 		properties: {
 			title: {
@@ -1530,6 +1540,7 @@ var definitions$4 = {
 		additionalProperties: false
 	},
 	Discriminator: {
+		title: "Discriminator",
 		type: "object",
 		required: [
 			"propertyName"
@@ -1547,6 +1558,7 @@ var definitions$4 = {
 		}
 	},
 	XML: {
+		title: "XML",
 		type: "object",
 		properties: {
 			name: {
@@ -1575,6 +1587,7 @@ var definitions$4 = {
 		additionalProperties: false
 	},
 	Extensible: {
+		title: "Extensible",
 		type: "object",
 		required: [
 			"def"
@@ -1594,6 +1607,7 @@ var definitions$4 = {
 	}
 };
 var msapi = {
+	title: title,
 	description: description,
 	type: type$6,
 	required: required$1,
@@ -5604,6 +5618,7 @@ var allOf$1 = [
 ];
 var definitions$3 = {
 	Reference: {
+		title: "Reference",
 		type: "object",
 		required: [
 			"$ref"
@@ -5615,10 +5630,12 @@ var definitions$3 = {
 		}
 	},
 	Version: {
+		title: "Version",
 		type: "string",
 		pattern: "^1\\.0\\.\\d(-.+)?$"
 	},
 	Schema: {
+		title: "Schema",
 		type: "object",
 		properties: {
 			title: {
@@ -5852,6 +5869,7 @@ var definitions$3 = {
 		additionalProperties: false
 	},
 	Discriminator: {
+		title: "Discriminator",
 		type: "object",
 		required: [
 			"propertyName"
@@ -5869,6 +5887,7 @@ var definitions$3 = {
 		}
 	},
 	XML: {
+		title: "XML",
 		type: "object",
 		properties: {
 			name: {
@@ -5897,6 +5916,7 @@ var definitions$3 = {
 		additionalProperties: false
 	},
 	Extensible: {
+		title: "Extensible",
 		type: "object",
 		required: [
 			"def"
@@ -6008,6 +6028,7 @@ var allOf = [
 ];
 var definitions$2 = {
 	Reference: {
+		title: "Reference",
 		type: "object",
 		required: [
 			"$ref"
@@ -6019,10 +6040,12 @@ var definitions$2 = {
 		}
 	},
 	Version: {
+		title: "Version",
 		type: "string",
 		pattern: "^1\\.0\\.\\d(-.+)?$"
 	},
 	Schema: {
+		title: "Schema",
 		type: "object",
 		properties: {
 			title: {
@@ -6256,6 +6279,7 @@ var definitions$2 = {
 		additionalProperties: false
 	},
 	Discriminator: {
+		title: "Discriminator",
 		type: "object",
 		required: [
 			"propertyName"
@@ -6273,6 +6297,7 @@ var definitions$2 = {
 		}
 	},
 	XML: {
+		title: "XML",
 		type: "object",
 		properties: {
 			name: {
@@ -6301,6 +6326,7 @@ var definitions$2 = {
 		additionalProperties: false
 	},
 	Extensible: {
+		title: "Extensible",
 		type: "object",
 		required: [
 			"def"
@@ -6527,6 +6553,7 @@ var patternProperties = {
 };
 var definitions$1 = {
 	Reference: {
+		title: "Reference",
 		type: "object",
 		required: [
 			"$ref"
@@ -6538,10 +6565,12 @@ var definitions$1 = {
 		}
 	},
 	Version: {
+		title: "Version",
 		type: "string",
 		pattern: "^1\\.0\\.\\d(-.+)?$"
 	},
 	Schema: {
+		title: "Schema",
 		type: "object",
 		properties: {
 			title: {
@@ -6775,6 +6804,7 @@ var definitions$1 = {
 		additionalProperties: false
 	},
 	Discriminator: {
+		title: "Discriminator",
 		type: "object",
 		required: [
 			"propertyName"
@@ -6792,6 +6822,7 @@ var definitions$1 = {
 		}
 	},
 	XML: {
+		title: "XML",
 		type: "object",
 		properties: {
 			name: {
@@ -6820,6 +6851,7 @@ var definitions$1 = {
 		additionalProperties: false
 	},
 	Extensible: {
+		title: "Extensible",
 		type: "object",
 		required: [
 			"def"
@@ -7065,6 +7097,7 @@ var items = {
 };
 var definitions = {
 	Reference: {
+		title: "Reference",
 		type: "object",
 		required: [
 			"$ref"
@@ -7076,10 +7109,12 @@ var definitions = {
 		}
 	},
 	Version: {
+		title: "Version",
 		type: "string",
 		pattern: "^1\\.0\\.\\d(-.+)?$"
 	},
 	Schema: {
+		title: "Schema",
 		type: "object",
 		properties: {
 			title: {
@@ -7313,6 +7348,7 @@ var definitions = {
 		additionalProperties: false
 	},
 	Discriminator: {
+		title: "Discriminator",
 		type: "object",
 		required: [
 			"propertyName"
@@ -7330,6 +7366,7 @@ var definitions = {
 		}
 	},
 	XML: {
+		title: "XML",
 		type: "object",
 		properties: {
 			name: {
@@ -7358,6 +7395,7 @@ var definitions = {
 		additionalProperties: false
 	},
 	Extensible: {
+		title: "Extensible",
 		type: "object",
 		required: [
 			"def"

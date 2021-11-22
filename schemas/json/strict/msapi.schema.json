@@ -235,6 +235,7 @@
  },
  "definitions": {
   "Reference": {
+   "title": "Reference",
    "type": "object",
    "required": [
     "$ref"
@@ -246,10 +247,12 @@
    }
   },
   "Version": {
+   "title": "Version",
    "type": "string",
    "pattern": "^1\\.0\\.\\d(-.+)?$"
   },
   "Schema": {
+   "title": "Schema",
    "type": "object",
    "properties": {
     "title": {
@@ -478,6 +481,7 @@
    "additionalProperties": false
   },
   "Discriminator": {
+   "title": "Discriminator",
    "type": "object",
    "required": [
     "propertyName"
@@ -495,6 +499,7 @@
    }
   },
   "XML": {
+   "title": "XML",
    "type": "object",
    "properties": {
     "name": {
@@ -522,6 +527,7 @@
    "additionalProperties": false
   },
   "Extensible": {
+   "title": "Extensible",
    "type": "object",
    "required": [
     "def"

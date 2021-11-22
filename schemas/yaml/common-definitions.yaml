@@ -1,6 +1,7 @@
 definitions:
 
   Reference:
+    title: Reference
     type: object
     required:
       - $ref
@@ -10,10 +11,12 @@ definitions:
         # format: uri-reference
 
   Version:
+    title: Version
     type: string
     pattern: ^1\.0\.\d(-.+)?$
 
   Schema:
+    title: Schema
     type: object
     properties:
       title:
@@ -160,6 +163,7 @@ definitions:
     additionalProperties: false
     
   Discriminator:
+    title: Discriminator
     type: object
     required:
       - propertyName
@@ -172,6 +176,7 @@ definitions:
           type: string
 
   XML:
+    title: XML
     type: object
     properties:
       name:
@@ -193,6 +198,7 @@ definitions:
         
 
   Extensible:
+    title: Extensible
     type: object
     required:
       - def
