@@ -1,0 +1,40 @@
+msapi: 1.0.1
+
+metadata:
+    id: 06.example-use-refs
+    title: Приклад специфікації MSAPI для компонентів повторюваного використання
+    description: Демонструє використання посилань
+
+settings:
+
+    task_exchange_name: task_exch
+    
+    task_exchange_options:
+        durable: true
+    
+    task_queue_name: task_queue
+    
+    task_queue_options: 
+        noAck: false
+        prefetch: 1
+        exclusive: true
+
+exchanges:
+    
+    TASK_EXCHANGE:
+        name:
+            $ref: "#/settings/task_exchange_name"
+        mode: fanout
+        options:
+            $ref: "#/settings/task_exchange_options"
+    
+queues:
+    
+    TASK_QUEUE:
+        name: 
+            $ref: "#/settings/task_queue_name"
+        exchange:
+            $ref: "#/exchanges/TASK_EXCHANGE"
+        options:
+            $ref: "#/settings/task_queue_options"
+        

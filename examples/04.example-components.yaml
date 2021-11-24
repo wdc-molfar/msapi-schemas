@@ -1,0 +1,20 @@
+msapi: 1.0.1
+
+metadata:
+    id: 04.example-components
+    title: Приклад специфікації MSAPI для компонентів повторюваного використання
+    description: Демонструє опис обмінників даних повторюваного використання
+
+#   Секція обмінників може містити описи обмінників даних
+
+exchanges:
+    
+    TASK_EXCHANGE:
+        name: task_exch
+        mode: fanout
+        options:
+            durable: true
+    
+    SCRAPPED_MSG_EXCHANGE:
+        name: scrapper_exch
+        mode: fanout

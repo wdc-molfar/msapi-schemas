@@ -1,0 +1,56 @@
+msapi: "1.0.1"
+
+metadata: 
+  
+    id: "ms_04_scraper_service"
+  
+    title: "Scraper Service type definition"
+  
+    description: >
+        Defines the type of scraper service.
+        Scrapers consume task messages, scrap sources, and create multimedia messages.
+        Normalizer consumes dirty multimedia messages, handles it, and creates 
+        normalized messages.Normalizer consumes dirty multimedia messages, handles it, and creates 
+        normalized messages.
+    
+    repo: "@molfar/scraper"
+            
+
+service:
+    
+    config:
+        
+        amqp:
+            $ref: "ms_01_global_settings/#/components/settings/amqp"
+        
+        consume:
+            amqp:
+                $ref: "#/service/config/amqp"
+            queue:
+                exchange:
+                    name: scrapper_task_messages
+        produce:
+            amqp:
+                $ref: "#/service/config/amqp"
+            exchange:
+                name:
+                    schema:
+                        type: string
+                        
+        health_check:
+            $ref: "ms_01_global_settings/#/components/settings/health"    
+                        
+    consume:
+        def:
+            $ref: "ms_02_defaults/#/components/consumes/default"
+        extendedBy:
+            - $ref: "ms_03_components_message_processing/#/components/consumes/TASK_QUEUE"
+            - $ref: "#/service/config/consume"
+    
+    produce:
+        def:
+            $ref: "ms_02_defaults/#/components/produces/default"
+        extendedBy:
+            - $ref: "ms_03_components_message_processing/#/components/produces/MEDIA_MESSAGES"
+            - $ref: "#/service/config/produce"
+        

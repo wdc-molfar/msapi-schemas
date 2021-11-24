@@ -1,0 +1,35 @@
+msapi: "1.0.1"
+
+metadata: 
+  
+    id: "http://localhost:8081/spec/ms_example_workflow.yaml"
+  
+    title: "Define a workflow for handling multimedia messages"
+  
+    description: >
+        Defines a chain of two services
+            
+
+workflow:
+    
+    -   instance:   
+            $ref: "ms_04_scraper_service/#/service"
+        name: SCRAPPER
+        configuredBy:
+            produce:
+                exchange:
+                    name: dirty_messages
+    
+    -   instance:   
+            $ref: "ms_05_normalizer_service/service"
+        configuredBy:
+            consume:
+                queue:
+                    exchange:
+                        name: dirty_messages
+            produce:
+                exchange:
+                    name: normalized_messages            
+                        
+                
+

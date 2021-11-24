@@ -1,0 +1,27 @@
+msapi: 1.0.1
+
+metadata:
+    id: 03.example-components
+    title: Приклад специфікації MSAPI для компонентів повторюваного використання
+    description: Демонструє опис черг повторюваного використання
+
+#   Секція черг може містити описи черг повідомлень
+
+queues:
+    
+    # Опис черги має містити назву черги, налаштування обмінника, 
+    # а також черги та процесу вибірки повідомлень.
+    TASK_QUEUE:
+        # Назва черги
+        name: task_queue
+        exchange:
+            name: task_exch
+            mode: fanout
+            # Налаштування обмінника
+            options:
+                durable: true
+        options:
+            # Налаштування черги та процесу вибірки повідомлень
+            noAck: false
+            prefetch: 1
+            exclusive: true

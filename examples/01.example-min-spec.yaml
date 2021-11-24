@@ -1,0 +1,6 @@
+msapi: 1.0.1
+
+metadata:
+    id: 01.example-min-spec
+    title: Приклад специфікації MSAPI
+    description: Демонструє мінімальний склад специфікації MSAPI 

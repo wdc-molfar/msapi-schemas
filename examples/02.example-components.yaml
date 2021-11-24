@@ -1,0 +1,22 @@
+msapi: 1.0.1
+
+metadata:
+    id: 02.example-components
+    title: Приклад специфікації MSAPI для компонентів повторюваного використання
+    description: Демонструє опис налаштувань повторюваного використання
+
+#   Секція налаштувань може містити будь-які описи (прості і об'єкти)
+#   Доступ до них здійснюється за доповогою посилань $ref
+#   Наприклад:
+#     - Локальне посилання (в межах поточної специфікації) - $ref: "#/settings/amqp_url"
+#     - Зовнішнє посилання (в іншій специфікації) - $ref: "02.example-components/#/settings/amqp_url"
+
+settings:
+    # Приклад налаштування - рядка
+    amqp_url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+    
+    # Приклад налаштування - об'єкта
+    health_control:
+        exchange_name: ms_health
+        interval: 1000 #ms
+        

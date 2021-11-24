@@ -1,0 +1,22 @@
+msapi: 1.0.1
+
+metadata:
+    id: 08.example-consume
+    title: Приклад специфікації MSAPI для компонентів повторюваного використання
+    description: Демонструє опис споживача даних
+
+consumes:
+    # Опис споживача має містити налаштування підключення до брокера повідомлень,
+    # опис черги повідомлень,
+    # а також опис схеми повідомлень 
+    TASK_CONSUME:
+        # налаштування підключення до брокера повідомлень
+        amqp:
+            url:
+                $ref: "02.example-components/#/settings/amqp_url"
+        # опис черги повідомлень
+        queue:
+            $ref: "06.example-use-refs/#/queues/TASK_QUEUE"
+        # опис схеми повідомлень
+        message:
+            $ref: "03.example-components/#/schemas/TASK_MSG_SCHEMA"

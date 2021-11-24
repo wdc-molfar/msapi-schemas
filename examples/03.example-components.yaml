@@ -1,0 +1,37 @@
+msapi: 1.0.1
+
+metadata:
+    id: 03.example-components
+    title: Приклад специфікації MSAPI для компонентів повторюваного використання
+    description: Демонструє опис JSON-схем повторюваного використання
+
+#   Секція JSON-схем може містити будь-які JSON-схеми 
+
+schemas:
+    
+    TASK_MSG_SCHEMA:
+        type: object
+        required:
+            - id
+            - options
+        properties:
+            id:
+                type: string
+            options:
+                type: object
+        additionalProperties: false
+        
+    DATA_MSG_SCHEMA:
+        type: object
+        required:
+            - id
+            - text
+            - meta
+        properties:
+            id:
+                type: string
+            text:
+                type: string
+            meta:
+                type: object
+        additionalProperties: false        
