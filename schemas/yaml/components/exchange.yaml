@@ -7,9 +7,9 @@ patternProperties:
     type: string
   
   '^mode$':
-      title: mode
-      description: "Необхідний тип обміну. Може бути: fanout,
-      direct, topic. За замовчуванням: fanout"
+     title: mode
+      description: "РќРµРѕР±С…С–РґРЅРёР№ С‚РёРї РѕР±РјС–РЅСѓ. РњРѕР¶Рµ Р±СѓС‚Рё: fanout,
+      direct, topic. Р—Р° Р·Р°РјРѕРІС‡СѓРІР°РЅРЅСЏРј: fanout"
       enum:
         - fanout
         - direct
@@ -18,7 +18,7 @@ patternProperties:
    
   '^options$':
         title: options
-        description: Додаткові варіанти обміну
+        description: Р”РѕРґР°С‚РєРѕРІС– РІР°СЂС–Р°РЅС‚Рё РѕР±РјС–РЅСѓ
         $ref: "./exchange-options"
   
     
