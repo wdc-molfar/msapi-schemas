@@ -2,13 +2,26 @@ type: object
 patternProperties:
 
   '^durable$': 
+    title: durable(Булевий тип) 
+    description: "Якщо true біржа переживе перезапуск 
+    брокера, За замовчуванням встановлено значення true"
+
     type: boolean
     default: true                
   
   '^autoDelete$': 
+    title: autoDelete(Булевий тип)
+    descripton: "Якщо true, обмін буде знищено, коли 
+    кількість прив’язок, для яких він є джерелом, знизиться
+    до нуля. За замовчуванням false"
     type: boolean
     default: false            # if true, scopes the queue to the connection (defaults to false)
 
   '^persistent$':
+      title: persistent(Булевий тип)
+      description: "Якщо це правда, повідомлення переживе
+      перезапуск брокера за умови, що воно знаходиться в
+      черзі, яка також витримує перезапуски. Відповідає і
+      перевизначає властивість deliveryMode."
       type: boolean
       default: true

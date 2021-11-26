@@ -1,5 +1,5 @@
 title: MSAPI
-description: Validation schema for MSAPI Specification 1.0.X.4
+description: Validation schema for MSAPI Specification 1.0.X.
 #$schema: http://json-schema.org/draft-04/schema#
 type: object
 

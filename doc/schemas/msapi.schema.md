@@ -1,7 +1,7 @@
 <a name="root"></a>
 # MSAPI
 
-Validation schema for MSAPI Specification 1.0.X.4
+Validation schema for MSAPI Specification 1.0.X.
 
 
 **Properties**
