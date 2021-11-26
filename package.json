@@ -30,7 +30,7 @@
   "homepage": "https://github.com/wdc-molfar/msapi-schemas#readme",
   "devDependencies": {
     "@apidevtools/json-schema-ref-parser": "^9.0.9",
-    "@molfar/jsonschema2md": "github:wdc-molfar/jsonschema2md",
+
     "@molfar/jsonschema2mk": "github:wdc-molfar/jsonschema2mk",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-json": "^4.1.0",
