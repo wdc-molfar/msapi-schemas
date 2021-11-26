@@ -6,14 +6,20 @@
    "type": "object",
    "patternProperties": {
     "^durable$": {
+     "title": "durable(������� ���)",
+     "description": "���� true ���� �������� ����������  �������, �� ������������� ����������� �������� true",
      "type": "boolean",
      "default": true
     },
     "^autoDelete$": {
+     "title": "autoDelete(������� ���)",
+     "descripton": "���� true, ���� ���� �������, ����  ������� ��������, ��� ���� �� � ��������, ��������� �� ����. �� ������������� false",
      "type": "boolean",
      "default": false
     },
     "^persistent$": {
+     "title": "persistent(������� ���)",
+     "description": "���� �� ������, ����������� �������� ���������� ������� �� �����, �� ���� ����������� � ����, ��� ����� ������� �����������. ³������ � ����������� ���������� deliveryMode.",
      "type": "boolean",
      "default": true
     }

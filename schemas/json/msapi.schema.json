@@ -1,6 +1,6 @@
 {
  "title": "MSAPI",
- "description": "Validation schema for MSAPI Specification 1.0.X.4",
+ "description": "Validation schema for MSAPI Specification 1.0.X.",
  "type": "object",
  "required": [
   "msapi",
