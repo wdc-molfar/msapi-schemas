@@ -8,6 +8,8 @@
  ],
  "properties": {
   "msapi": {
+   "title": "Версія MSAPI-специфікації",
+   "description": "Наразі підтримується версія 1.0.1",
    "$ref": "#/definitions/Version"
   },
   "metadata": {
@@ -117,19 +119,71 @@
    }
   },
   "components": {
+   "title": "Підсхема components",
+   "description": "Компоненти повторюваного використання",
    "type": "object",
    "additionalProperties": false,
    "patternProperties": {
     "^exchanges$": {
+     "title": "exchanges",
+     "description": "Налаштування обмінників",
      "type": "object",
      "patternProperties": {
       "^[a-zA-Z0-9\\.\\-_]+$": {
+       "title": "Будь-який ідентифікатор",
+       "description": "Опис обмінника",
        "oneOf": [
         {
-         "$ref": "./exchange"
+         "$ref": "#/definitions/Reference",
+         "description": "Посилання на налаштування обмінника"
         },
         {
-         "$ref": "#/definitions/Reference"
+         "title": "Підсхема \"exchange\"",
+         "description": "Налаштування обміника",
+         "type": "object",
+         "additionalProperties": false,
+         "patternProperties": {
+          "^name$": {
+           "title": "name",
+           "description": "Ім'я обміника",
+           "type": "string"
+          },
+          "^mode$": {
+           "title": "mode",
+           "description": "Тип обміника",
+           "enum": [
+            "fanout",
+            "direct",
+            "topic"
+           ],
+           "default": "fanout"
+          },
+          "^options$": {
+           "title": "Підсхема \"exchange-options\"",
+           "description": "Налаштування обміника",
+           "type": "object",
+           "patternProperties": {
+            "^durable$": {
+             "title": "durable",
+             "description": "Налаштування обмінника. Якщо встановлено значення ```true``` обмінник переживе перезапуск брокера\n",
+             "type": "boolean",
+             "default": true
+            },
+            "^autoDelete$": {
+             "title": "autoDelete",
+             "description": "Налаштування обмінника. Якщо встановлено значення ```true```, обмінник буде знищено, коли  кількість прив’язок, для яких він є джерелом, знизиться до нуля\n",
+             "type": "boolean",
+             "default": false
+            },
+            "^persistent$": {
+             "title": "persistent",
+             "description": "Налаштування обмінника. Якщо встановлено значення ```true```, повідомлення переживе перезапуск брокера за умови, що воно знаходиться в черзі, яка також витримує перезапуски. Відповідає і перевизначає властивість ```deliveryMode```\n",
+             "type": "boolean",
+             "default": true
+            }
+           }
+          }
+         }
         }
        ]
       }
@@ -144,7 +198,93 @@
          "$ref": "#/definitions/Reference"
         },
         {
-         "$ref": "./queue"
+         "type": "object",
+         "additionalProperties": false,
+         "patternProperties": {
+          "^name$": {
+           "type": "string"
+          },
+          "^exchange$": {
+           "oneOf": [
+            {
+             "$ref": "#/definitions/Reference"
+            },
+            {
+             "title": "Підсхема \"exchange\"",
+             "description": "Налаштування обміника",
+             "type": "object",
+             "additionalProperties": false,
+             "patternProperties": {
+              "^name$": {
+               "title": "name",
+               "description": "Ім'я обміника",
+               "type": "string"
+              },
+              "^mode$": {
+               "title": "mode",
+               "description": "Тип обміника",
+               "enum": [
+                "fanout",
+                "direct",
+                "topic"
+               ],
+               "default": "fanout"
+              },
+              "^options$": {
+               "title": "Підсхема \"exchange-options\"",
+               "description": "Налаштування обміника",
+               "type": "object",
+               "patternProperties": {
+                "^durable$": {
+                 "title": "durable",
+                 "description": "Налаштування обмінника. Якщо встановлено значення ```true``` обмінник переживе перезапуск брокера\n",
+                 "type": "boolean",
+                 "default": true
+                },
+                "^autoDelete$": {
+                 "title": "autoDelete",
+                 "description": "Налаштування обмінника. Якщо встановлено значення ```true```, обмінник буде знищено, коли  кількість прив’язок, для яких він є джерелом, знизиться до нуля\n",
+                 "type": "boolean",
+                 "default": false
+                },
+                "^persistent$": {
+                 "title": "persistent",
+                 "description": "Налаштування обмінника. Якщо встановлено значення ```true```, повідомлення переживе перезапуск брокера за умови, що воно знаходиться в черзі, яка також витримує перезапуски. Відповідає і перевизначає властивість ```deliveryMode```\n",
+                 "type": "boolean",
+                 "default": true
+                }
+               }
+              }
+             }
+            }
+           ]
+          },
+          "^options$": {
+           "type": "object",
+           "patternProperties": {
+            "^noAck$": {
+             "type": "boolean",
+             "default": false
+            },
+            "^exclusive$": {
+             "type": "boolean",
+             "default": false
+            },
+            "^durable$": {
+             "type": "boolean",
+             "default": true
+            },
+            "^autoDelete$": {
+             "type": "boolean",
+             "default": false
+            },
+            "^prefetch$": {
+             "type": "number",
+             "default": 1
+            }
+           }
+          }
+         }
         }
        ]
       }
@@ -174,7 +314,135 @@
          "$ref": "#/definitions/Reference"
         },
         {
-         "$ref": "./consume"
+         "type": "object",
+         "additionalProperties": false,
+         "patternProperties": {
+          "^amqp": {
+           "type": "object",
+           "required": [
+            "url"
+           ],
+           "patternProperties": {
+            "^url$": {
+             "type": "string",
+             "format": "uri-reference"
+            }
+           },
+           "errorMessage": {
+            "type": "Connection options should be an object.",
+            "required": "Connection url is required.",
+            "properties": {
+             "url": "Connection url should be a valid RabbitMQ connection url."
+            }
+           }
+          },
+          "^queue$": {
+           "oneOf": [
+            {
+             "type": "object",
+             "additionalProperties": false,
+             "patternProperties": {
+              "^name$": {
+               "type": "string"
+              },
+              "^exchange$": {
+               "oneOf": [
+                {
+                 "$ref": "#/definitions/Reference"
+                },
+                {
+                 "title": "Підсхема \"exchange\"",
+                 "description": "Налаштування обміника",
+                 "type": "object",
+                 "additionalProperties": false,
+                 "patternProperties": {
+                  "^name$": {
+                   "title": "name",
+                   "description": "Ім'я обміника",
+                   "type": "string"
+                  },
+                  "^mode$": {
+                   "title": "mode",
+                   "description": "Тип обміника",
+                   "enum": [
+                    "fanout",
+                    "direct",
+                    "topic"
+                   ],
+                   "default": "fanout"
+                  },
+                  "^options$": {
+                   "title": "Підсхема \"exchange-options\"",
+                   "description": "Налаштування обміника",
+                   "type": "object",
+                   "patternProperties": {
+                    "^durable$": {
+                     "title": "durable",
+                     "description": "Налаштування обмінника. Якщо встановлено значення ```true``` обмінник переживе перезапуск брокера\n",
+                     "type": "boolean",
+                     "default": true
+                    },
+                    "^autoDelete$": {
+                     "title": "autoDelete",
+                     "description": "Налаштування обмінника. Якщо встановлено значення ```true```, обмінник буде знищено, коли  кількість прив’язок, для яких він є джерелом, знизиться до нуля\n",
+                     "type": "boolean",
+                     "default": false
+                    },
+                    "^persistent$": {
+                     "title": "persistent",
+                     "description": "Налаштування обмінника. Якщо встановлено значення ```true```, повідомлення переживе перезапуск брокера за умови, що воно знаходиться в черзі, яка також витримує перезапуски. Відповідає і перевизначає властивість ```deliveryMode```\n",
+                     "type": "boolean",
+                     "default": true
+                    }
+                   }
+                  }
+                 }
+                }
+               ]
+              },
+              "^options$": {
+               "type": "object",
+               "patternProperties": {
+                "^noAck$": {
+                 "type": "boolean",
+                 "default": false
+                },
+                "^exclusive$": {
+                 "type": "boolean",
+                 "default": false
+                },
+                "^durable$": {
+                 "type": "boolean",
+                 "default": true
+                },
+                "^autoDelete$": {
+                 "type": "boolean",
+                 "default": false
+                },
+                "^prefetch$": {
+                 "type": "number",
+                 "default": 1
+                }
+               }
+              }
+             }
+            },
+            {
+             "$ref": "#/definitions/Reference"
+            }
+           ]
+          },
+          "^message$": {
+           "oneOf": [
+            {
+             "$ref": "#/definitions/Schema"
+            },
+            {
+             "$ref": "#/definitions/Reference"
+            }
+           ]
+          }
+         }
         }
        ]
       }
@@ -189,7 +457,94 @@
          "$ref": "#/definitions/Reference"
         },
         {
-         "$ref": "./produce"
+         "type": "object",
+         "additionalProperties": false,
+         "patternProperties": {
+          "^amqp": {
+           "type": "object",
+           "required": [
+            "url"
+           ],
+           "patternProperties": {
+            "^url$": {
+             "type": "string",
+             "format": "uri-reference"
+            }
+           },
+           "errorMessage": {
+            "type": "Connection options should be an object.",
+            "required": "Connection url is required.",
+            "properties": {
+             "url": "Connection url should be a valid RabbitMQ connection url."
+            }
+           }
+          },
+          "^exchange$": {
+           "oneOf": [
+            {
+             "title": "Підсхема \"exchange\"",
+             "description": "Налаштування обміника",
+             "type": "object",
+             "additionalProperties": false,
+             "patternProperties": {
+              "^name$": {
+               "title": "name",
+               "description": "Ім'я обміника",
+               "type": "string"
+              },
+              "^mode$": {
+               "title": "mode",
+               "description": "Тип обміника",
+               "enum": [
+                "fanout",
+                "direct",
+                "topic"
+               ],
+               "default": "fanout"
+              },
+              "^options$": {
+               "title": "Підсхема \"exchange-options\"",
+               "description": "Налаштування обміника",
+               "type": "object",
+               "patternProperties": {
+                "^durable$": {
+                 "title": "durable",
+                 "description": "Налаштування обмінника. Якщо встановлено значення ```true``` обмінник переживе перезапуск брокера\n",
+                 "type": "boolean",
+                 "default": true
+                },
+                "^autoDelete$": {
+                 "title": "autoDelete",
+                 "description": "Налаштування обмінника. Якщо встановлено значення ```true```, обмінник буде знищено, коли  кількість прив’язок, для яких він є джерелом, знизиться до нуля\n",
+                 "type": "boolean",
+                 "default": false
+                },
+                "^persistent$": {
+                 "title": "persistent",
+                 "description": "Налаштування обмінника. Якщо встановлено значення ```true```, повідомлення переживе перезапуск брокера за умови, що воно знаходиться в черзі, яка також витримує перезапуски. Відповідає і перевизначає властивість ```deliveryMode```\n",
+                 "type": "boolean",
+                 "default": true
+                }
+               }
+              }
+             }
+            },
+            {
+             "$ref": "#/definitions/Reference"
+            }
+           ]
+          },
+          "^message$": {
+           "oneOf": [
+            {
+             "$ref": "#/definitions/Schema"
+            },
+            {
+             "$ref": "#/definitions/Reference"
+            }
+           ]
+          }
+         }
         }
        ]
       }
@@ -210,7 +565,135 @@
     "^consume$": {
      "oneOf": [
       {
-       "$ref": "../components/consume"
+       "type": "object",
+       "additionalProperties": false,
+       "patternProperties": {
+        "^amqp": {
+         "type": "object",
+         "required": [
+          "url"
+         ],
+         "patternProperties": {
+          "^url$": {
+           "type": "string",
+           "format": "uri-reference"
+          }
+         },
+         "errorMessage": {
+          "type": "Connection options should be an object.",
+          "required": "Connection url is required.",
+          "properties": {
+           "url": "Connection url should be a valid RabbitMQ connection url."
+          }
+         }
+        },
+        "^queue$": {
+         "oneOf": [
+          {
+           "type": "object",
+           "additionalProperties": false,
+           "patternProperties": {
+            "^name$": {
+             "type": "string"
+            },
+            "^exchange$": {
+             "oneOf": [
+              {
+               "$ref": "#/definitions/Reference"
+              },
+              {
+               "title": "Підсхема \"exchange\"",
+               "description": "Налаштування обміника",
+               "type": "object",
+               "additionalProperties": false,
+               "patternProperties": {
+                "^name$": {
+                 "title": "name",
+                 "description": "Ім'я обміника",
+                 "type": "string"
+                },
+                "^mode$": {
+                 "title": "mode",
+                 "description": "Тип обміника",
+                 "enum": [
+                  "fanout",
+                  "direct",
+                  "topic"
+                 ],
+                 "default": "fanout"
+                },
+                "^options$": {
+                 "title": "Підсхема \"exchange-options\"",
+                 "description": "Налаштування обміника",
+                 "type": "object",
+                 "patternProperties": {
+                  "^durable$": {
+                   "title": "durable",
+                   "description": "Налаштування обмінника. Якщо встановлено значення ```true``` обмінник переживе перезапуск брокера\n",
+                   "type": "boolean",
+                   "default": true
+                  },
+                  "^autoDelete$": {
+                   "title": "autoDelete",
+                   "description": "Налаштування обмінника. Якщо встановлено значення ```true```, обмінник буде знищено, коли  кількість прив’язок, для яких він є джерелом, знизиться до нуля\n",
+                   "type": "boolean",
+                   "default": false
+                  },
+                  "^persistent$": {
+                   "title": "persistent",
+                   "description": "Налаштування обмінника. Якщо встановлено значення ```true```, повідомлення переживе перезапуск брокера за умови, що воно знаходиться в черзі, яка також витримує перезапуски. Відповідає і перевизначає властивість ```deliveryMode```\n",
+                   "type": "boolean",
+                   "default": true
+                  }
+                 }
+                }
+               }
+              }
+             ]
+            },
+            "^options$": {
+             "type": "object",
+             "patternProperties": {
+              "^noAck$": {
+               "type": "boolean",
+               "default": false
+              },
+              "^exclusive$": {
+               "type": "boolean",
+               "default": false
+              },
+              "^durable$": {
+               "type": "boolean",
+               "default": true
+              },
+              "^autoDelete$": {
+               "type": "boolean",
+               "default": false
+              },
+              "^prefetch$": {
+               "type": "number",
+               "default": 1
+              }
+             }
+            }
+           }
+          },
+          {
+           "$ref": "#/definitions/Reference"
+          }
+         ]
+        },
+        "^message$": {
+         "oneOf": [
+          {
+           "$ref": "#/definitions/Schema"
+          },
+          {
+           "$ref": "#/definitions/Reference"
+          }
+         ]
+        }
+       }
       },
       {
        "$ref": "#/definitions/Extensible"
@@ -220,7 +703,94 @@
     "^produce$": {
      "oneOf": [
       {
-       "$ref": "../components/produce"
+       "type": "object",
+       "additionalProperties": false,
+       "patternProperties": {
+        "^amqp": {
+         "type": "object",
+         "required": [
+          "url"
+         ],
+         "patternProperties": {
+          "^url$": {
+           "type": "string",
+           "format": "uri-reference"
+          }
+         },
+         "errorMessage": {
+          "type": "Connection options should be an object.",
+          "required": "Connection url is required.",
+          "properties": {
+           "url": "Connection url should be a valid RabbitMQ connection url."
+          }
+         }
+        },
+        "^exchange$": {
+         "oneOf": [
+          {
+           "title": "Підсхема \"exchange\"",
+           "description": "Налаштування обміника",
+           "type": "object",
+           "additionalProperties": false,
+           "patternProperties": {
+            "^name$": {
+             "title": "name",
+             "description": "Ім'я обміника",
+             "type": "string"
+            },
+            "^mode$": {
+             "title": "mode",
+             "description": "Тип обміника",
+             "enum": [
+              "fanout",
+              "direct",
+              "topic"
+             ],
+             "default": "fanout"
+            },
+            "^options$": {
+             "title": "Підсхема \"exchange-options\"",
+             "description": "Налаштування обміника",
+             "type": "object",
+             "patternProperties": {
+              "^durable$": {
+               "title": "durable",
+               "description": "Налаштування обмінника. Якщо встановлено значення ```true``` обмінник переживе перезапуск брокера\n",
+               "type": "boolean",
+               "default": true
+              },
+              "^autoDelete$": {
+               "title": "autoDelete",
+               "description": "Налаштування обмінника. Якщо встановлено значення ```true```, обмінник буде знищено, коли  кількість прив’язок, для яких він є джерелом, знизиться до нуля\n",
+               "type": "boolean",
+               "default": false
+              },
+              "^persistent$": {
+               "title": "persistent",
+               "description": "Налаштування обмінника. Якщо встановлено значення ```true```, повідомлення переживе перезапуск брокера за умови, що воно знаходиться в черзі, яка також витримує перезапуски. Відповідає і перевизначає властивість ```deliveryMode```\n",
+               "type": "boolean",
+               "default": true
+              }
+             }
+            }
+           }
+          },
+          {
+           "$ref": "#/definitions/Reference"
+          }
+         ]
+        },
+        "^message$": {
+         "oneOf": [
+          {
+           "$ref": "#/definitions/Schema"
+          },
+          {
+           "$ref": "#/definitions/Reference"
+          }
+         ]
+        }
+       }
       },
       {
        "$ref": "#/definitions/Extensible"
@@ -241,7 +811,248 @@
      "^instance$": {
       "oneOf": [
        {
-        "$ref": "../service/index"
+        "type": "object",
+        "additionalProperties": false,
+        "patternProperties": {
+         "^config$": {
+          "type": "object"
+         },
+         "^consume$": {
+          "oneOf": [
+           {
+            "type": "object",
+            "additionalProperties": false,
+            "patternProperties": {
+             "^amqp": {
+              "type": "object",
+              "required": [
+               "url"
+              ],
+              "patternProperties": {
+               "^url$": {
+                "type": "string",
+                "format": "uri-reference"
+               }
+              },
+              "errorMessage": {
+               "type": "Connection options should be an object.",
+               "required": "Connection url is required.",
+               "properties": {
+                "url": "Connection url should be a valid RabbitMQ connection url."
+               }
+              }
+             },
+             "^queue$": {
+              "oneOf": [
+               {
+                "type": "object",
+                "additionalProperties": false,
+                "patternProperties": {
+                 "^name$": {
+                  "type": "string"
+                 },
+                 "^exchange$": {
+                  "oneOf": [
+                   {
+                    "$ref": "#/definitions/Reference"
+                   },
+                   {
+                    "title": "Підсхема \"exchange\"",
+                    "description": "Налаштування обміника",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "patternProperties": {
+                     "^name$": {
+                      "title": "name",
+                      "description": "Ім'я обміника",
+                      "type": "string"
+                     },
+                     "^mode$": {
+                      "title": "mode",
+                      "description": "Тип обміника",
+                      "enum": [
+                       "fanout",
+                       "direct",
+                       "topic"
+                      ],
+                      "default": "fanout"
+                     },
+                     "^options$": {
+                      "title": "Підсхема \"exchange-options\"",
+                      "description": "Налаштування обміника",
+                      "type": "object",
+                      "patternProperties": {
+                       "^durable$": {
+                        "title": "durable",
+                        "description": "Налаштування обмінника. Якщо встановлено значення ```true``` обмінник переживе перезапуск брокера\n",
+                        "type": "boolean",
+                        "default": true
+                       },
+                       "^autoDelete$": {
+                        "title": "autoDelete",
+                        "description": "Налаштування обмінника. Якщо встановлено значення ```true```, обмінник буде знищено, коли  кількість прив’язок, для яких він є джерелом, знизиться до нуля\n",
+                        "type": "boolean",
+                        "default": false
+                       },
+                       "^persistent$": {
+                        "title": "persistent",
+                        "description": "Налаштування обмінника. Якщо встановлено значення ```true```, повідомлення переживе перезапуск брокера за умови, що воно знаходиться в черзі, яка також витримує перезапуски. Відповідає і перевизначає властивість ```deliveryMode```\n",
+                        "type": "boolean",
+                        "default": true
+                       }
+                      }
+                     }
+                    }
+                   }
+                  ]
+                 },
+                 "^options$": {
+                  "type": "object",
+                  "patternProperties": {
+                   "^noAck$": {
+                    "type": "boolean",
+                    "default": false
+                   },
+                   "^exclusive$": {
+                    "type": "boolean",
+                    "default": false
+                   },
+                   "^durable$": {
+                    "type": "boolean",
+                    "default": true
+                   },
+                   "^autoDelete$": {
+                    "type": "boolean",
+                    "default": false
+                   },
+                   "^prefetch$": {
+                    "type": "number",
+                    "default": 1
+                   }
+                  }
+                 }
+                }
+               },
+               {
+                "$ref": "#/definitions/Reference"
+               }
+              ]
+             },
+             "^message$": {
+              "oneOf": [
+               {
+                "$ref": "#/definitions/Schema"
+               },
+               {
+                "$ref": "#/definitions/Reference"
+               }
+              ]
+             }
+            }
+           },
+           {
+            "$ref": "#/definitions/Extensible"
+           }
+          ]
+         },
+         "^produce$": {
+          "oneOf": [
+           {
+            "type": "object",
+            "additionalProperties": false,
+            "patternProperties": {
+             "^amqp": {
+              "type": "object",
+              "required": [
+               "url"
+              ],
+              "patternProperties": {
+               "^url$": {
+                "type": "string",
+                "format": "uri-reference"
+               }
+              },
+              "errorMessage": {
+               "type": "Connection options should be an object.",
+               "required": "Connection url is required.",
+               "properties": {
+                "url": "Connection url should be a valid RabbitMQ connection url."
+               }
+              }
+             },
+             "^exchange$": {
+              "oneOf": [
+               {
+                "title": "Підсхема \"exchange\"",
+                "description": "Налаштування обміника",
+                "type": "object",
+                "additionalProperties": false,
+                "patternProperties": {
+                 "^name$": {
+                  "title": "name",
+                  "description": "Ім'я обміника",
+                  "type": "string"
+                 },
+                 "^mode$": {
+                  "title": "mode",
+                  "description": "Тип обміника",
+                  "enum": [
+                   "fanout",
+                   "direct",
+                   "topic"
+                  ],
+                  "default": "fanout"
+                 },
+                 "^options$": {
+                  "title": "Підсхема \"exchange-options\"",
+                  "description": "Налаштування обміника",
+                  "type": "object",
+                  "patternProperties": {
+                   "^durable$": {
+                    "title": "durable",
+                    "description": "Налаштування обмінника. Якщо встановлено значення ```true``` обмінник переживе перезапуск брокера\n",
+                    "type": "boolean",
+                    "default": true
+                   },
+                   "^autoDelete$": {
+                    "title": "autoDelete",
+                    "description": "Налаштування обмінника. Якщо встановлено значення ```true```, обмінник буде знищено, коли  кількість прив’язок, для яких він є джерелом, знизиться до нуля\n",
+                    "type": "boolean",
+                    "default": false
+                   },
+                   "^persistent$": {
+                    "title": "persistent",
+                    "description": "Налаштування обмінника. Якщо встановлено значення ```true```, повідомлення переживе перезапуск брокера за умови, що воно знаходиться в черзі, яка також витримує перезапуски. Відповідає і перевизначає властивість ```deliveryMode```\n",
+                    "type": "boolean",
+                    "default": true
+                   }
+                  }
+                 }
+                }
+               },
+               {
+                "$ref": "#/definitions/Reference"
+               }
+              ]
+             },
+             "^message$": {
+              "oneOf": [
+               {
+                "$ref": "#/definitions/Schema"
+               },
+               {
+                "$ref": "#/definitions/Reference"
+               }
+              ]
+             }
+            }
+           },
+           {
+            "$ref": "#/definitions/Extensible"
+           }
+          ]
+         }
+        }
        },
        {
         "$ref": "#/definitions/Reference"

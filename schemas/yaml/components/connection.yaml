@@ -1,4 +1,7 @@
+
+subschema: msapi.components.connection         
 type: object
+
 
 required:
   - url

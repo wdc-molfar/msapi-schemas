@@ -5,10 +5,8 @@
 	const fs = require("fs")
 	const YAML = require("js-yaml")
 	const JsonRefs = require("json-refs")
+	const { deepExtend, processFolderRecursive} = require("./utils")
 	
-	const $RefParser = require("@apidevtools/json-schema-ref-parser");
-
-
 	const TEMP_DIR = "./schemas/.temp"
 	const SCHEMA_DIR = "./schemas/json"
 	const YAML_DIR = "./schemas/yaml"
@@ -18,18 +16,7 @@
 
 	// const DOC_TEMP_DIR = "./doc/.temp"
 
-	const processFolderRecursive =  (dir, fileCallback) => Promise.all(
-		fs.readdirSync(dir).map( async element => {
-	        if (fs.lstatSync(path.join(dir, element)).isFile()) {
-	            // console.log("Start", element)
-	            await fileCallback(path.join(dir, element))
-	            // console.log("Done", element)
-	        } else {
-	            await processFolderRecursive(path.join(dir, element), fileCallback);
-	        }
-	    })	
-	)
-
+	
 
 
 
@@ -58,7 +45,18 @@
 	}
 
 	const removeTempFiles = file => {
-		if(path.extname(file) == ".json") return
+		if(path.extname(file) == ".json") {
+			return
+		}	
+		
+		// console.log("Remove > "+file)
+		fs.unlinkSync(file)
+	}
+
+	const generateDoc = file => {
+		if(path.extname(file) == ".json") {
+			return
+		}	
 		
 		// console.log("Remove > "+file)
 		fs.unlinkSync(file)
@@ -93,42 +91,7 @@
 	}
 
 
-	const deepExtend = (target, source) => {
-    if (!(source instanceof Object)) {
-        return source;
-    }
-
-    switch (source.constructor) {
-        case Date:
-            // Treat Dates like scalars; if the target date object had any child
-            // properties - they will be lost!
-            // let dateValue = (source as any) as Date;
-            return new Date(source.getTime());
-
-        case Object:
-            if (target === undefined) {
-                target = {};
-            }
-            break;
-
-        case Array:
-            // Always copy the array source and overwrite the target.
-            target = [];
-            break;
-
-        default:
-            // Not a plain Object - treat it as a scalar.
-            return source;
-    }
-
-    for (let prop in source) {
-        if (!Object.prototype.hasOwnProperty.call(source, prop)) continue;
-        target[prop] = deepExtend(target[prop], source[prop]);
-    }
-
-    return target;
-};
-
+	
 	// if(fs.existsSync(DOC_TEMP_DIR)){
 	// 	fs.rmdirSync(DOC_TEMP_DIR, {recursive: true});
 	// }

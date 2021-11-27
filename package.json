@@ -4,10 +4,10 @@
   "description": "MSAPI specification schemas",
   "main": "index.js",
   "scripts": {
-    "test": "node ./build/docs/prepare && jest --no-cache --runInBand --forceExit --passWithNoTests",
+    "test": "node ./build/docs/prepare && jest --no-cache  --forceExit --passWithNoTests",
     "dist": "rollup -c build/rollup/rollup.config.js",
-    "build": "npm run test && npm run docs:schemas && npm run dist",
-    "docs:schemas": "npx jsonschema2mk --schema ./schemas/json/msapi.schema.json >./doc/schemas/msapi.schema.md ",
+    "build": "npm run test && npm run docs:schemas && node ./build/docs/post-build && npm run dist",
+    "docs:schemas": "jsonschema2mk --schema ./schemas/json/msapi.schema.json >./doc/schemas/msapi.schema.md ",
     "publish": "npm run build && publish.bat"
   },
   "repository": {
@@ -29,8 +29,6 @@
   },
   "homepage": "https://github.com/wdc-molfar/msapi-schemas#readme",
   "devDependencies": {
-    "@apidevtools/json-schema-ref-parser": "^9.0.9",
-
     "@molfar/jsonschema2mk": "github:wdc-molfar/jsonschema2mk",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-json": "^4.1.0",
@@ -38,12 +36,14 @@
     "ajv": "^8.6.3",
     "ajv-errors": "^3.0.0",
     "ajv-formats": "^2.1.1",
+    "deep-extend": "^0.6.0",
     "esm": "^3.2.25",
     "fs-extra": "^10.0.0",
     "glob": "^7.2.0",
     "jest": "^27.3.1",
     "jest-html-reporters": "^2.1.6",
     "json-refs": "^3.0.15",
+    "lodash": "^4.17.21",
     "prism-themes": "^1.9.0",
     "rollup": "^2.34.1",
     "rollup-plugin-node-polyfills": "^0.2.1",

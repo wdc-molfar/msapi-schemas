@@ -1,4 +1,5 @@
 # workflow schema 
+subschema: msapi.workflow         
 
 type: array
 

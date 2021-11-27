@@ -1,18 +1,26 @@
 # components schema 
- 
+title: Підсхема components
+description: Компоненти повторюваного використання
+subschema: msapi.components         
 type: object
 additionalProperties: false
 
 patternProperties:
   
   '^exchanges$':
+    title: exchanges
+    description: Налаштування обмінників
     type: object
     patternProperties:
       '^[a-zA-Z0-9\.\-_]+$':
+        title: Будь-який ідентифікатор
+        description: Опис обмінника
         oneOf:
-          - $ref: './exchange'
           - $ref: '#/definitions/Reference'
-
+            description: Посилання на налаштування обмінника
+          - $ref: './exchange'
+            description: Налаштування обмінника
+          
   '^queues$':
     type: object
     patternProperties:

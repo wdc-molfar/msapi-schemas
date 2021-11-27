@@ -24,13 +24,19 @@
   "^exchange$": {
    "oneOf": [
     {
+     "title": "Підсхема \"exchange\"",
+     "description": "Налаштування обміника",
      "type": "object",
      "additionalProperties": false,
      "patternProperties": {
       "^name$": {
+       "title": "name",
+       "description": "Ім'я обміника",
        "type": "string"
       },
       "^mode$": {
+       "title": "mode",
+       "description": "Тип обміника",
        "enum": [
         "fanout",
         "direct",
@@ -39,7 +45,29 @@
        "default": "fanout"
       },
       "^options$": {
-       "$ref": "./exchange-options"
+       "title": "Підсхема \"exchange-options\"",
+       "description": "Налаштування обміника",
+       "type": "object",
+       "patternProperties": {
+        "^durable$": {
+         "title": "durable",
+         "description": "Налаштування обмінника. Якщо встановлено значення ```true``` обмінник переживе перезапуск брокера\n",
+         "type": "boolean",
+         "default": true
+        },
+        "^autoDelete$": {
+         "title": "autoDelete",
+         "description": "Налаштування обмінника. Якщо встановлено значення ```true```, обмінник буде знищено, коли  кількість прив’язок, для яких він є джерелом, знизиться до нуля\n",
+         "type": "boolean",
+         "default": false
+        },
+        "^persistent$": {
+         "title": "persistent",
+         "description": "Налаштування обмінника. Якщо встановлено значення ```true```, повідомлення переживе перезапуск брокера за умови, що воно знаходиться в черзі, яка також витримує перезапуски. Відповідає і перевизначає властивість ```deliveryMode```\n",
+         "type": "boolean",
+         "default": true
+        }
+       }
       }
      }
     },

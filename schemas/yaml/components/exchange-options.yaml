@@ -1,27 +1,32 @@
+title: Підсхема "exchange-options"
+description: Налаштування обміника
+subschema: msapi.components.exchange.exchange-options         
+
 type: object
 patternProperties:
 
   '^durable$': 
-    title: durable(Булевий тип) 
-    description: "Якщо true біржа переживе перезапуск 
-    брокера, За замовчуванням встановлено значення true"
+    title: durable
+    description: >
+      Налаштування обмінника. Якщо встановлено значення ```true``` обмінник переживе перезапуск брокера
 
     type: boolean
     default: true                
   
   '^autoDelete$': 
-    title: autoDelete(Булевий тип)
-    descripton: "Якщо true, обмін буде знищено, коли 
-    кількість прив’язок, для яких він є джерелом, знизиться
-    до нуля. За замовчуванням false"
+    title: autoDelete
+    description: >
+      Налаштування обмінника. Якщо встановлено значення ```true```, обмінник буде знищено, коли 
+      кількість прив’язок, для яких він є джерелом, знизиться до нуля
     type: boolean
     default: false            # if true, scopes the queue to the connection (defaults to false)
 
   '^persistent$':
-      title: persistent(Булевий тип)
-      description: "Якщо це правда, повідомлення переживе
-      перезапуск брокера за умови, що воно знаходиться в
-      черзі, яка також витримує перезапуски. Відповідає і
-      перевизначає властивість deliveryMode."
+      title: persistent
+      description: >
+        Налаштування обмінника. Якщо встановлено значення ```true```, повідомлення переживе
+        перезапуск брокера за умови, що воно знаходиться в
+        черзі, яка також витримує перезапуски. Відповідає і
+        перевизначає властивість ```deliveryMode```
       type: boolean
       default: true

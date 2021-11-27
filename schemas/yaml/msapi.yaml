@@ -1,5 +1,6 @@
 title: MSAPI
 description: Validation schema for MSAPI Specification 1.0.X.
+subschema: msapi
 #$schema: http://json-schema.org/draft-04/schema#
 type: object
 
@@ -10,12 +11,15 @@ required:
 properties:
   
   msapi:
+    title: Версія MSAPI-специфікації
+    description: Наразі підтримується версія 1.0.1
     $ref: "#/definitions/Version"
   
   metadata:
     $ref: "./metadata/index"
   
   components:
+
     $ref: "./components/index"  
   
   service:

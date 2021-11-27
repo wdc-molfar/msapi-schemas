@@ -1,24 +1,29 @@
+title: Підсхема "exchange"
+description: Налаштування обміника
+subschema: msapi.components.exchange         
 
 type: object
 additionalProperties: false
+
 patternProperties:
   
   '^name$':
+    title: name
+    description: Ім'я обміника
     type: string
   
   '^mode$':
-     title: mode
-      description: "Необхідний тип обміну. Може бути: fanout,
-      direct, topic. За замовчуванням: fanout"
-      enum:
+    title: mode
+    description: Тип обміника
+    enum:
         - fanout
         - direct
         - topic
-      default: "fanout"  
+    default: "fanout"  
    
   '^options$':
-        title: options
-        description: Додаткові варіанти обміну
-        $ref: "./exchange-options"
+    title: options
+    description: Налаштування обміника
+    $ref: "./exchange-options"
   
     

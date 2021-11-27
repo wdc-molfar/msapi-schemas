@@ -1,4 +1,5 @@
 # service schema
+subschema: msapi.service        
 
 type: object
 additionalProperties: false

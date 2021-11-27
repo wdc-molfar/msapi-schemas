@@ -1,62 +1,132 @@
-<a name="root"></a>
-# MSAPI
+# msapi(MSAPI)
+
+**Description**: 
+
 
 Validation schema for MSAPI Specification 1.0.X.
 
-
-**Properties**
+**Properties**(5)
 
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
-|**msapi**<br/>(Version)|`string`|Pattern: ^1\\\.0\\\.\\d\(\-\.\+\)?$<br/>|yes|
-|[**metadata**](#metadata)|`object`||yes|
-|[**components**](#components)|`object`||no|
-|[**service**](#service)|`object`||no|
-|[**workflow**](#workflow)|`object[]`||no|
+|**msapi**|`string`|Pattern: ^1\\\.0\\\.\\d\(\-\.\+\)?$<br/>|yes|
+|**metadata**|`object`|Subschema: [msapi\.metadata](#msapimetadata)<br/>|yes|
+|**components**|`object`|Підсхема components.Компоненти повторюваного використання<br/>Subschema: [Підсхема components](#msapicomponents)<br/>|no|
+|**service**|`object`|Subschema: [msapi\.service](#msapiservice)<br/>|no|
+|**workflow**|`object[]`|Subschema: [msapi\.workflow](#msapiworkflow)<br/>|no|
 
-**Example**
 
-```json
-{
-    "metadata": {
-        "contact": {},
-        "license": {}
-    },
-    "components": {},
-    "service": {},
-    "workflow": [
-        {}
-    ]
-}
-```
+## msapi(Версія MSAPI-специфікації)
 
-<a name="metadata"></a>
-## metadata:
 
-**Properties**
+**Description**: 
+Наразі підтримується версія 1.0.1
+
+Reference to [\#/definitions/Version](\#/definitions/Version)  
+
+
+
+
+
+
+
+
+## metadata ()
+
+**Description**: Reference [msapi.metadata](#msapimetadata)
+
+
+## components (Підсхема components)
+
+**Description**: 
+Компоненти повторюваного використання
+
+Reference [msapi.components](#msapicomponents)
+
+
+## service ()
+
+**Description**: Reference [msapi.service](#msapiservice)
+
+
+## workflow\[\] ()
+
+**Description**: Reference [msapi.workflow](#msapiworkflow)
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+# msapi.metadata
+
+**Description**: 
+
+**Additional Properties:** allowed<br/>
+**Properties**(6)
 
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
 |**id**|`string`||yes|
 |**title**|`string`||yes|
 |**description**|`string`||no|
-|[**contact**](#metadatacontact)|`object`||no|
-|[**license**](#metadatalicense)|`object`||yes|
+|**contact**|`object`||no|
+|**license**|`object`||yes|
 |**repo**|`string`|Format: `"uri-reference"`<br/>|no|
 
-**Properties (Pattern)**
 
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-|**^x\-**|||no|
+## id
 
-<a name="root"></a>
-#
 
-<a name="metadatacontact"></a>
-### metadata\.contact:
+**Description**: 
+**Type:** `string`<br/>
+ 
 
-**Properties**
+
+
+
+
+
+
+## title
+
+
+**Description**: 
+**Type:** `string`<br/>
+ 
+
+
+
+
+
+
+
+## description
+
+
+**Description**: 
+**Type:** `string`<br/>
+ 
+
+
+
+
+
+
+
+## contact
+
+
+**Description**: **Additional Properties:** not allowed<br/>
+**Properties**(3)
 
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
@@ -64,27 +134,122 @@ Validation schema for MSAPI Specification 1.0.X.
 |**url**|`string`|Format: `"uri-reference"`<br/>||
 |**email**|`string`|Format: `"email"`<br/>||
 
+
+### contact\.name
+
+
+**Description**: 
+**Type:** `string`<br/>
+ 
+
+
+
+
+
+
+
+### contact\.url
+
+
+**Description**: 
+**Type:** `string`<br/>
+**Format:** `"uri-reference"`<br/>
+ 
+
+
+
+
+
+
+
+### contact\.email
+
+
+**Description**: 
+**Type:** `string`<br/>
+**Format:** `"email"`<br/>
+ 
+
+
+
+
+
+
+
+
+
+
+
 **Properties (Pattern)**
 
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
 |**^x\-**||||
 
-<a name="root"></a>
-#
+### contact\.^x\-
+
+
+**Description**:  
 
 
 
-**Additional Properties:** not allowed<br/>
-<a name="metadatalicense"></a>
-### metadata\.license:
 
-**Properties**
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+## license
+
+
+**Description**: **Additional Properties:** not allowed<br/>
+**Properties**(2)
 
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
 |**name**|`string`||yes|
 |**url**|`string`|Format: `"uri-reference"`<br/>|no|
+
+
+### license\.name
+
+
+**Description**: 
+**Type:** `string`<br/>
+ 
+
+
+
+
+
+
+
+### license\.url
+
+
+**Description**: 
+**Type:** `string`<br/>
+**Format:** `"uri-reference"`<br/>
+ 
+
+
+
+
+
+
+
+
+
+
 
 **Properties (Pattern)**
 
@@ -92,110 +257,159 @@ Validation schema for MSAPI Specification 1.0.X.
 |----|----|-----------|--------|
 |**^x\-**|||no|
 
-<a name="root"></a>
-#
+### license\.^x\-
 
 
+**Description**:  
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+## repo
+
+
+**Description**: 
+**Type:** `string`<br/>
+**Format:** `"uri-reference"`<br/>
+ 
+
+
+
+
+
+
+
+
+
+
+
+**Properties (Pattern)**
+
+|Name|Type|Description|Required|
+|----|----|-----------|--------|
+|**^x\-**|||no|
+
+## ^x\-
+
+
+**Description**:  
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+# msapi.components(Підсхема components)
+
+**Description**: 
+
+
+Компоненти повторюваного використання
 
 **Additional Properties:** not allowed<br/>
 
 
-**Additional Properties:** allowed<br/>
-**Example**
-
-```json
-{
-    "contact": {},
-    "license": {}
-}
-```
-
-<a name="components"></a>
-## components:
 
 **Properties (Pattern)**
 
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
-|[**^exchanges$**](#componentsexchanges)|`object`|||
-|[**^queues$**](#componentsqueues)|`object`|||
-|[**^schemas$**](#componentsschemas)|`object`|||
-|[**^consumes$**](#componentsconsumes)|`object`|||
-|[**^produces$**](#componentsproduces)|`object`|||
-|[**^settings$**](#componentssettings)|`object`|||
+|**^exchanges$**|`object`|exchanges.Налаштування обмінників<br/>||
+|**^queues$**|`object`|||
+|**^schemas$**|`object`|||
+|**^consumes$**|`object`|||
+|**^produces$**|`object`|||
+|**^settings$**|`object`|||
 
-<a name="root"></a>
-#
+## ^exchanges$(exchanges)
+
+
+**Description**: 
+Налаштування обмінників
+
+
+
 
 **Properties (Pattern)**
 
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
-|**^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$**||||
+|**^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$**||Будь-який ідентифікатор.Опис обмінника<br/>||
 
-<a name="root"></a>
-#
-
-<br>**Option 1 (alternative):** 
-Reference to [\./exchange](\./exchange) 
-<br>**Option 2 (alternative):** 
-Reference to [\#/definitions/Reference](\#/definitions/Reference) 
-<a name="componentsexchanges"></a>
-### components\.^exchanges$:
-
-**Properties (Pattern)**
-
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-|**^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$**||||
-
-<a name="root"></a>
-#
-
-<br>**Option 1 (alternative):** 
-Reference to [\./exchange](\./exchange) 
-<br>**Option 2 (alternative):** 
-Reference to [\#/definitions/Reference](\#/definitions/Reference) 
+#### ^exchanges$\.^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$(Будь-який ідентифікатор)
 
 
-<a name="componentsqueues"></a>
-### components\.^queues$:
+**Description**: 
+Опис обмінника
 
-**Properties (Pattern)**
-
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-|**^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$**||||
-
-<a name="root"></a>
-#
-
-<br>**Option 1 (alternative):** 
-Reference to [\#/definitions/Reference](\#/definitions/Reference) 
-<br>**Option 2 (alternative):** 
-Reference to [\./queue](\./queue) 
+ 
 
 
-<a name="componentsschemas"></a>
-### components\.^schemas$:
 
-**Properties (Pattern)**
+- **Option 1 (alternative):**    
+    **Description**: Посилання на налаштування обмінника
+    
+    
+    Reference to [\#/definitions/Reference](\#/definitions/Reference)  
+    
+    
+    
+    
+    
+    
+    
+- **Option 2 (alternative):**    
+    **Description**: 
+    Налаштування обміника
+    
+    Reference [msapi.components.exchange](#msapicomponentsexchange)
+    
 
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-|**^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$**||||
-
-<a name="root"></a>
-#
-
-<br>**Option 1 (alternative):** 
-Reference to [\#/definitions/Reference](\#/definitions/Reference) 
-<br>**Option 2 (alternative):** 
-Reference to [\#/definitions/Schema](\#/definitions/Schema) 
 
 
-<a name="componentsconsumes"></a>
-### components\.^consumes$:
+
+
+
+
+ 
+
+
+
+
+
+
+
+## ^queues$
+
+
+**Description**: 
+
 
 **Properties (Pattern)**
 
@@ -203,17 +417,45 @@ Reference to [\#/definitions/Schema](\#/definitions/Schema)
 |----|----|-----------|--------|
 |**^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$**||||
 
-<a name="root"></a>
-#
-
-<br>**Option 1 (alternative):** 
-Reference to [\#/definitions/Reference](\#/definitions/Reference) 
-<br>**Option 2 (alternative):** 
-Reference to [\./consume](\./consume) 
+#### ^queues$\.^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$
 
 
-<a name="componentsproduces"></a>
-### components\.^produces$:
+**Description**:  
+
+
+
+- **Option 1 (alternative):**    
+    Reference to [\#/definitions/Reference](\#/definitions/Reference)  
+    
+    
+    
+    
+    
+    
+    
+- **Option 2 (alternative):**    
+    **Description**: Reference [msapi.components.queue](#msapicomponentsqueue)
+    
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+## ^schemas$
+
+
+**Description**: 
+
 
 **Properties (Pattern)**
 
@@ -221,140 +463,852 @@ Reference to [\./consume](\./consume)
 |----|----|-----------|--------|
 |**^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$**||||
 
-<a name="root"></a>
-#
-
-<br>**Option 1 (alternative):** 
-Reference to [\#/definitions/Reference](\#/definitions/Reference) 
-<br>**Option 2 (alternative):** 
-Reference to [\./produce](\./produce) 
+#### ^schemas$\.^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$
 
 
-<a name="componentssettings"></a>
-### components\.^settings$:
+**Description**:  
+
+
+
+- **Option 1 (alternative):**    
+    Reference to [\#/definitions/Reference](\#/definitions/Reference)  
+    
+    
+    
+    
+    
+    
+    
+- **Option 2 (alternative):**    
+    Reference to [\#/definitions/Schema](\#/definitions/Schema)  
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+## ^consumes$
+
+
+**Description**: 
+
+
+**Properties (Pattern)**
+
+|Name|Type|Description|Required|
+|----|----|-----------|--------|
+|**^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$**||||
+
+#### ^consumes$\.^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$
+
+
+**Description**:  
+
+
+
+- **Option 1 (alternative):**    
+    Reference to [\#/definitions/Reference](\#/definitions/Reference)  
+    
+    
+    
+    
+    
+    
+    
+- **Option 2 (alternative):**    
+    **Additional Properties:** not allowed<br/>
+    
+    
+    
+    **Properties (Pattern)**
+    
+    |Name|Type|Description|Required|
+    |----|----|-----------|--------|
+    |**^amqp**|`object`|Subschema: [msapi\.components\.connection](#msapicomponentsconnection)<br/>|yes|
+    |**^queue$**||||
+    |**^message$**||||
+    
+    ## Option 2: ^amqp ()
+    
+    **Description**: Reference [msapi.components.connection](#msapicomponentsconnection)
+    
+    ## Option 2: ^queue$
+    
+    
+    **Description**:  
+    
+    
+    
+    - **Option 1 (alternative):**    
+        **Description**: Reference [msapi.components.queue](#msapicomponentsqueue)
+        
+    - **Option 2 (alternative):**    
+        Reference to [\#/definitions/Reference](\#/definitions/Reference)  
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    ## Option 2: ^message$
+    
+    
+    **Description**:  
+    
+    
+    
+    - **Option 1 (alternative):**    
+        Reference to [\#/definitions/Schema](\#/definitions/Schema)  
+        
+        
+        
+        
+        
+        
+        
+    - **Option 2 (alternative):**    
+        Reference to [\#/definitions/Reference](\#/definitions/Reference)  
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    
+    
+    
+     
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+## ^produces$
+
+
+**Description**: 
+
+
+**Properties (Pattern)**
+
+|Name|Type|Description|Required|
+|----|----|-----------|--------|
+|**^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$**||||
+
+#### ^produces$\.^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$
+
+
+**Description**:  
+
+
+
+- **Option 1 (alternative):**    
+    Reference to [\#/definitions/Reference](\#/definitions/Reference)  
+    
+    
+    
+    
+    
+    
+    
+- **Option 2 (alternative):**    
+    **Description**: Reference [msapi.components.produce](#msapicomponentsproduce)
+    
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+## ^settings$
+
+
+**Description**: 
+
+
+
+ 
+
+
+
+
+
+
 
 **No properties.**
 
 
-<a name="root"></a>
-#
 
-**Properties (Pattern)**
-
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-|**^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$**||||
-
-<a name="root"></a>
-#
-
-<br>**Option 1 (alternative):** 
-Reference to [\#/definitions/Reference](\#/definitions/Reference) 
-<br>**Option 2 (alternative):** 
-Reference to [\./queue](\./queue) 
+ 
 
 
-<a name="root"></a>
-#
-
-**Properties (Pattern)**
-
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-|**^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$**||||
-
-<a name="root"></a>
-#
-
-<br>**Option 1 (alternative):** 
-Reference to [\#/definitions/Reference](\#/definitions/Reference) 
-<br>**Option 2 (alternative):** 
-Reference to [\#/definitions/Schema](\#/definitions/Schema) 
 
 
-<a name="root"></a>
-#
-
-**Properties (Pattern)**
-
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-|**^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$**||||
-
-<a name="root"></a>
-#
-
-<br>**Option 1 (alternative):** 
-Reference to [\#/definitions/Reference](\#/definitions/Reference) 
-<br>**Option 2 (alternative):** 
-Reference to [\./consume](\./consume) 
 
 
-<a name="root"></a>
-#
 
-**Properties (Pattern)**
+# msapi.components.exchange(Підсхема &quot;exchange&quot;)
 
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-|**^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$**||||
-
-<a name="root"></a>
-#
-
-<br>**Option 1 (alternative):** 
-Reference to [\#/definitions/Reference](\#/definitions/Reference) 
-<br>**Option 2 (alternative):** 
-Reference to [\./produce](\./produce) 
+**Description**: 
 
 
-<a name="root"></a>
-#
-
-**No properties.**
-
+Налаштування обміника
 
 **Additional Properties:** not allowed<br/>
-<a name="service"></a>
-## service:
+
+
 
 **Properties (Pattern)**
 
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
-|[**^config$**](#serviceconfig)|`object`|||
+|**^name$**|`string`|name.Ім'я обміника<br/>||
+|**^mode$**||mode.Тип обміника<br/>Default: `"fanout"`<br/>Enum: `"fanout"`, `"direct"`, `"topic"`<br/>||
+|**^options$**|`object`|Підсхема &quot;exchange-options&quot;.Налаштування обміника<br/>Subschema: [Підсхема "exchange\-options"](#msapicomponentsexchangeexchangeoptions)<br/>||
+
+## ^name$(name)
+
+
+**Description**: 
+Ім'я обміника
+
+
+**Type:** `string`<br/>
+ 
+
+
+
+
+
+
+
+## ^mode$(mode)
+
+
+**Description**: 
+Тип обміника
+
+**Enum:** `"fanout"`, `"direct"`, `"topic"`<br/>
+ 
+
+
+
+
+
+
+
+## ^options$ (Підсхема &quot;exchange-options&quot;)
+
+**Description**: 
+Налаштування обміника
+
+Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangeexchangeoptions)
+
+
+
+
+ 
+
+
+
+
+
+
+
+# msapi.components.exchange.exchange-options(Підсхема &quot;exchange-options&quot;)
+
+**Description**: 
+
+
+Налаштування обміника
+
+
+
+
+**Properties (Pattern)**
+
+|Name|Type|Description|Required|
+|----|----|-----------|--------|
+|**^durable$**|`boolean`|durable.Налаштування обмінника. Якщо встановлено значення ```true``` обмінник переживе перезапуск брокера<br/><br/>Default: `true`<br/>||
+|**^autoDelete$**|`boolean`|autoDelete.Налаштування обмінника. Якщо встановлено значення ```true```, обмінник буде знищено, коли  кількість прив’язок, для яких він є джерелом, знизиться до нуля<br/><br/>Default: `false`<br/>||
+|**^persistent$**|`boolean`|persistent.Налаштування обмінника. Якщо встановлено значення ```true```, повідомлення переживе перезапуск брокера за умови, що воно знаходиться в черзі, яка також витримує перезапуски. Відповідає і перевизначає властивість ```deliveryMode```<br/><br/>Default: `true`<br/>||
+
+## ^durable$(durable)
+
+
+**Description**: 
+Налаштування обмінника. Якщо встановлено значення ```true``` обмінник переживе перезапуск брокера
+
+
+
+**Type:** `boolean`<br/>
+ 
+
+
+
+
+
+
+
+## ^autoDelete$(autoDelete)
+
+
+**Description**: 
+Налаштування обмінника. Якщо встановлено значення ```true```, обмінник буде знищено, коли  кількість прив’язок, для яких він є джерелом, знизиться до нуля
+
+
+
+**Type:** `boolean`<br/>
+ 
+
+
+
+
+
+
+
+## ^persistent$(persistent)
+
+
+**Description**: 
+Налаштування обмінника. Якщо встановлено значення ```true```, повідомлення переживе перезапуск брокера за умови, що воно знаходиться в черзі, яка також витримує перезапуски. Відповідає і перевизначає властивість ```deliveryMode```
+
+
+
+**Type:** `boolean`<br/>
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+# msapi.components.queue
+
+**Description**: 
+
+**Additional Properties:** not allowed<br/>
+
+
+
+**Properties (Pattern)**
+
+|Name|Type|Description|Required|
+|----|----|-----------|--------|
+|**^name$**|`string`|||
+|**^exchange$**||||
+|**^options$**|`object`|Subschema: [msapi\.components\.queue\.queue\-options](#msapicomponentsqueuequeueoptions)<br/>||
+
+## ^name$
+
+
+**Description**: 
+**Type:** `string`<br/>
+ 
+
+
+
+
+
+
+
+## ^exchange$
+
+
+**Description**:  
+
+
+
+- **Option 1 (alternative):**    
+    Reference to [\#/definitions/Reference](\#/definitions/Reference)  
+    
+    
+    
+    
+    
+    
+    
+- **Option 2 (alternative):**    
+    **Description**: 
+    Налаштування обміника
+    
+    Reference [msapi.components.exchange](#msapicomponentsexchange)
+    
+
+
+
+
+## ^options$ ()
+
+**Description**: Reference [msapi.components.queue.queue-options](#msapicomponentsqueuequeueoptions)
+
+
+
+
+ 
+
+
+
+
+
+
+
+# msapi.components.queue.queue-options
+
+**Description**: 
+
+
+
+
+**Properties (Pattern)**
+
+|Name|Type|Description|Required|
+|----|----|-----------|--------|
+|**^noAck$**|`boolean`|Default: `false`<br/>||
+|**^exclusive$**|`boolean`|Default: `false`<br/>||
+|**^durable$**|`boolean`|Default: `true`<br/>||
+|**^autoDelete$**|`boolean`|Default: `false`<br/>||
+|**^prefetch$**|`number`|Default: `1`<br/>||
+
+## ^noAck$
+
+
+**Description**: 
+**Type:** `boolean`<br/>
+ 
+
+
+
+
+
+
+
+## ^exclusive$
+
+
+**Description**: 
+**Type:** `boolean`<br/>
+ 
+
+
+
+
+
+
+
+## ^durable$
+
+
+**Description**: 
+**Type:** `boolean`<br/>
+ 
+
+
+
+
+
+
+
+## ^autoDelete$
+
+
+**Description**: 
+**Type:** `boolean`<br/>
+ 
+
+
+
+
+
+
+
+## ^prefetch$
+
+
+**Description**: 
+**Type:** `number`<br/>
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+# msapi.components.connection
+
+**Description**: 
+
+
+
+
+**Properties (Pattern)**
+
+|Name|Type|Description|Required|
+|----|----|-----------|--------|
+|**^url$**|`string`|Format: `"uri-reference"`<br/>|no|
+
+## ^url$
+
+
+**Description**: 
+**Type:** `string`<br/>
+**Format:** `"uri-reference"`<br/>
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+# msapi.components.produce
+
+**Description**: 
+
+**Additional Properties:** not allowed<br/>
+
+
+
+**Properties (Pattern)**
+
+|Name|Type|Description|Required|
+|----|----|-----------|--------|
+|**^amqp**|`object`|Subschema: [msapi\.components\.connection](#msapicomponentsconnection)<br/>|yes|
+|**^exchange$**||||
+|**^message$**||||
+
+## ^amqp ()
+
+**Description**: Reference [msapi.components.connection](#msapicomponentsconnection)
+
+## ^exchange$
+
+
+**Description**:  
+
+
+
+- **Option 1 (alternative):**    
+    **Description**: 
+    Налаштування обміника
+    
+    Reference [msapi.components.exchange](#msapicomponentsexchange)
+    
+- **Option 2 (alternative):**    
+    Reference to [\#/definitions/Reference](\#/definitions/Reference)  
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+## ^message$
+
+
+**Description**:  
+
+
+
+- **Option 1 (alternative):**    
+    Reference to [\#/definitions/Schema](\#/definitions/Schema)  
+    
+    
+    
+    
+    
+    
+    
+- **Option 2 (alternative):**    
+    Reference to [\#/definitions/Reference](\#/definitions/Reference)  
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+# msapi.service
+
+**Description**: 
+
+**Additional Properties:** not allowed<br/>
+
+
+
+**Properties (Pattern)**
+
+|Name|Type|Description|Required|
+|----|----|-----------|--------|
+|**^config$**|`object`|||
 |**^consume$**||||
 |**^produce$**||||
 
-<a name="root"></a>
-#
+## ^config$
+
+
+**Description**: 
+
+
+
+ 
+
+
+
+
+
+
 
 **No properties.**
-<a name="serviceconfig"></a>
-### service\.^config$:
-
-**No properties.**
-<a name="root"></a>
-#
-
-<br>**Option 1 (alternative):** 
-Reference to [\.\./components/consume](\.\./components/consume) 
-<br>**Option 2 (alternative):** 
-Reference to [\#/definitions/Extensible](\#/definitions/Extensible) 
-<a name="root"></a>
-#
-
-<br>**Option 1 (alternative):** 
-Reference to [\.\./components/produce](\.\./components/produce) 
-<br>**Option 2 (alternative):** 
-Reference to [\#/definitions/Extensible](\#/definitions/Extensible) 
+## ^consume$
 
 
-**Additional Properties:** not allowed<br/>
-<a name="workflow"></a>
-## workflow\[\]:
+**Description**:  
+
+
+
+- **Option 1 (alternative):**    
+    **Additional Properties:** not allowed<br/>
+    
+    
+    
+    **Properties (Pattern)**
+    
+    |Name|Type|Description|Required|
+    |----|----|-----------|--------|
+    |**^amqp**|`object`|Subschema: [msapi\.components\.connection](#msapicomponentsconnection)<br/>|yes|
+    |**^queue$**||||
+    |**^message$**||||
+    
+    ## Option 1: ^amqp ()
+    
+    **Description**: Reference [msapi.components.connection](#msapicomponentsconnection)
+    
+    ## Option 1: ^queue$
+    
+    
+    **Description**:  
+    
+    
+    
+    - **Option 1 (alternative):**    
+        **Description**: Reference [msapi.components.queue](#msapicomponentsqueue)
+        
+    - **Option 2 (alternative):**    
+        Reference to [\#/definitions/Reference](\#/definitions/Reference)  
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    ## Option 1: ^message$
+    
+    
+    **Description**:  
+    
+    
+    
+    - **Option 1 (alternative):**    
+        Reference to [\#/definitions/Schema](\#/definitions/Schema)  
+        
+        
+        
+        
+        
+        
+        
+    - **Option 2 (alternative):**    
+        Reference to [\#/definitions/Reference](\#/definitions/Reference)  
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    
+    
+    
+     
+    
+    
+    
+    
+    
+    
+    
+- **Option 2 (alternative):**    
+    Reference to [\#/definitions/Extensible](\#/definitions/Extensible)  
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+## ^produce$
+
+
+**Description**:  
+
+
+
+- **Option 1 (alternative):**    
+    **Description**: Reference [msapi.components.produce](#msapicomponentsproduce)
+    
+- **Option 2 (alternative):**    
+    Reference to [\#/definitions/Extensible](\#/definitions/Extensible)  
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+# msapi.workflow
+
+**Description**: 
 
 **Items**
+
+**Item Additional Properties:** not allowed<br/>
+
+
 
 **Item Properties (Pattern)**
 
@@ -362,387 +1316,77 @@ Reference to [\#/definitions/Extensible](\#/definitions/Extensible)
 |----|----|-----------|--------|
 |**^instance$**|||no|
 |**^name$**|`string`||no|
-|[**^configuredBy$**](#workflowconfiguredby)|`object`||no|
+|**^configuredBy$**|`object`||no|
 
-<a name="root"></a>
-#
+### item\.^instance$
 
-<br>**Option 1 (alternative):** 
-Reference to [\.\./service/index](\.\./service/index) 
-<br>**Option 2 (alternative):** 
-Reference to [\#/definitions/Reference](\#/definitions/Reference) 
-<a name="workflowconfiguredby"></a>
-### workflow\[\]\.^configuredBy$:
+
+**Description**:  
+
+
+
+- **Option 1 (alternative):**    
+    **Description**: Reference [msapi.service](#msapiservice)
+    
+- **Option 2 (alternative):**    
+    Reference to [\#/definitions/Reference](\#/definitions/Reference)  
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+### item\.^name$
+
+
+**Description**: 
+**Type:** `string`<br/>
+ 
+
+
+
+
+
+
+
+### item\.^configuredBy$
+
+
+**Description**: 
+
+
+
+ 
+
+
+
+
+
+
 
 **No properties.**
-<a name="root"></a>
-#
-
-**Type:** `string`<br/>
-<a name="root"></a>
-#
-
-**No properties.**
-
-
-**Item Additional Properties:** not allowed<br/>
-**Example**
-
-```json
-[
-    {}
-]
-```
-
-## Definitions
-<a name="root"></a>
-# Reference
-
-**Properties (Pattern)**
-
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-|**^\\$ref$**|`string`||no|
-
-<a name="root"></a>
-#
-
-**Type:** `string`<br/>
-
-
-<a name="definitionsversion"></a>
-## definitions/Version: Version
-
-**Type:** `string`<br/>
-**Pattern:** ^1\\\.0\\\.\\d\(\-\.\+\)?$<br/>
-<a name="root"></a>
-# Schema
-
-**Properties**
-
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-|**title**|`string`|||
-|**multipleOf**|`number`|Minimum: `0`<br/>||
-|**maximum**|`number`|||
-|**exclusiveMaximum**|`boolean`|Default: `false`<br/>||
-|**minimum**|`number`|||
-|**exclusiveMinimum**|`boolean`|Default: `false`<br/>||
-|**maxLength**|`integer`|Minimum: `0`<br/>||
-|**minLength**|`integer`|Default: `0`<br/>Minimum: `0`<br/>||
-|**pattern**|`string`|Format: `"regex"`<br/>||
-|**maxItems**|`integer`|Minimum: `0`<br/>||
-|**minItems**|`integer`|Default: `0`<br/>Minimum: `0`<br/>||
-|**uniqueItems**|`boolean`|Default: `false`<br/>||
-|**maxProperties**|`integer`|Minimum: `0`<br/>||
-|**minProperties**|`integer`|Default: `0`<br/>Minimum: `0`<br/>||
-|[**required**](#required)|`string[]`|||
-|[**enum**](#enum)|`array`|||
-|**type**|`string`|Enum: `"array"`, `"boolean"`, `"integer"`, `"number"`, `"object"`, `"string"`<br/>||
-|**not**||||
-|[**allOf**](#allof)|`array`|||
-|[**oneOf**](#oneof)|`array`|||
-|[**anyOf**](#anyof)|`array`|||
-|**items**||||
-|[**properties**](#properties)|`object`|||
-|**additionalProperties**||Default: `true`<br/>||
-|**description**|`string`|||
-|**format**|`string`|||
-|**default**||||
-|**nullable**|`boolean`|Default: `false`<br/>||
-|[**discriminator**](#discriminator)|`object`||yes|
-|**readOnly**|`boolean`|Default: `false`<br/>||
-|**writeOnly**|`boolean`|Default: `false`<br/>||
-|**example**||||
-|[**externalDocs**](#externaldocs)|`object`||yes|
-|**deprecated**|`boolean`|Default: `false`<br/>||
-|[**xml**](#xml)|`object`|||
-
-**Properties (Pattern)**
-
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-|**^x\-**||||
-
-<a name="root"></a>
-#
 
-<a name="required"></a>
-## required\[\]:
 
-**Items**
 
-**Item Type:** `string`<br/>
-**Minimum Items:** 1<br/>
-**Unique Items:** yes<br/>
-<a name="enum"></a>
-## enum\[\]:
+ 
 
-**Items**
 
-**Minimum Items:** 1<br/>
-**Unique Items:** no<br/>
-**No properties.**
-<a name="allof"></a>
-## allOf\[\]:
 
-**Items**
 
-<br>**Option 1 (alternative):** 
-Reference to [\#/definitions/Schema](\#/definitions/Schema) 
-<br>**Option 2 (alternative):** 
-Reference to [\#/definitions/Reference](\#/definitions/Reference) 
-<a name="oneof"></a>
-## oneOf\[\]:
 
-**Items**
 
-<br>**Option 1 (alternative):** 
-Reference to [\#/definitions/Schema](\#/definitions/Schema) 
-<br>**Option 2 (alternative):** 
-Reference to [\#/definitions/Reference](\#/definitions/Reference) 
-<a name="anyof"></a>
-## anyOf\[\]:
 
-**Items**
+ 
 
-<br>**Option 1 (alternative):** 
-Reference to [\#/definitions/Schema](\#/definitions/Schema) 
-<br>**Option 2 (alternative):** 
-Reference to [\#/definitions/Reference](\#/definitions/Reference) 
-<a name="properties"></a>
-## properties:
 
-**Additional Properties**
 
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
 
-<a name="discriminator"></a>
-## discriminator: Discriminator
 
-**Properties**
 
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-|**propertyName**|`string`||yes|
-|[**mapping**](#discriminatormapping)|`object`||no|
 
-**Example**
-
-```json
-{
-    "mapping": {}
-}
-```
-
-<a name="discriminatormapping"></a>
-### discriminator\.mapping:
-
-**Additional Properties**
-
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-
-<a name="externaldocs"></a>
-## externalDocs:
-
-**Properties**
-
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-|**description**|`string`||no|
-|**url**|`string`|Format: `"uri-reference"`<br/>|yes|
-
-**Properties (Pattern)**
-
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-|**^x\-**|||no|
-
-<a name="root"></a>
-#
-
-
-
-**Additional Properties:** not allowed<br/>
-<a name="xml"></a>
-## xml: XML
-
-**Properties**
-
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-|**name**|`string`|||
-|**namespace**|`string`|Format: `"uri"`<br/>||
-|**prefix**|`string`|||
-|**attribute**|`boolean`|Default: `false`<br/>||
-|**wrapped**|`boolean`|Default: `false`<br/>||
-
-**Properties (Pattern)**
-
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-|**^x\-**||||
-
-<a name="root"></a>
-#
-
-
-
-**Additional Properties:** not allowed<br/>
-**Example**
-
-```json
-{
-    "attribute": false,
-    "wrapped": false
-}
-```
-
-
-
-**Additional Properties:** not allowed<br/>
-**Example**
-
-```json
-{
-    "exclusiveMaximum": false,
-    "exclusiveMinimum": false,
-    "minLength": 0,
-    "minItems": 0,
-    "uniqueItems": false,
-    "minProperties": 0,
-    "properties": {},
-    "additionalProperties": true,
-    "nullable": false,
-    "readOnly": false,
-    "writeOnly": false,
-    "deprecated": false
-}
-```
-
-<a name="definitionsexternaldocumentation"></a>
-## definitions/ExternalDocumentation:
-
-**Properties**
-
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-|**description**|`string`||no|
-|**url**|`string`|Format: `"uri-reference"`<br/>|yes|
-
-**Properties (Pattern)**
-
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-|**^x\-**|||no|
-
-<a name="root"></a>
-#
-
-
-
-**Additional Properties:** not allowed<br/>
-<a name="definitionsdiscriminator"></a>
-## definitions/Discriminator: Discriminator
-
-**Properties**
-
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-|**propertyName**|`string`||yes|
-|[**mapping**](#definitionsdiscriminatormapping)|`object`||no|
-
-**Example**
-
-```json
-{
-    "mapping": {}
-}
-```
-
-<a name="definitionsdiscriminatormapping"></a>
-### definitions/Discriminator\.mapping:
-
-**Additional Properties**
-
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-
-<a name="definitionsxml"></a>
-## definitions/XML: XML
-
-**Properties**
-
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-|**name**|`string`|||
-|**namespace**|`string`|Format: `"uri"`<br/>||
-|**prefix**|`string`|||
-|**attribute**|`boolean`|Default: `false`<br/>||
-|**wrapped**|`boolean`|Default: `false`<br/>||
-
-**Properties (Pattern)**
-
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-|**^x\-**||||
-
-<a name="root"></a>
-#
-
-
-
-**Additional Properties:** not allowed<br/>
-**Example**
-
-```json
-{
-    "attribute": false,
-    "wrapped": false
-}
-```
-
-<a name="root"></a>
-# Extensible
-
-**Properties (Pattern)**
-
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-|[**^def$**](#def)<br/>(Reference)|`object`||yes|
-|[**^extendedBy**](#extendedby)|`array`||no|
-
-<a name="root"></a>
-#
-
-Reference to [\#/definitions/Reference](\#/definitions/Reference) <a name="def"></a>
-## ^def$: Reference
-
-**Properties (Pattern)**
-
-|Name|Type|Description|Required|
-|----|----|-----------|--------|
-|**^\\$ref$**|`string`||no|
-
-<a name="root"></a>
-#
-
-**Type:** `string`<br/>
-
-
-<a name="extendedby"></a>
-## ^extendedBy\[\]:
-
-**Items**
-
-Reference to [\#/definitions/Reference](\#/definitions/Reference) <a name="root"></a>
-#
-
-**Items**
-
-Reference to [\#/definitions/Reference](\#/definitions/Reference) 
-
-**Additional Properties:** not allowed<br/>
 

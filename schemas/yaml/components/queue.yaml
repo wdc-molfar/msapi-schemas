@@ -1,3 +1,4 @@
+subschema: msapi.components.queue         
 
 type: object
 additionalProperties: false

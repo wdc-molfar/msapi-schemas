@@ -1,6 +1,8 @@
 
 type: object
 additionalProperties: false
+subschema: msapi.components.produce         
+
 patternProperties:
   
   '^amqp':
