@@ -1,0 +1,24 @@
+@startuml
+
+    frame publisher1 {
+    component  "publisher 1" <<Producer>> as Producer1 #aaeeaa
+    }
+    
+    frame publisher2 {
+    component  "publisher 2" <<Producer>> as Producer2 #aaeeaa
+    }
+    queue  "name= 'concentrator'\nmode= 'fanout'" <<Exchange>> as broadcast #aaeeaa 
+    queue  "name='concentrator'" <<Queue>> as l
+    
+    frame listener {
+    component  "listener" <<Consumer>> as Listener 
+    }
+    
+    
+    Producer1 --> broadcast
+    Producer2 --> broadcast
+    
+    broadcast --> l
+    l --> Listener
+
+  @enduml  
