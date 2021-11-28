@@ -153,3 +153,169 @@ workflow:
 
 </center>
 
+
+***Файл ```listener1.yaml```. Налаштування першого прослуховувача***
+
+```yaml
+
+msapi: "1.0.1"
+
+metadata: 
+  
+    id: 04.use-msapi.listener1
+  
+    title: Прослуховувач 1
+  
+    description: >
+        Описує сервіс прослуховування черги повідомлень. Повідомленя типізовані та описані схемою message
+        config та configuredBy
+
+service:
+    consume:
+        amqp:
+            url: amqps://RabbitMQconnectionURL
+        
+        queue:
+            name: listen1
+            exchange:
+                name: broadcast
+                mode: fanout
+                options:
+                    durable: false 
+            options:
+                noAck: true
+                
+        message:
+            type: object
+            required:
+                - id
+                - listener
+                - timeout
+            properties:
+                id:
+                  type: number
+                listener:
+                  type: number
+                timeout:
+                  type: number  
+
+
+```
+
+***Файл ```listener2.yaml```. Налаштування другого прослуховувача***
+
+```yaml
+msapi: "1.0.1"
+
+metadata: 
+  
+    id: 04.use-msapi.listener2
+  
+    title: Прослуховувач 2
+  
+    description: >
+        Описує сервіс прослуховування черги повідомлень. Повідомленя типізовані та описані схемою message
+        config та configuredBy
+
+service:
+    consume:
+        amqp:
+            url: amqps://RabbitMQconnectionURL
+        
+        queue:
+            name: listen2
+            exchange:
+                name: broadcast
+                mode: fanout
+                options:
+                    durable: false 
+            options:
+                noAck: true
+                
+        message:
+            type: object
+            required:
+                - id
+                - listener
+                - timeout
+            properties:
+                id:
+                  type: number
+                listener:
+                  type: number
+                timeout:
+                  type: number  
+
+
+```
+
+***Файл ```producer.yaml```. Налаштування публікувальника***
+
+```yaml
+msapi: "1.0.1"
+
+metadata: 
+  
+    id: 04.use-msapi.producer
+  
+    title: Публікувальник 1
+  
+    description: >
+        Описує сервіс публікувальника повідомлень. Повідомленя типізовані та описані схемою message
+
+service:
+
+    produce:
+        amqp:
+            url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+        
+        exchange:
+            name: broadcast
+            mode: fanout
+            options:
+                durable: false
+                
+        message:
+            type: object
+            required:
+                - id
+                - listener
+                - timeout
+            properties:
+                id:
+                  type: number
+                listener:
+                  type: number
+                timeout:
+                  type: number  
+
+          
+
+```
+
+***Файл ```workflow.yaml```. Налаштування публікувальника***
+
+```yaml
+msapi: "1.0.1"
+
+metadata: 
+  
+    id: 04.use-msapi.publisher
+  
+    title: Публікувальник 1
+  
+    description: >
+        Описує робочий процес для прослуховування декількома 
+        споживачами однієї черги повідомлень
+
+workflow:
+    - instance:
+        $ref: "./producer/#/service"
+    - instance:
+        $ref: "./listener1/#/service"
+    - instance:
+        $ref: "./listener2/#/service"    
+```
+
+## Організація черги завдань
+
