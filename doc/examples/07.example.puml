@@ -1,0 +1,31 @@
+@startuml
+
+    frame initiator {
+        component  "initiator\npublisher" <<Producer>> as inip #aaeeaa
+    }
+    
+    queue  "name= 'initiator'" <<Exchange>> as inie #aaeeaa 
+    queue  "name='initiator'" <<Queue>> as ineq
+    
+    frame worker1 {
+        component  "initiator\nconsumer" <<Consumer>> as inic 
+        component  "producer\npublisher " <<Producer>> as prp #aaeeaa
+    }
+    
+    frame worker2 {
+        component  "producer\nconsumer" <<Consumer>> as prc 
+    }
+    
+    queue  "name= 'producer'" <<Exchange>> as pre #aaeeaa 
+    queue  "name='producer'" <<Queue>> as prq
+    
+    inip --> inie
+    inie -> ineq
+    ineq --> inic
+    inic .l.> prp
+    prp --> pre
+    pre -> prq
+    
+    prq --> prc
+    
+  @enduml
