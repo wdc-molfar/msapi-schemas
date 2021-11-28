@@ -1,0 +1,24 @@
+@startuml
+    frame scheduler {
+        component  "scheduler" <<Producer>> as Producer #aaeeaa
+    }
+    queue  "name= 'test_task'\nmode='direct'" <<Exchange>> as broadcast #aaeeaa 
+    queue  "name='test_task'\nprefetch = 1\nnoAck= false" <<Queue>> as l1
+    
+    frame worker1 {
+    
+    component  "worker 1" <<Consumer>> as Listener1 
+    }
+    
+    frame worker2 {
+    
+    component  "worker 2" <<Consumer>> as Listener2 
+    }
+    
+    
+    Producer -> broadcast
+    broadcast --> l1
+    l1 --> Listener1
+    l1 --> Listener2
+
+@enduml  
