@@ -91,7 +91,7 @@ msapi: "1.0.1"
 
 metadata: 
   
-    id: 01.use-msapi
+    id: 03.use-msapi
   
     title: Базовий приклад
   
@@ -142,3 +142,14 @@ workflow:
       configuredBy:
             amqp_url: "amqp://yourRabbitMQconnectionURL"
 ```
+## Прослуховування декількома споживачами однієї черги повідомлень
+
+У випадку, коли одні й ті ж свмі повідомлення повинні бути оброблені за допомогою різних алгоритмів, можна організувати 
+прослуховування однієї черги повідомлень декількома споживачами. В цьому випадку оброблення повідомлень цими споживачами буде здійснюватися паралельно.
+
+<center>
+
+![uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/wdc-molfar/msapi-schemas/master/doc/examples/puml/04.example.puml)
+
+</center>
+
