@@ -1,11 +1,13 @@
-  @startuml
+ @startuml
   
     queue  "test" <<Queue>> as Queue
     queue  "amqp_test_exchange" <<Exchange>> as Exchange #aaeeaa 
-    
-    component  "consumer" <<Consumer>> as Consumer 
-    component  "producer" <<Producer>> as Producer #aaeeaa
-  
+    frame  consumer{
+        component  "consumer" <<Consumer>> as Consumer 
+    }
+    frame producer {
+        component  "producer" <<Producer>> as Producer #aaeeaa
+    }
     Producer -> Exchange
     Exchange -> Queue
     Queue -> Consumer
