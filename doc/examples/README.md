@@ -359,3 +359,10 @@ workflow:
 схему взаємодії для об'єднання потоків повідомлень, можна організувати паралельне часткове оброблення
 повідомлень з наступною композицією їх результатів. 
 
+<center>
+
+![uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/wdc-molfar/msapi-schemas/master/doc/examples/puml/08.example.puml)
+
+</center>
+
+
