@@ -87,7 +87,7 @@ MSAPI-специфікації призначені для опису розпо
 
 <center> 
 
-    ![uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/wdc-molfar/msapi-schemas/master/doc/intro/puml/service.puml) 
+![uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/wdc-molfar/msapi-schemas/master/doc/intro/puml/service.puml) 
 
 </center>
 
