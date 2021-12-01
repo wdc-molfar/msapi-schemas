@@ -1,0 +1,10 @@
+@startuml
+  component service1
+  interface produce1
+  component service2
+  interface consume2
+  
+  service1 -> produce1
+  produce1 ..> consume2
+  consume2 -> service2
+@enduml
