@@ -1,3 +1,5 @@
+title: Підсхема "metadata"
+description: Налаштування метаданих
 subschema: msapi.metadata         
 
 type: object

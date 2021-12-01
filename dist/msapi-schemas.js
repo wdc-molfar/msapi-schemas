@@ -340,7 +340,7 @@
   });
 
   var title = "MSAPI";
-  var description = "Validation schema for MSAPI Specification 1.0.X.";
+  var description = "Схема перевірки MSAPI-специфікації 1.0.X.\n";
   var type$6 = "object";
   var required$1 = [
   	"msapi",
@@ -901,13 +901,19 @@
   		}
   	},
   	service: {
+  		title: "Підсхема \"service\"",
+  		description: "Налаштування мікросервісу",
   		type: "object",
   		additionalProperties: false,
   		patternProperties: {
   			"^config$": {
+  				title: "config",
+  				description: "Дані для налаштування мікросервісу\n",
   				type: "object"
   			},
   			"^consume$": {
+  				title: "consume",
+  				description: "Налаштування для споживача інформації",
   				oneOf: [
   					{
   						type: "object",
@@ -1046,6 +1052,8 @@
   				]
   			},
   			"^produce$": {
+  				title: "produce",
+  				description: "Налаштування для виробника інформації",
   				oneOf: [
   					{
   						type: "object",
@@ -1145,6 +1153,8 @@
   		}
   	},
   	workflow: {
+  		title: "Підсхема \"workflow\"",
+  		description: "Налаштування робочого процесу",
   		type: "array",
   		items: {
   			type: "object",
@@ -1154,15 +1164,23 @@
   			additionalProperties: false,
   			patternProperties: {
   				"^instance$": {
+  					title: "instance",
+  					description: "Налаштування екземпляру",
   					oneOf: [
   						{
+  							title: "Підсхема \"service\"",
+  							description: "Налаштування мікросервісу",
   							type: "object",
   							additionalProperties: false,
   							patternProperties: {
   								"^config$": {
+  									title: "config",
+  									description: "Дані для налаштування мікросервісу\n",
   									type: "object"
   								},
   								"^consume$": {
+  									title: "consume",
+  									description: "Налаштування для споживача інформації",
   									oneOf: [
   										{
   											type: "object",
@@ -1301,6 +1319,8 @@
   									]
   								},
   								"^produce$": {
+  									title: "produce",
+  									description: "Налаштування для виробника інформації",
   									oneOf: [
   										{
   											type: "object",
@@ -1405,9 +1425,13 @@
   					]
   				},
   				"^name$": {
+  					title: "name",
+  					description: "Назва екземпляру",
   					type: "string"
   				},
   				"^configuredBy$": {
+  					title: "configuredBy",
+  					description: "Налаштовано",
   					type: "object"
   				}
   			}

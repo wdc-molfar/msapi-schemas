@@ -3,7 +3,8 @@
 **Description**: 
 
 
-Validation schema for MSAPI Specification 1.0.X.
+Схема перевірки MSAPI-специфікації 1.0.X.
+
 
 **Properties**(5)
 
@@ -12,8 +13,8 @@ Validation schema for MSAPI Specification 1.0.X.
 |**msapi**|`string`|Pattern: ^1\\\.0\\\.\\d\(\-\.\+\)?$<br/>|yes|
 |**metadata**|`object`|Subschema: [msapi\.metadata](#msapimetadata)<br/>|yes|
 |**components**|`object`|Підсхема components.Компоненти повторюваного використання<br/>Subschema: [Підсхема components](#msapicomponents)<br/>|no|
-|**service**|`object`|Subschema: [msapi\.service](#msapiservice)<br/>|no|
-|**workflow**|`object[]`|Subschema: [msapi\.workflow](#msapiworkflow)<br/>|no|
+|**service**|`object`|Підсхема &quot;service&quot;.Налаштування мікросервісу<br/>Subschema: [Підсхема "service"](#msapiservice)<br/>|no|
+|**workflow**|`object[]`|Підсхема &quot;workflow&quot;.Налаштування робочого процесу<br/>Subschema: [Підсхема "workflow"](#msapiworkflow)<br/>|no|
 
 
 ## msapi(Версія MSAPI-специфікації)
@@ -44,14 +45,20 @@ Reference to [\#/definitions/Version](\#/definitions/Version)
 Reference [msapi.components](#msapicomponents)
 
 
-## service ()
+## service (Підсхема &quot;service&quot;)
 
-**Description**: Reference [msapi.service](#msapiservice)
+**Description**: 
+Налаштування мікросервісу
+
+Reference [msapi.service](#msapiservice)
 
 
-## workflow\[\] ()
+## workflow\[\] (Підсхема &quot;workflow&quot;)
 
-**Description**: Reference [msapi.workflow](#msapiworkflow)
+**Description**: 
+Налаштування робочого процесу
+
+Reference [msapi.workflow](#msapiworkflow)
 
 
 
@@ -1134,9 +1141,12 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 
 
-# msapi.service
+# msapi.service(Підсхема &quot;service&quot;)
 
 **Description**: 
+
+
+Налаштування мікросервісу
 
 **Additional Properties:** not allowed<br/>
 
@@ -1146,14 +1156,18 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
-|**^config$**|`object`|||
-|**^consume$**||||
-|**^produce$**||||
+|**^config$**|`object`|config.Дані для налаштування мікросервісу<br/>||
+|**^consume$**||consume.Налаштування для споживача інформації<br/>||
+|**^produce$**||produce.Налаштування для виробника інформації<br/>||
 
-## ^config$
+## ^config$(config)
 
 
 **Description**: 
+Дані для налаштування мікросервісу
+
+
+
 
 
 
@@ -1166,10 +1180,13 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 
 **No properties.**
-## ^consume$
+## ^consume$(consume)
 
 
-**Description**:  
+**Description**: 
+Налаштування для споживача інформації
+
+ 
 
 
 
@@ -1266,10 +1283,13 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 
 
-## ^produce$
+## ^produce$(produce)
 
 
-**Description**:  
+**Description**: 
+Налаштування для виробника інформації
+
+ 
 
 
 
@@ -1300,9 +1320,12 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 
 
-# msapi.workflow
+# msapi.workflow(Підсхема &quot;workflow&quot;)
 
 **Description**: 
+
+
+Налаштування робочого процесу
 
 **Items**
 
@@ -1314,19 +1337,25 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
-|**^instance$**|||no|
-|**^name$**|`string`||no|
-|**^configuredBy$**|`object`||no|
+|**^instance$**||instance.Налаштування екземпляру<br/>|no|
+|**^name$**|`string`|name.Назва екземпляру<br/>|no|
+|**^configuredBy$**|`object`|configuredBy.Налаштовано<br/>|no|
 
-### item\.^instance$
+### item\.^instance$(instance)
 
 
-**Description**:  
+**Description**: 
+Налаштування екземпляру
+
+ 
 
 
 
 - **Option 1 (alternative):**    
-    **Description**: Reference [msapi.service](#msapiservice)
+    **Description**: 
+    Налаштування мікросервісу
+    
+    Reference [msapi.service](#msapiservice)
     
 - **Option 2 (alternative):**    
     Reference to [\#/definitions/Reference](\#/definitions/Reference)  
@@ -1341,10 +1370,13 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 
 
-### item\.^name$
+### item\.^name$(name)
 
 
 **Description**: 
+Назва екземпляру
+
+
 **Type:** `string`<br/>
  
 
@@ -1354,10 +1386,13 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 
 
-### item\.^configuredBy$
+### item\.^configuredBy$(configuredBy)
 
 
 **Description**: 
+Налаштовано
+
+
 
 
 

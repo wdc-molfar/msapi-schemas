@@ -1,4 +1,6 @@
 # workflow schema 
+title: Підсхема "workflow"
+description: Налаштування робочого процесу
 subschema: msapi.workflow         
 
 type: array
@@ -14,12 +16,18 @@ items:
   patternProperties:
       
       '^instance$':
+          title: instance
+          description: Налаштування екземпляру
           oneOf:
             - $ref: '../service/index'
             - $ref: '#/definitions/Reference'  
       
       '^name$':
+          title: name
+          description: Назва екземпляру
           type: string
 
       '^configuredBy$': 
+          title: configuredBy
+          description: Налаштовано
           type: object        

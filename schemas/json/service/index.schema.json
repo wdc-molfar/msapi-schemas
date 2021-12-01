@@ -1,11 +1,17 @@
 {
+ "title": "Підсхема \"service\"",
+ "description": "Налаштування мікросервісу",
  "type": "object",
  "additionalProperties": false,
  "patternProperties": {
   "^config$": {
+   "title": "config",
+   "description": "Дані для налаштування мікросервісу\n",
    "type": "object"
   },
   "^consume$": {
+   "title": "consume",
+   "description": "Налаштування для споживача інформації",
    "oneOf": [
     {
      "type": "object",
@@ -144,6 +150,8 @@
    ]
   },
   "^produce$": {
+   "title": "produce",
+   "description": "Налаштування для виробника інформації",
    "oneOf": [
     {
      "type": "object",
