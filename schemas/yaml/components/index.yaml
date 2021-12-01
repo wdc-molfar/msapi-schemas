@@ -1,5 +1,5 @@
 # components schema 
-title: Підсхема components
+title: Підсхема "components"
 description: Компоненти повторюваного використання
 subschema: msapi.components         
 type: object
@@ -9,12 +9,12 @@ patternProperties:
   
   '^exchanges$':
     title: exchanges
-    description: Налаштування обмінників
+    description: Налаштування обмінників повідомлень
     type: object
     patternProperties:
       '^[a-zA-Z0-9\.\-_]+$':
         title: Будь-який ідентифікатор
-        description: Опис обмінника
+        description: Налаштування обмінника
         oneOf:
           - $ref: '#/definitions/Reference'
             description: Посилання на налаштування обмінника
@@ -22,38 +22,66 @@ patternProperties:
             description: Налаштування обмінника
           
   '^queues$':
+    title: queues
+    description: Налаштування черг повідомлень
     type: object
     patternProperties:
       '^[a-zA-Z0-9\.\-_]+$':
+        title: Будь-який ідентифікатор
+        description: Налаштування черги
         oneOf:
           - $ref: '#/definitions/Reference'
+            description: Посилання на налаштування черги
           - $ref: './queue'
+            description: Налаштування черги
   
   '^schemas$':
+    title: schemas
+    description: Опис типів повідомлень (JSON Schema) 
     type: object
     patternProperties:
       '^[a-zA-Z0-9\.\-_]+$':
+        title: Будь-який ідентифікатор
+        description: Опис типу повідомлень
         oneOf:
           - $ref: '#/definitions/Reference'
+            description: Посилання на опис типу повідомлень
           - $ref: '#/definitions/Schema'
+            description: Опис типу повідомлень
 
   '^consumes$':
+    title: consumes
+    description: Налаштування прослуховувачів повідомлень 
     type: object
     patternProperties:
       '^[a-zA-Z0-9\.\-_]+$':
+        title: Будь-який ідентифікатор
+        description: Налаштування прослуховувача повідомлень
         oneOf:
           - $ref: '#/definitions/Reference'
+            description: Посилання на налаштування прослуховувача повідомлень
           - $ref: './consume'
-  
+            description: Налаштування прослуховувача повідомлень
+          
   '^produces$':
+    title: produces
+    description: Налаштування публікувальників повідомлень 
     type: object
     patternProperties:
       '^[a-zA-Z0-9\.\-_]+$':
+        title: Будь-який ідентифікатор
+        description: Налаштування публікувальника повідомлень
         oneOf:
           - $ref: '#/definitions/Reference'
+            description: Посилання на налаштування публікувальника повідомлень
           - $ref: './produce'
+              description: Налаштування публікувальника повідомлень
+        
   
   '^settings$':
     type: object
+    title: settings
+    description: Налаштування, які можна повторювано використовувати будь-де. 
+    
 
 

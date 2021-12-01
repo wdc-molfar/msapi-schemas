@@ -1,5 +1,7 @@
+title: Підсхема "connection"
+description: Налаштування з'єднання з брокером повідомлень
+subschema: msapi.components.connection
 
-subschema: msapi.components.connection         
 type: object
 
 
@@ -8,11 +10,13 @@ required:
 
 patternProperties:  
   '^url$':
+    title: url
+    description: url з'єднання з брокером повідомлень
     type: string
     format: uri-reference
 
 errorMessage:
-  type: Connection options should be an object.
-  required: Connection url is required.
+  type: Налаштування з'єднання повинно бути об'єктом.
+  required: url з'єднання є обов'язковим.
   properties:
-    url: Connection url should be a valid RabbitMQ connection url.
+    url: url повинен бути коректним RabbitMQ url з'єднання.
