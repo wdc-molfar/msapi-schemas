@@ -3,11 +3,14 @@ description: Налаштування черги повідомлень
 
 subschema: msapi.components.queue         
 
+title: Підсхема "queue"
+description: Налаштування черг
 type: object
 additionalProperties: false
 patternProperties:
  
   '^name$':
+<<<<<<< HEAD
     title: name 
     description: ім'я черги повідомлень
     type: string
@@ -25,5 +28,24 @@ patternProperties:
   '^options$':
       title: options 
       description: Налаштування черги повідомлень
+=======
+    title: name
+    definitions: Ім'я черги
+    type: string
+  
+  '^exchange$':
+    title: exchange
+    description: Обмінник черги
+    oneOf:
+      - $ref: "#/definitions/Reference"
+        description: Посилання на налаштування обмінника
+      - $ref: "./exchange"
+        description: Налаштування обмінника
+
+  '^options$':
+    title: options
+    definitions: Налаштування черги
+>>>>>>> 66dff9fb65e9907182b9e2dc315e2520eea329f9
       $ref: "./queue-options"
+      definitions: Налаштування черги
     

@@ -1,9 +1,7 @@
 title: Підсхема "connection"
 description: Налаштування з'єднання з брокером повідомлень
 subschema: msapi.components.connection
-
 type: object
-
 
 required:
   - url

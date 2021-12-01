@@ -1,21 +1,48 @@
 subschema: msapi.components.queue.queue-options         
-
+title: Підсхема "queue-options"
+description: Налаштування черги
 type: object
 
 patternProperties:
 
   '^noAck$': 
+    title: noAck
+    description: >
+      Налаштування черги. Якщо встановлено значення ```true```, 
+      то брокер буде видаляти повідомлення, надіслані 
+      цьому споживачеві, з черги, як тільки вони будуть відправлені
     type: boolean
-    default: false                
+    default: false       
+
   '^exclusive$': 
+    title: exclusive
+    description: >
+     Налаштування черги. Якщо встановлено занчення ```true```, 
+     то брокер не дозволить нікому другому споживати з цієї черги.
     type: boolean
     default: false            # if true, scopes the queue to the connection (defaults to false)
+
   '^durable$':
+    title: durable
+    description: >
+      Налаштування черги. Якщо встановлено значення ```true```,
+      черга переживе перезапуск брокера, модулюючи вплив exclusive та  autoDelete.
+
     type: boolean
     default: true               # if true, the queue will survive broker restarts, modulo the effects of exclusive and autoDelete; this defaults to true if not supplied, unlike the others
+
   '^autoDelete$': 
+    title: autoDelete
+    description: >
+      Налаштування черги. Якщо встановлено значення ```true```, 
+      черга буде видалена, коли кількість прив’язок знизиться до нуля
     type: boolean
     default: false           # if true, the queue will be deleted when the number of consumers drops to zero (defaults to false)
+
   '^prefetch$': 
+    title: prefetch
+    description: >
+      Налаштування черги. Визначає максимальну кількість повідомлень,
+      які вибираються з черги одночасно
     type: number
     default: 1
