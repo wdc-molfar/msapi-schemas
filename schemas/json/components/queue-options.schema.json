@@ -1,4 +1,5 @@
 {
+ "subschema": "msapi.components.queue.queue-options",
  "type": "object",
  "patternProperties": {
   "^noAck$": {

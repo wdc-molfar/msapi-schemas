@@ -1,4 +1,5 @@
 {
+ "subschema": "msapi.metadata",
  "type": "object",
  "required": [
   "id",

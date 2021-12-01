@@ -1,6 +1,7 @@
 {
  "title": "Підсхема \"exchange\"",
  "description": "Налаштування обміника",
+ "subschema": "msapi.components.exchange",
  "type": "object",
  "additionalProperties": false,
  "patternProperties": {
@@ -22,6 +23,7 @@
   "^options$": {
    "title": "Підсхема \"exchange-options\"",
    "description": "Налаштування обміника",
+   "subschema": "msapi.components.exchange.exchange-options",
    "type": "object",
    "patternProperties": {
     "^durable$": {
