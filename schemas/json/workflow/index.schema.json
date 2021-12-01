@@ -1,6 +1,6 @@
 {
  "title": "Підсхема \"workflow\"",
- "description": "Налаштування робочого процесу",
+ "description": "Налаштування робочого процесу повторюваного використання",
  "type": "array",
  "items": {
   "type": "object",
@@ -11,11 +11,11 @@
   "patternProperties": {
    "^instance$": {
     "title": "instance",
-    "description": "Налаштування екземпляру",
+    "description": "Налаштування екземплярів",
     "oneOf": [
      {
       "title": "Підсхема \"service\"",
-      "description": "Налаштування мікросервісу",
+      "description": "Налаштування мікросервісу повторюваного використання",
       "type": "object",
       "additionalProperties": false,
       "patternProperties": {
@@ -26,7 +26,7 @@
        },
        "^consume$": {
         "title": "consume",
-        "description": "Налаштування для споживача інформації",
+        "description": "Налаштування прослуховувачів повідомлень",
         "oneOf": [
          {
           "type": "object",
@@ -160,13 +160,14 @@
           }
          },
          {
-          "$ref": "#/definitions/Extensible"
+          "$ref": "#/definitions/Extensible",
+          "description": "Посилання на налаштування прослуховувача повідомлень"
          }
         ]
        },
        "^produce$": {
         "title": "produce",
-        "description": "Налаштування для виробника інформації",
+        "description": "Налаштування публікувальників повідомлень",
         "oneOf": [
          {
           "type": "object",
@@ -259,14 +260,16 @@
           }
          },
          {
-          "$ref": "#/definitions/Extensible"
+          "$ref": "#/definitions/Extensible",
+          "description": "Посилання на налаштування публікувальника повідомлень"
          }
         ]
        }
       }
      },
      {
-      "$ref": "#/definitions/Reference"
+      "$ref": "#/definitions/Reference",
+      "description": "Посилання на налаштування екземпляру"
      }
     ]
    },

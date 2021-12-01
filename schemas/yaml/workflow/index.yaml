@@ -1,6 +1,6 @@
 # workflow schema 
 title: Підсхема "workflow"
-description: Налаштування робочого процесу
+description: Налаштування робочого процесу повторюваного використання
 subschema: msapi.workflow         
 
 type: array
@@ -17,10 +17,12 @@ items:
       
       '^instance$':
           title: instance
-          description: Налаштування екземпляру
+          description: Налаштування екземплярів
           oneOf:
             - $ref: '../service/index'
-            - $ref: '#/definitions/Reference'  
+              description: Налаштування екземпляру
+            - $ref: '#/definitions/Reference' 
+              description: Посилання на налаштування екземпляру 
       
       '^name$':
           title: name

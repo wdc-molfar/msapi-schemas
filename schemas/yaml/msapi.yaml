@@ -20,21 +20,25 @@ properties:
   
   metadata:
     title: Метадані
-    description: Налаштування метаданих
+    description: Налаштування метаданих повторюваного використання
     $ref: "./metadata/index"
   
   components:
     title: Компоненти
-    description: Налаштування компонентів
+    description: Налаштування компонентів повторюваного використання
     $ref: "./components/index"  
   
   service:
     title: Мікросервіс
-    description: Налаштування мікросервісів
+    description: Налаштування мікросервісів повторюваного використання
     $ref: "./service/index"  
   
   workflow:
     title: Робочі процеси
-    description: Налаштування робочих процеcів
+    description: Налаштування робочих процеcів повторюваного використання
     $ref: "./workflow/index"  
+
+definitions:
+  Version:  1.0.1
+
   
