@@ -85,4 +85,8 @@ MSAPI-специфікації призначені для опису розпо
     - прослуховувач повідомлень ```consume```
     - публікувальник повідомлень ```produce```
 
-<center> ![uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/wdc-molfar/msapi-schemas/master/doc/intro/puml/service.puml) </center>
+<center> 
+
+    ![uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/wdc-molfar/msapi-schemas/master/doc/intro/puml/service.puml) 
+
+</center>
