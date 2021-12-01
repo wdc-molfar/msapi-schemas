@@ -12,7 +12,7 @@
 |----|----|-----------|--------|
 |**msapi**|`string`|Pattern: ^1\\\.0\\\.\\d\(\-\.\+\)?$<br/>|yes|
 |**metadata**|`object`|Підсхема &quot;metadata&quot;.Метадані специфікації<br/>Subschema: [Підсхема "metadata"](#msapimetadata)<br/>|yes|
-|**components**|`object`|Підсхема components.Компоненти повторюваного використання<br/>Subschema: [Підсхема components](#msapicomponents)<br/>|no|
+|**components**|`object`|Підсхема &quot;components&quot;.Компоненти повторюваного використання<br/>Subschema: [Підсхема "components"](#msapicomponents)<br/>|no|
 |**service**|`object`|Підсхема &quot;service&quot;.Налаштування типу сервісу<br/>Subschema: [Підсхема "service"](#msapiservice)<br/>|no|
 |**workflow**|`object[]`|Підсхема &quot;workflow&quot;.Налаштування робочого процесу. Визначає сукупність екземплярів сервісів та їх налаштування<br/>Subschema: [Підсхема "workflow"](#msapiworkflow)<br/>|no|
 
@@ -40,7 +40,7 @@ Reference to [\#/definitions/Version](\#/definitions/Version)
 Reference [msapi.metadata](#msapimetadata)
 
 
-## components (Підсхема components)
+## components (Підсхема &quot;components&quot;)
 
 **Description**: 
 Компоненти повторюваного використання
@@ -372,7 +372,7 @@ Reference [msapi.workflow](#msapiworkflow)
 
 
 
-# msapi.components(Підсхема components)
+# msapi.components(Підсхема &quot;components&quot;)
 
 **Description**: 
 
@@ -387,18 +387,18 @@ Reference [msapi.workflow](#msapiworkflow)
 
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
-|**^exchanges$**|`object`|exchanges.Налаштування обмінників<br/>||
-|**^queues$**|`object`|||
-|**^schemas$**|`object`|||
-|**^consumes$**|`object`|||
-|**^produces$**|`object`|||
-|**^settings$**|`object`|||
+|**^exchanges$**|`object`|exchanges.Налаштування обмінників повідомлень<br/>||
+|**^queues$**|`object`|queues.Налаштування черг повідомлень<br/>||
+|**^schemas$**|`object`|schemas.Опис типів повідомлень (JSON Schema)<br/>||
+|**^consumes$**|`object`|consumes.Налаштування прослуховувачів повідомлень<br/>||
+|**^produces$**|`object`|produces.Налаштування публікувальників повідомлень<br/>||
+|**^settings$**|`object`|settings.Налаштування, які можна повторювано використовувати будь-де.<br/>||
 
 ## ^exchanges$(exchanges)
 
 
 **Description**: 
-Налаштування обмінників
+Налаштування обмінників повідомлень
 
 
 
@@ -407,13 +407,13 @@ Reference [msapi.workflow](#msapiworkflow)
 
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
-|**^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$**||Будь-який ідентифікатор.Опис обмінника<br/>||
+|**^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$**||Будь-який ідентифікатор.Налаштування обмінника<br/>||
 
 #### ^exchanges$\.^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$(Будь-який ідентифікатор)
 
 
 **Description**: 
-Опис обмінника
+Налаштування обмінника
 
  
 
@@ -452,26 +452,35 @@ Reference [msapi.workflow](#msapiworkflow)
 
 
 
-## ^queues$
+## ^queues$(queues)
 
 
 **Description**: 
+Налаштування черг повідомлень
+
+
 
 
 **Properties (Pattern)**
 
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
-|**^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$**||||
+|**^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$**||Будь-який ідентифікатор.Налаштування черги<br/>||
 
-#### ^queues$\.^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$
+#### ^queues$\.^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$(Будь-який ідентифікатор)
 
 
-**Description**:  
+**Description**: 
+Налаштування черги
+
+ 
 
 
 
 - **Option 1 (alternative):**    
+    **Description**: Посилання на налаштування черги
+    
+    
     Reference to [\#/definitions/Reference](\#/definitions/Reference)  
     
     
@@ -481,7 +490,10 @@ Reference [msapi.workflow](#msapiworkflow)
     
     
 - **Option 2 (alternative):**    
-    **Description**: Reference [msapi.components.queue](#msapicomponentsqueue)
+    **Description**: 
+    Налаштування черги повідомлень
+    
+    Reference [msapi.components.queue](#msapicomponentsqueue)
     
 
 
@@ -498,26 +510,35 @@ Reference [msapi.workflow](#msapiworkflow)
 
 
 
-## ^schemas$
+## ^schemas$(schemas)
 
 
 **Description**: 
+Опис типів повідомлень (JSON Schema)
+
+
 
 
 **Properties (Pattern)**
 
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
-|**^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$**||||
+|**^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$**||Будь-який ідентифікатор.Опис типу повідомлень<br/>||
 
-#### ^schemas$\.^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$
+#### ^schemas$\.^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$(Будь-який ідентифікатор)
 
 
-**Description**:  
+**Description**: 
+Опис типу повідомлень
+
+ 
 
 
 
 - **Option 1 (alternative):**    
+    **Description**: Посилання на опис типу повідомлень
+    
+    
     Reference to [\#/definitions/Reference](\#/definitions/Reference)  
     
     
@@ -527,6 +548,9 @@ Reference [msapi.workflow](#msapiworkflow)
     
     
 - **Option 2 (alternative):**    
+    **Description**: Опис типу повідомлень
+    
+    
     Reference to [\#/definitions/Schema](\#/definitions/Schema)  
     
     
@@ -550,26 +574,35 @@ Reference [msapi.workflow](#msapiworkflow)
 
 
 
-## ^consumes$
+## ^consumes$(consumes)
 
 
 **Description**: 
+Налаштування прослуховувачів повідомлень
+
+
 
 
 **Properties (Pattern)**
 
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
-|**^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$**||||
+|**^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$**||Будь-який ідентифікатор.Налаштування прослуховувача повідомлень<br/>||
 
-#### ^consumes$\.^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$
+#### ^consumes$\.^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$(Будь-який ідентифікатор)
 
 
-**Description**:  
+**Description**: 
+Налаштування прослуховувача повідомлень
+
+ 
 
 
 
 - **Option 1 (alternative):**    
+    **Description**: Посилання на налаштування прослуховувача повідомлень
+    
+    
     Reference to [\#/definitions/Reference](\#/definitions/Reference)  
     
     
@@ -579,6 +612,9 @@ Reference [msapi.workflow](#msapiworkflow)
     
     
 - **Option 2 (alternative):**    
+    **Description**: Налаштування споживача
+    
+    
     **Additional Properties:** not allowed<br/>
     
     
@@ -587,25 +623,37 @@ Reference [msapi.workflow](#msapiworkflow)
     
     |Name|Type|Description|Required|
     |----|----|-----------|--------|
-    |**^amqp**|`object`|Subschema: [msapi\.components\.connection](#msapicomponentsconnection)<br/>|yes|
-    |**^queue$**||||
-    |**^message$**||||
+    |**^amqp**|`object`|Підсхема &quot;connection&quot;.Налаштування з'єднання з брокером повідомлень<br/>Subschema: [Підсхема "connection"](#msapicomponentsconnection)<br/>|yes|
+    |**^queue$**||queue.Налаштування черги<br/>||
+    |**^message$**||message.Налаштування повідомлень<br/>||
     
-    ## Option 2: ^amqp ()
+    ## Option 2: ^amqp (Підсхема &quot;connection&quot;)
     
-    **Description**: Reference [msapi.components.connection](#msapicomponentsconnection)
+    **Description**: 
+    Налаштування з'єднання з брокером повідомлень
     
-    ## Option 2: ^queue$
+    Reference [msapi.components.connection](#msapicomponentsconnection)
+    
+    ## Option 2: ^queue$(queue)
     
     
-    **Description**:  
+    **Description**: 
+    Налаштування черги
+    
+     
     
     
     
     - **Option 1 (alternative):**    
-        **Description**: Reference [msapi.components.queue](#msapicomponentsqueue)
+        **Description**: 
+        Налаштування черги повідомлень
+        
+        Reference [msapi.components.queue](#msapicomponentsqueue)
         
     - **Option 2 (alternative):**    
+        **Description**: Посилання на налаштування черги
+        
+        
         Reference to [\#/definitions/Reference](\#/definitions/Reference)  
         
         
@@ -618,14 +666,20 @@ Reference [msapi.workflow](#msapiworkflow)
     
     
     
-    ## Option 2: ^message$
+    ## Option 2: ^message$(message)
     
     
-    **Description**:  
+    **Description**: 
+    Налаштування повідомлень
+    
+     
     
     
     
     - **Option 1 (alternative):**    
+        **Description**: Посилання на налаштування повідомлень
+        
+        
         Reference to [\#/definitions/Schema](\#/definitions/Schema)  
         
         
@@ -635,6 +689,9 @@ Reference [msapi.workflow](#msapiworkflow)
         
         
     - **Option 2 (alternative):**    
+        **Description**: Посилання на налаштування повідомлень
+        
+        
         Reference to [\#/definitions/Reference](\#/definitions/Reference)  
         
         
@@ -673,26 +730,35 @@ Reference [msapi.workflow](#msapiworkflow)
 
 
 
-## ^produces$
+## ^produces$(produces)
 
 
 **Description**: 
+Налаштування публікувальників повідомлень
+
+
 
 
 **Properties (Pattern)**
 
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
-|**^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$**||||
+|**^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$**||Будь-який ідентифікатор.Налаштування публікувальника повідомлень<br/>||
 
-#### ^produces$\.^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$
+#### ^produces$\.^\[a\-zA\-Z0\-9\\\.\\\-\_\]\+$(Будь-який ідентифікатор)
 
 
-**Description**:  
+**Description**: 
+Налаштування публікувальника повідомлень
+
+ 
 
 
 
 - **Option 1 (alternative):**    
+    **Description**: Посилання на налаштування публікувальника повідомлень
+    
+    
     Reference to [\#/definitions/Reference](\#/definitions/Reference)  
     
     
@@ -702,7 +768,10 @@ Reference [msapi.workflow](#msapiworkflow)
     
     
 - **Option 2 (alternative):**    
-    **Description**: Reference [msapi.components.produce](#msapicomponentsproduce)
+    **Description**: 
+    Налаштування публікувальника
+    
+    Reference [msapi.components.produce](#msapicomponentsproduce)
     
 
 
@@ -719,10 +788,13 @@ Reference [msapi.workflow](#msapiworkflow)
 
 
 
-## ^settings$
+## ^settings$(settings)
 
 
 **Description**: 
+Налаштування, які можна повторювано використовувати будь-де.
+
+
 
 
 
@@ -894,9 +966,12 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 
 
-# msapi.components.queue
+# msapi.components.queue(Підсхема &quot;queue&quot;)
 
 **Description**: 
+
+
+Налаштування черги повідомлень
 
 **Additional Properties:** not allowed<br/>
 
@@ -906,14 +981,17 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
-|**^name$**|`string`|||
-|**^exchange$**||||
-|**^options$**|`object`|Subschema: [msapi\.components\.queue\.queue\-options](#msapicomponentsqueuequeueoptions)<br/>||
+|**^name$**|`string`|name.ім'я черги повідомлень<br/>||
+|**^exchange$**||exchange.Налаштування обмінника повідомлень<br/>||
+|**^options$**|`object`|Підсхема &quot;queue-options&quot;.Налаштування черги<br/>Subschema: [Підсхема "queue\-options"](#msapicomponentsqueuequeueoptions)<br/>||
 
-## ^name$
+## ^name$(name)
 
 
 **Description**: 
+ім'я черги повідомлень
+
+
 **Type:** `string`<br/>
  
 
@@ -923,14 +1001,20 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 
 
-## ^exchange$
+## ^exchange$(exchange)
 
 
-**Description**:  
+**Description**: 
+Налаштування обмінника повідомлень
+
+ 
 
 
 
 - **Option 1 (alternative):**    
+    **Description**: Посилання на налаштування обмінника повідомлень
+    
+    
     Reference to [\#/definitions/Reference](\#/definitions/Reference)  
     
     
@@ -949,9 +1033,12 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 
 
-## ^options$ ()
+## ^options$ (Підсхема &quot;queue-options&quot;)
 
-**Description**: Reference [msapi.components.queue.queue-options](#msapicomponentsqueuequeueoptions)
+**Description**: 
+Налаштування черги
+
+Reference [msapi.components.queue.queue-options](#msapicomponentsqueuequeueoptions)
 
 
 
@@ -964,9 +1051,12 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 
 
-# msapi.components.queue.queue-options
+# msapi.components.queue.queue-options(Підсхема &quot;queue-options&quot;)
 
 **Description**: 
+
+
+Налаштування черги
 
 
 
@@ -975,16 +1065,20 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
-|**^noAck$**|`boolean`|Default: `false`<br/>||
-|**^exclusive$**|`boolean`|Default: `false`<br/>||
-|**^durable$**|`boolean`|Default: `true`<br/>||
-|**^autoDelete$**|`boolean`|Default: `false`<br/>||
-|**^prefetch$**|`number`|Default: `1`<br/>||
+|**^noAck$**|`boolean`|noAck.Налаштування черги. Якщо встановлено значення ```true```,  то брокер буде видаляти повідомлення, надіслані  цьому споживачеві, з черги, як тільки вони будуть відправлені<br/><br/>Default: `false`<br/>||
+|**^exclusive$**|`boolean`|exclusive.Налаштування черги. Якщо встановлено занчення ```true```,  то брокер не дозволить нікому другому споживати з цієї черги.<br/><br/>Default: `false`<br/>||
+|**^durable$**|`boolean`|durable.Налаштування черги. Якщо встановлено значення ```true```, черга переживе перезапуск брокера, модулюючи вплив exclusive та  autoDelete.<br/><br/>Default: `true`<br/>||
+|**^autoDelete$**|`boolean`|autoDelete.Налаштування черги. Якщо встановлено значення ```true```,  черга буде видалена, коли кількість прив’язок знизиться до нуля<br/><br/>Default: `false`<br/>||
+|**^prefetch$**|`number`|prefetch.Налаштування черги. Визначає максимальну кількість повідомлень, які вибираються з черги одночасно<br/><br/>Default: `1`<br/>||
 
-## ^noAck$
+## ^noAck$(noAck)
 
 
 **Description**: 
+Налаштування черги. Якщо встановлено значення ```true```,  то брокер буде видаляти повідомлення, надіслані  цьому споживачеві, з черги, як тільки вони будуть відправлені
+
+
+
 **Type:** `boolean`<br/>
  
 
@@ -994,10 +1088,14 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 
 
-## ^exclusive$
+## ^exclusive$(exclusive)
 
 
 **Description**: 
+Налаштування черги. Якщо встановлено занчення ```true```,  то брокер не дозволить нікому другому споживати з цієї черги.
+
+
+
 **Type:** `boolean`<br/>
  
 
@@ -1007,10 +1105,14 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 
 
-## ^durable$
+## ^durable$(durable)
 
 
 **Description**: 
+Налаштування черги. Якщо встановлено значення ```true```, черга переживе перезапуск брокера, модулюючи вплив exclusive та  autoDelete.
+
+
+
 **Type:** `boolean`<br/>
  
 
@@ -1020,10 +1122,14 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 
 
-## ^autoDelete$
+## ^autoDelete$(autoDelete)
 
 
 **Description**: 
+Налаштування черги. Якщо встановлено значення ```true```,  черга буде видалена, коли кількість прив’язок знизиться до нуля
+
+
+
 **Type:** `boolean`<br/>
  
 
@@ -1033,10 +1139,14 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 
 
-## ^prefetch$
+## ^prefetch$(prefetch)
 
 
 **Description**: 
+Налаштування черги. Визначає максимальну кількість повідомлень, які вибираються з черги одночасно
+
+
+
 **Type:** `number`<br/>
  
 
@@ -1057,9 +1167,12 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 
 
-# msapi.components.connection
+# msapi.components.connection(Підсхема &quot;connection&quot;)
 
 **Description**: 
+
+
+Налаштування з'єднання з брокером повідомлень
 
 
 
@@ -1068,12 +1181,15 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
-|**^url$**|`string`|Format: `"uri-reference"`<br/>|no|
+|**^url$**|`string`|url.url з'єднання з брокером повідомлень<br/>Format: `"uri-reference"`<br/>|no|
 
-## ^url$
+## ^url$(url)
 
 
 **Description**: 
+url з'єднання з брокером повідомлень
+
+
 **Type:** `string`<br/>
 **Format:** `"uri-reference"`<br/>
  
@@ -1095,9 +1211,12 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 
 
-# msapi.components.produce
+# msapi.components.produce(Підсхема &quot;produce&quot;)
 
 **Description**: 
+
+
+Налаштування публікувальника
 
 **Additional Properties:** not allowed<br/>
 
@@ -1107,18 +1226,24 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
-|**^amqp**|`object`|Subschema: [msapi\.components\.connection](#msapicomponentsconnection)<br/>|yes|
-|**^exchange$**||||
-|**^message$**||||
+|**^amqp**|`object`|Підсхема &quot;connection&quot;.Налаштування з'єднання з брокером повідомлень<br/>Subschema: [Підсхема "connection"](#msapicomponentsconnection)<br/>|yes|
+|**^exchange$**||exchange.Налаштування обмінника<br/>||
+|**^message$**||message.Налаштування повідомлення<br/>||
 
-## ^amqp ()
+## ^amqp (Підсхема &quot;connection&quot;)
 
-**Description**: Reference [msapi.components.connection](#msapicomponentsconnection)
+**Description**: 
+Налаштування з'єднання з брокером повідомлень
 
-## ^exchange$
+Reference [msapi.components.connection](#msapicomponentsconnection)
+
+## ^exchange$(exchange)
 
 
-**Description**:  
+**Description**: 
+Налаштування обмінника
+
+ 
 
 
 
@@ -1129,6 +1254,9 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
     Reference [msapi.components.exchange](#msapicomponentsexchange)
     
 - **Option 2 (alternative):**    
+    **Description**: Посилання на налаштування обмінника
+    
+    
     Reference to [\#/definitions/Reference](\#/definitions/Reference)  
     
     
@@ -1141,14 +1269,20 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 
 
-## ^message$
+## ^message$(message)
 
 
-**Description**:  
+**Description**: 
+Налаштування повідомлення
+
+ 
 
 
 
 - **Option 1 (alternative):**    
+    **Description**: Посилання на налаштування повідомлень
+    
+    
     Reference to [\#/definitions/Schema](\#/definitions/Schema)  
     
     
@@ -1158,6 +1292,9 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
     
     
 - **Option 2 (alternative):**    
+    **Description**: Посилання на налаштування повідомлень
+    
+    
     Reference to [\#/definitions/Reference](\#/definitions/Reference)  
     
     
@@ -1231,6 +1368,9 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 
 - **Option 1 (alternative):**    
+    **Description**: Налаштування споживача
+    
+    
     **Additional Properties:** not allowed<br/>
     
     
@@ -1239,25 +1379,37 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
     
     |Name|Type|Description|Required|
     |----|----|-----------|--------|
-    |**^amqp**|`object`|Subschema: [msapi\.components\.connection](#msapicomponentsconnection)<br/>|yes|
-    |**^queue$**||||
-    |**^message$**||||
+    |**^amqp**|`object`|Підсхема &quot;connection&quot;.Налаштування з'єднання з брокером повідомлень<br/>Subschema: [Підсхема "connection"](#msapicomponentsconnection)<br/>|yes|
+    |**^queue$**||queue.Налаштування черги<br/>||
+    |**^message$**||message.Налаштування повідомлень<br/>||
     
-    ## Option 1: ^amqp ()
+    ## Option 1: ^amqp (Підсхема &quot;connection&quot;)
     
-    **Description**: Reference [msapi.components.connection](#msapicomponentsconnection)
+    **Description**: 
+    Налаштування з'єднання з брокером повідомлень
     
-    ## Option 1: ^queue$
+    Reference [msapi.components.connection](#msapicomponentsconnection)
+    
+    ## Option 1: ^queue$(queue)
     
     
-    **Description**:  
+    **Description**: 
+    Налаштування черги
+    
+     
     
     
     
     - **Option 1 (alternative):**    
-        **Description**: Reference [msapi.components.queue](#msapicomponentsqueue)
+        **Description**: 
+        Налаштування черги повідомлень
+        
+        Reference [msapi.components.queue](#msapicomponentsqueue)
         
     - **Option 2 (alternative):**    
+        **Description**: Посилання на налаштування черги
+        
+        
         Reference to [\#/definitions/Reference](\#/definitions/Reference)  
         
         
@@ -1270,14 +1422,20 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
     
     
     
-    ## Option 1: ^message$
+    ## Option 1: ^message$(message)
     
     
-    **Description**:  
+    **Description**: 
+    Налаштування повідомлень
+    
+     
     
     
     
     - **Option 1 (alternative):**    
+        **Description**: Посилання на налаштування повідомлень
+        
+        
         Reference to [\#/definitions/Schema](\#/definitions/Schema)  
         
         
@@ -1287,6 +1445,9 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
         
         
     - **Option 2 (alternative):**    
+        **Description**: Посилання на налаштування повідомлень
+        
+        
         Reference to [\#/definitions/Reference](\#/definitions/Reference)  
         
         
@@ -1337,7 +1498,10 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 
 - **Option 1 (alternative):**    
-    **Description**: Reference [msapi.components.produce](#msapicomponentsproduce)
+    **Description**: 
+    Налаштування публікувальника
+    
+    Reference [msapi.components.produce](#msapicomponentsproduce)
     
 - **Option 2 (alternative):**    
     **Description**: Посилання на налаштування публікувальника повідомлень

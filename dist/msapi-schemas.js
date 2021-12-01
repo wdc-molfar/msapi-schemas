@@ -339,8 +339,8 @@
     module.exports = require$$0;
   });
 
-  var title = "MSAPI";
-  var description = "Схема перевірки MSAPI-специфікації 1.0.X.\n";
+  var title$1 = "MSAPI";
+  var description$1 = "Схема перевірки MSAPI-специфікації 1.0.X.\n";
   var type$6 = "object";
   var required$1 = [
   	"msapi",
@@ -502,19 +502,19 @@
   		}
   	},
   	components: {
-  		title: "Підсхема components",
+  		title: "Підсхема \"components\"",
   		description: "Компоненти повторюваного використання",
   		type: "object",
   		additionalProperties: false,
   		patternProperties: {
   			"^exchanges$": {
   				title: "exchanges",
-  				description: "Налаштування обмінників",
+  				description: "Налаштування обмінників повідомлень",
   				type: "object",
   				patternProperties: {
   					"^[a-zA-Z0-9\\.\\-_]+$": {
   						title: "Будь-який ідентифікатор",
-  						description: "Опис обмінника",
+  						description: "Налаштування обмінника",
   						oneOf: [
   							{
   								$ref: "#/definitions/Reference",
@@ -573,24 +573,36 @@
   				}
   			},
   			"^queues$": {
+  				title: "queues",
+  				description: "Налаштування черг повідомлень",
   				type: "object",
   				patternProperties: {
   					"^[a-zA-Z0-9\\.\\-_]+$": {
+  						title: "Будь-який ідентифікатор",
+  						description: "Налаштування черги",
   						oneOf: [
   							{
-  								$ref: "#/definitions/Reference"
+  								$ref: "#/definitions/Reference",
+  								description: "Посилання на налаштування черги"
   							},
   							{
+  								title: "Підсхема \"queue\"",
+  								description: "Налаштування черги повідомлень",
   								type: "object",
   								additionalProperties: false,
   								patternProperties: {
   									"^name$": {
+  										title: "name",
+  										description: "ім'я черги повідомлень",
   										type: "string"
   									},
   									"^exchange$": {
+  										title: "exchange",
+  										description: "Налаштування обмінника повідомлень",
   										oneOf: [
   											{
-  												$ref: "#/definitions/Reference"
+  												$ref: "#/definitions/Reference",
+  												description: "Посилання на налаштування обмінника повідомлень"
   											},
   											{
   												title: "Підсхема \"exchange\"",
@@ -643,25 +655,37 @@
   										]
   									},
   									"^options$": {
+  										title: "Підсхема \"queue-options\"",
+  										description: "Налаштування черги",
   										type: "object",
   										patternProperties: {
   											"^noAck$": {
+  												title: "noAck",
+  												description: "Налаштування черги. Якщо встановлено значення ```true```,  то брокер буде видаляти повідомлення, надіслані  цьому споживачеві, з черги, як тільки вони будуть відправлені\n",
   												type: "boolean",
   												"default": false
   											},
   											"^exclusive$": {
+  												title: "exclusive",
+  												description: "Налаштування черги. Якщо встановлено занчення ```true```,  то брокер не дозволить нікому другому споживати з цієї черги.\n",
   												type: "boolean",
   												"default": false
   											},
   											"^durable$": {
+  												title: "durable",
+  												description: "Налаштування черги. Якщо встановлено значення ```true```, черга переживе перезапуск брокера, модулюючи вплив exclusive та  autoDelete.\n",
   												type: "boolean",
   												"default": true
   											},
   											"^autoDelete$": {
+  												title: "autoDelete",
+  												description: "Налаштування черги. Якщо встановлено значення ```true```,  черга буде видалена, коли кількість прив’язок знизиться до нуля\n",
   												type: "boolean",
   												"default": false
   											},
   											"^prefetch$": {
+  												title: "prefetch",
+  												description: "Налаштування черги. Визначає максимальну кількість повідомлень, які вибираються з черги одночасно\n",
   												type: "number",
   												"default": 1
   											}
@@ -674,64 +698,90 @@
   				}
   			},
   			"^schemas$": {
+  				title: "schemas",
+  				description: "Опис типів повідомлень (JSON Schema)",
   				type: "object",
   				patternProperties: {
   					"^[a-zA-Z0-9\\.\\-_]+$": {
+  						title: "Будь-який ідентифікатор",
+  						description: "Опис типу повідомлень",
   						oneOf: [
   							{
-  								$ref: "#/definitions/Reference"
+  								$ref: "#/definitions/Reference",
+  								description: "Посилання на опис типу повідомлень"
   							},
   							{
-  								$ref: "#/definitions/Schema"
+  								$ref: "#/definitions/Schema",
+  								description: "Опис типу повідомлень"
   							}
   						]
   					}
   				}
   			},
   			"^consumes$": {
+  				title: "consumes",
+  				description: "Налаштування прослуховувачів повідомлень",
   				type: "object",
   				patternProperties: {
   					"^[a-zA-Z0-9\\.\\-_]+$": {
+  						title: "Будь-який ідентифікатор",
+  						description: "Налаштування прослуховувача повідомлень",
   						oneOf: [
   							{
-  								$ref: "#/definitions/Reference"
+  								$ref: "#/definitions/Reference",
+  								description: "Посилання на налаштування прослуховувача повідомлень"
   							},
   							{
+  								title: "Підсхема \"consume\"",
+  								description: "Налаштування споживача",
   								type: "object",
   								additionalProperties: false,
   								patternProperties: {
   									"^amqp": {
+  										title: "Підсхема \"connection\"",
+  										description: "Налаштування з'єднання з брокером повідомлень",
   										type: "object",
   										required: [
   											"url"
   										],
   										patternProperties: {
   											"^url$": {
+  												title: "url",
+  												description: "url з'єднання з брокером повідомлень",
   												type: "string",
   												format: "uri-reference"
   											}
   										},
   										errorMessage: {
-  											type: "Connection options should be an object.",
-  											required: "Connection url is required.",
+  											type: "Налаштування з'єднання повинно бути об'єктом.",
+  											required: "url з'єднання є обов'язковим.",
   											properties: {
-  												url: "Connection url should be a valid RabbitMQ connection url."
+  												url: "url повинен бути коректним RabbitMQ url з'єднання."
   											}
   										}
   									},
   									"^queue$": {
+  										title: "queue",
+  										description: "Налаштування черги",
   										oneOf: [
   											{
+  												title: "Підсхема \"queue\"",
+  												description: "Налаштування черги повідомлень",
   												type: "object",
   												additionalProperties: false,
   												patternProperties: {
   													"^name$": {
+  														title: "name",
+  														description: "ім'я черги повідомлень",
   														type: "string"
   													},
   													"^exchange$": {
+  														title: "exchange",
+  														description: "Налаштування обмінника повідомлень",
   														oneOf: [
   															{
-  																$ref: "#/definitions/Reference"
+  																$ref: "#/definitions/Reference",
+  																description: "Посилання на налаштування обмінника повідомлень"
   															},
   															{
   																title: "Підсхема \"exchange\"",
@@ -784,25 +834,37 @@
   														]
   													},
   													"^options$": {
+  														title: "Підсхема \"queue-options\"",
+  														description: "Налаштування черги",
   														type: "object",
   														patternProperties: {
   															"^noAck$": {
+  																title: "noAck",
+  																description: "Налаштування черги. Якщо встановлено значення ```true```,  то брокер буде видаляти повідомлення, надіслані  цьому споживачеві, з черги, як тільки вони будуть відправлені\n",
   																type: "boolean",
   																"default": false
   															},
   															"^exclusive$": {
+  																title: "exclusive",
+  																description: "Налаштування черги. Якщо встановлено занчення ```true```,  то брокер не дозволить нікому другому споживати з цієї черги.\n",
   																type: "boolean",
   																"default": false
   															},
   															"^durable$": {
+  																title: "durable",
+  																description: "Налаштування черги. Якщо встановлено значення ```true```, черга переживе перезапуск брокера, модулюючи вплив exclusive та  autoDelete.\n",
   																type: "boolean",
   																"default": true
   															},
   															"^autoDelete$": {
+  																title: "autoDelete",
+  																description: "Налаштування черги. Якщо встановлено значення ```true```,  черга буде видалена, коли кількість прив’язок знизиться до нуля\n",
   																type: "boolean",
   																"default": false
   															},
   															"^prefetch$": {
+  																title: "prefetch",
+  																description: "Налаштування черги. Визначає максимальну кількість повідомлень, які вибираються з черги одночасно\n",
   																type: "number",
   																"default": 1
   															}
@@ -811,17 +873,22 @@
   												}
   											},
   											{
-  												$ref: "#/definitions/Reference"
+  												$ref: "#/definitions/Reference",
+  												description: "Посилання на налаштування черги"
   											}
   										]
   									},
   									"^message$": {
+  										title: "message",
+  										description: "Налаштування повідомлень",
   										oneOf: [
   											{
-  												$ref: "#/definitions/Schema"
+  												$ref: "#/definitions/Schema",
+  												description: "Посилання на налаштування повідомлень"
   											},
   											{
-  												$ref: "#/definitions/Reference"
+  												$ref: "#/definitions/Reference",
+  												description: "Посилання на налаштування повідомлень"
   											}
   										]
   									}
@@ -832,37 +899,50 @@
   				}
   			},
   			"^produces$": {
+  				title: "produces",
+  				description: "Налаштування публікувальників повідомлень",
   				type: "object",
   				patternProperties: {
   					"^[a-zA-Z0-9\\.\\-_]+$": {
+  						title: "Будь-який ідентифікатор",
+  						description: "Налаштування публікувальника повідомлень",
   						oneOf: [
   							{
-  								$ref: "#/definitions/Reference"
+  								$ref: "#/definitions/Reference",
+  								description: "Посилання на налаштування публікувальника повідомлень"
   							},
   							{
+  								title: "Підсхема \"produce\"",
+  								description: "Налаштування публікувальника",
   								type: "object",
   								additionalProperties: false,
   								patternProperties: {
   									"^amqp": {
+  										title: "Підсхема \"connection\"",
+  										description: "Налаштування з'єднання з брокером повідомлень",
   										type: "object",
   										required: [
   											"url"
   										],
   										patternProperties: {
   											"^url$": {
+  												title: "url",
+  												description: "url з'єднання з брокером повідомлень",
   												type: "string",
   												format: "uri-reference"
   											}
   										},
   										errorMessage: {
-  											type: "Connection options should be an object.",
-  											required: "Connection url is required.",
+  											type: "Налаштування з'єднання повинно бути об'єктом.",
+  											required: "url з'єднання є обов'язковим.",
   											properties: {
-  												url: "Connection url should be a valid RabbitMQ connection url."
+  												url: "url повинен бути коректним RabbitMQ url з'єднання."
   											}
   										}
   									},
   									"^exchange$": {
+  										title: "exchange",
+  										description: "Налаштування обмінника",
   										oneOf: [
   											{
   												title: "Підсхема \"exchange\"",
@@ -913,17 +993,22 @@
   												}
   											},
   											{
-  												$ref: "#/definitions/Reference"
+  												$ref: "#/definitions/Reference",
+  												description: "Посилання на налаштування обмінника"
   											}
   										]
   									},
   									"^message$": {
+  										title: "message",
+  										description: "Налаштування повідомлення",
   										oneOf: [
   											{
-  												$ref: "#/definitions/Schema"
+  												$ref: "#/definitions/Schema",
+  												description: "Посилання на налаштування повідомлень"
   											},
   											{
-  												$ref: "#/definitions/Reference"
+  												$ref: "#/definitions/Reference",
+  												description: "Посилання на налаштування повідомлень"
   											}
   										]
   									}
@@ -934,7 +1019,9 @@
   				}
   			},
   			"^settings$": {
-  				type: "object"
+  				type: "object",
+  				title: "settings",
+  				description: "Налаштування, які можна повторювано використовувати будь-де."
   			}
   		}
   	},
@@ -954,41 +1041,56 @@
   				description: "Налаштування прослуховувача повідомлень",
   				oneOf: [
   					{
+  						title: "Підсхема \"consume\"",
+  						description: "Налаштування споживача",
   						type: "object",
   						additionalProperties: false,
   						patternProperties: {
   							"^amqp": {
+  								title: "Підсхема \"connection\"",
+  								description: "Налаштування з'єднання з брокером повідомлень",
   								type: "object",
   								required: [
   									"url"
   								],
   								patternProperties: {
   									"^url$": {
+  										title: "url",
+  										description: "url з'єднання з брокером повідомлень",
   										type: "string",
   										format: "uri-reference"
   									}
   								},
   								errorMessage: {
-  									type: "Connection options should be an object.",
-  									required: "Connection url is required.",
+  									type: "Налаштування з'єднання повинно бути об'єктом.",
+  									required: "url з'єднання є обов'язковим.",
   									properties: {
-  										url: "Connection url should be a valid RabbitMQ connection url."
+  										url: "url повинен бути коректним RabbitMQ url з'єднання."
   									}
   								}
   							},
   							"^queue$": {
+  								title: "queue",
+  								description: "Налаштування черги",
   								oneOf: [
   									{
+  										title: "Підсхема \"queue\"",
+  										description: "Налаштування черги повідомлень",
   										type: "object",
   										additionalProperties: false,
   										patternProperties: {
   											"^name$": {
+  												title: "name",
+  												description: "ім'я черги повідомлень",
   												type: "string"
   											},
   											"^exchange$": {
+  												title: "exchange",
+  												description: "Налаштування обмінника повідомлень",
   												oneOf: [
   													{
-  														$ref: "#/definitions/Reference"
+  														$ref: "#/definitions/Reference",
+  														description: "Посилання на налаштування обмінника повідомлень"
   													},
   													{
   														title: "Підсхема \"exchange\"",
@@ -1041,25 +1143,37 @@
   												]
   											},
   											"^options$": {
+  												title: "Підсхема \"queue-options\"",
+  												description: "Налаштування черги",
   												type: "object",
   												patternProperties: {
   													"^noAck$": {
+  														title: "noAck",
+  														description: "Налаштування черги. Якщо встановлено значення ```true```,  то брокер буде видаляти повідомлення, надіслані  цьому споживачеві, з черги, як тільки вони будуть відправлені\n",
   														type: "boolean",
   														"default": false
   													},
   													"^exclusive$": {
+  														title: "exclusive",
+  														description: "Налаштування черги. Якщо встановлено занчення ```true```,  то брокер не дозволить нікому другому споживати з цієї черги.\n",
   														type: "boolean",
   														"default": false
   													},
   													"^durable$": {
+  														title: "durable",
+  														description: "Налаштування черги. Якщо встановлено значення ```true```, черга переживе перезапуск брокера, модулюючи вплив exclusive та  autoDelete.\n",
   														type: "boolean",
   														"default": true
   													},
   													"^autoDelete$": {
+  														title: "autoDelete",
+  														description: "Налаштування черги. Якщо встановлено значення ```true```,  черга буде видалена, коли кількість прив’язок знизиться до нуля\n",
   														type: "boolean",
   														"default": false
   													},
   													"^prefetch$": {
+  														title: "prefetch",
+  														description: "Налаштування черги. Визначає максимальну кількість повідомлень, які вибираються з черги одночасно\n",
   														type: "number",
   														"default": 1
   													}
@@ -1068,17 +1182,22 @@
   										}
   									},
   									{
-  										$ref: "#/definitions/Reference"
+  										$ref: "#/definitions/Reference",
+  										description: "Посилання на налаштування черги"
   									}
   								]
   							},
   							"^message$": {
+  								title: "message",
+  								description: "Налаштування повідомлень",
   								oneOf: [
   									{
-  										$ref: "#/definitions/Schema"
+  										$ref: "#/definitions/Schema",
+  										description: "Посилання на налаштування повідомлень"
   									},
   									{
-  										$ref: "#/definitions/Reference"
+  										$ref: "#/definitions/Reference",
+  										description: "Посилання на налаштування повідомлень"
   									}
   								]
   							}
@@ -1095,29 +1214,37 @@
   				description: "Налаштування публікувальника повідомлень",
   				oneOf: [
   					{
+  						title: "Підсхема \"produce\"",
+  						description: "Налаштування публікувальника",
   						type: "object",
   						additionalProperties: false,
   						patternProperties: {
   							"^amqp": {
+  								title: "Підсхема \"connection\"",
+  								description: "Налаштування з'єднання з брокером повідомлень",
   								type: "object",
   								required: [
   									"url"
   								],
   								patternProperties: {
   									"^url$": {
+  										title: "url",
+  										description: "url з'єднання з брокером повідомлень",
   										type: "string",
   										format: "uri-reference"
   									}
   								},
   								errorMessage: {
-  									type: "Connection options should be an object.",
-  									required: "Connection url is required.",
+  									type: "Налаштування з'єднання повинно бути об'єктом.",
+  									required: "url з'єднання є обов'язковим.",
   									properties: {
-  										url: "Connection url should be a valid RabbitMQ connection url."
+  										url: "url повинен бути коректним RabbitMQ url з'єднання."
   									}
   								}
   							},
   							"^exchange$": {
+  								title: "exchange",
+  								description: "Налаштування обмінника",
   								oneOf: [
   									{
   										title: "Підсхема \"exchange\"",
@@ -1168,17 +1295,22 @@
   										}
   									},
   									{
-  										$ref: "#/definitions/Reference"
+  										$ref: "#/definitions/Reference",
+  										description: "Посилання на налаштування обмінника"
   									}
   								]
   							},
   							"^message$": {
+  								title: "message",
+  								description: "Налаштування повідомлення",
   								oneOf: [
   									{
-  										$ref: "#/definitions/Schema"
+  										$ref: "#/definitions/Schema",
+  										description: "Посилання на налаштування повідомлень"
   									},
   									{
-  										$ref: "#/definitions/Reference"
+  										$ref: "#/definitions/Reference",
+  										description: "Посилання на налаштування повідомлень"
   									}
   								]
   							}
@@ -1223,41 +1355,56 @@
   									description: "Налаштування прослуховувача повідомлень",
   									oneOf: [
   										{
+  											title: "Підсхема \"consume\"",
+  											description: "Налаштування споживача",
   											type: "object",
   											additionalProperties: false,
   											patternProperties: {
   												"^amqp": {
+  													title: "Підсхема \"connection\"",
+  													description: "Налаштування з'єднання з брокером повідомлень",
   													type: "object",
   													required: [
   														"url"
   													],
   													patternProperties: {
   														"^url$": {
+  															title: "url",
+  															description: "url з'єднання з брокером повідомлень",
   															type: "string",
   															format: "uri-reference"
   														}
   													},
   													errorMessage: {
-  														type: "Connection options should be an object.",
-  														required: "Connection url is required.",
+  														type: "Налаштування з'єднання повинно бути об'єктом.",
+  														required: "url з'єднання є обов'язковим.",
   														properties: {
-  															url: "Connection url should be a valid RabbitMQ connection url."
+  															url: "url повинен бути коректним RabbitMQ url з'єднання."
   														}
   													}
   												},
   												"^queue$": {
+  													title: "queue",
+  													description: "Налаштування черги",
   													oneOf: [
   														{
+  															title: "Підсхема \"queue\"",
+  															description: "Налаштування черги повідомлень",
   															type: "object",
   															additionalProperties: false,
   															patternProperties: {
   																"^name$": {
+  																	title: "name",
+  																	description: "ім'я черги повідомлень",
   																	type: "string"
   																},
   																"^exchange$": {
+  																	title: "exchange",
+  																	description: "Налаштування обмінника повідомлень",
   																	oneOf: [
   																		{
-  																			$ref: "#/definitions/Reference"
+  																			$ref: "#/definitions/Reference",
+  																			description: "Посилання на налаштування обмінника повідомлень"
   																		},
   																		{
   																			title: "Підсхема \"exchange\"",
@@ -1310,25 +1457,37 @@
   																	]
   																},
   																"^options$": {
+  																	title: "Підсхема \"queue-options\"",
+  																	description: "Налаштування черги",
   																	type: "object",
   																	patternProperties: {
   																		"^noAck$": {
+  																			title: "noAck",
+  																			description: "Налаштування черги. Якщо встановлено значення ```true```,  то брокер буде видаляти повідомлення, надіслані  цьому споживачеві, з черги, як тільки вони будуть відправлені\n",
   																			type: "boolean",
   																			"default": false
   																		},
   																		"^exclusive$": {
+  																			title: "exclusive",
+  																			description: "Налаштування черги. Якщо встановлено занчення ```true```,  то брокер не дозволить нікому другому споживати з цієї черги.\n",
   																			type: "boolean",
   																			"default": false
   																		},
   																		"^durable$": {
+  																			title: "durable",
+  																			description: "Налаштування черги. Якщо встановлено значення ```true```, черга переживе перезапуск брокера, модулюючи вплив exclusive та  autoDelete.\n",
   																			type: "boolean",
   																			"default": true
   																		},
   																		"^autoDelete$": {
+  																			title: "autoDelete",
+  																			description: "Налаштування черги. Якщо встановлено значення ```true```,  черга буде видалена, коли кількість прив’язок знизиться до нуля\n",
   																			type: "boolean",
   																			"default": false
   																		},
   																		"^prefetch$": {
+  																			title: "prefetch",
+  																			description: "Налаштування черги. Визначає максимальну кількість повідомлень, які вибираються з черги одночасно\n",
   																			type: "number",
   																			"default": 1
   																		}
@@ -1337,17 +1496,22 @@
   															}
   														},
   														{
-  															$ref: "#/definitions/Reference"
+  															$ref: "#/definitions/Reference",
+  															description: "Посилання на налаштування черги"
   														}
   													]
   												},
   												"^message$": {
+  													title: "message",
+  													description: "Налаштування повідомлень",
   													oneOf: [
   														{
-  															$ref: "#/definitions/Schema"
+  															$ref: "#/definitions/Schema",
+  															description: "Посилання на налаштування повідомлень"
   														},
   														{
-  															$ref: "#/definitions/Reference"
+  															$ref: "#/definitions/Reference",
+  															description: "Посилання на налаштування повідомлень"
   														}
   													]
   												}
@@ -1364,29 +1528,37 @@
   									description: "Налаштування публікувальника повідомлень",
   									oneOf: [
   										{
+  											title: "Підсхема \"produce\"",
+  											description: "Налаштування публікувальника",
   											type: "object",
   											additionalProperties: false,
   											patternProperties: {
   												"^amqp": {
+  													title: "Підсхема \"connection\"",
+  													description: "Налаштування з'єднання з брокером повідомлень",
   													type: "object",
   													required: [
   														"url"
   													],
   													patternProperties: {
   														"^url$": {
+  															title: "url",
+  															description: "url з'єднання з брокером повідомлень",
   															type: "string",
   															format: "uri-reference"
   														}
   													},
   													errorMessage: {
-  														type: "Connection options should be an object.",
-  														required: "Connection url is required.",
+  														type: "Налаштування з'єднання повинно бути об'єктом.",
+  														required: "url з'єднання є обов'язковим.",
   														properties: {
-  															url: "Connection url should be a valid RabbitMQ connection url."
+  															url: "url повинен бути коректним RabbitMQ url з'єднання."
   														}
   													}
   												},
   												"^exchange$": {
+  													title: "exchange",
+  													description: "Налаштування обмінника",
   													oneOf: [
   														{
   															title: "Підсхема \"exchange\"",
@@ -1437,17 +1609,22 @@
   															}
   														},
   														{
-  															$ref: "#/definitions/Reference"
+  															$ref: "#/definitions/Reference",
+  															description: "Посилання на налаштування обмінника"
   														}
   													]
   												},
   												"^message$": {
+  													title: "message",
+  													description: "Налаштування повідомлення",
   													oneOf: [
   														{
-  															$ref: "#/definitions/Schema"
+  															$ref: "#/definitions/Schema",
+  															description: "Посилання на налаштування повідомлень"
   														},
   														{
-  															$ref: "#/definitions/Reference"
+  															$ref: "#/definitions/Reference",
+  															description: "Посилання на налаштування повідомлень"
   														}
   													]
   												}
@@ -1801,8 +1978,8 @@
   	}
   };
   var msapi = {
-  	title: title,
-  	description: description,
+  	title: title$1,
+  	description: description$1,
   	type: type$6,
   	required: required$1,
   	properties: properties,
@@ -5660,24 +5837,30 @@
   	safeDump: safeDump
   };
 
+  var title = "Підсхема \"connection\"";
+  var description = "Налаштування з'єднання з брокером повідомлень";
   var type$4 = "object";
   var required = [
   	"url"
   ];
   var patternProperties$1 = {
   	"^url$": {
+  		title: "url",
+  		description: "url з'єднання з брокером повідомлень",
   		type: "string",
   		format: "uri-reference"
   	}
   };
   var errorMessage = {
-  	type: "Connection options should be an object.",
-  	required: "Connection url is required.",
+  	type: "Налаштування з'єднання повинно бути об'єктом.",
+  	required: "url з'єднання є обов'язковим.",
   	properties: {
-  		url: "Connection url should be a valid RabbitMQ connection url."
+  		url: "url повинен бути коректним RabbitMQ url з'єднання."
   	}
   };
   var connectionStrict = {
+  	title: title,
+  	description: description,
   	type: type$4,
   	required: required,
   	patternProperties: patternProperties$1,
@@ -5693,41 +5876,56 @@
   		]
   	},
   	{
+  		title: "Підсхема \"consume\"",
+  		description: "Налаштування споживача",
   		type: "object",
   		additionalProperties: false,
   		patternProperties: {
   			"^amqp": {
+  				title: "Підсхема \"connection\"",
+  				description: "Налаштування з'єднання з брокером повідомлень",
   				type: "object",
   				required: [
   					"url"
   				],
   				patternProperties: {
   					"^url$": {
+  						title: "url",
+  						description: "url з'єднання з брокером повідомлень",
   						type: "string",
   						format: "uri-reference"
   					}
   				},
   				errorMessage: {
-  					type: "Connection options should be an object.",
-  					required: "Connection url is required.",
+  					type: "Налаштування з'єднання повинно бути об'єктом.",
+  					required: "url з'єднання є обов'язковим.",
   					properties: {
-  						url: "Connection url should be a valid RabbitMQ connection url."
+  						url: "url повинен бути коректним RabbitMQ url з'єднання."
   					}
   				}
   			},
   			"^queue$": {
+  				title: "queue",
+  				description: "Налаштування черги",
   				oneOf: [
   					{
+  						title: "Підсхема \"queue\"",
+  						description: "Налаштування черги повідомлень",
   						type: "object",
   						additionalProperties: false,
   						patternProperties: {
   							"^name$": {
+  								title: "name",
+  								description: "ім'я черги повідомлень",
   								type: "string"
   							},
   							"^exchange$": {
+  								title: "exchange",
+  								description: "Налаштування обмінника повідомлень",
   								oneOf: [
   									{
-  										$ref: "#/definitions/Reference"
+  										$ref: "#/definitions/Reference",
+  										description: "Посилання на налаштування обмінника повідомлень"
   									},
   									{
   										title: "Підсхема \"exchange\"",
@@ -5780,25 +5978,37 @@
   								]
   							},
   							"^options$": {
+  								title: "Підсхема \"queue-options\"",
+  								description: "Налаштування черги",
   								type: "object",
   								patternProperties: {
   									"^noAck$": {
+  										title: "noAck",
+  										description: "Налаштування черги. Якщо встановлено значення ```true```,  то брокер буде видаляти повідомлення, надіслані  цьому споживачеві, з черги, як тільки вони будуть відправлені\n",
   										type: "boolean",
   										"default": false
   									},
   									"^exclusive$": {
+  										title: "exclusive",
+  										description: "Налаштування черги. Якщо встановлено занчення ```true```,  то брокер не дозволить нікому другому споживати з цієї черги.\n",
   										type: "boolean",
   										"default": false
   									},
   									"^durable$": {
+  										title: "durable",
+  										description: "Налаштування черги. Якщо встановлено значення ```true```, черга переживе перезапуск брокера, модулюючи вплив exclusive та  autoDelete.\n",
   										type: "boolean",
   										"default": true
   									},
   									"^autoDelete$": {
+  										title: "autoDelete",
+  										description: "Налаштування черги. Якщо встановлено значення ```true```,  черга буде видалена, коли кількість прив’язок знизиться до нуля\n",
   										type: "boolean",
   										"default": false
   									},
   									"^prefetch$": {
+  										title: "prefetch",
+  										description: "Налаштування черги. Визначає максимальну кількість повідомлень, які вибираються з черги одночасно\n",
   										type: "number",
   										"default": 1
   									}
@@ -5807,17 +6017,22 @@
   						}
   					},
   					{
-  						$ref: "#/definitions/Reference"
+  						$ref: "#/definitions/Reference",
+  						description: "Посилання на налаштування черги"
   					}
   				]
   			},
   			"^message$": {
+  				title: "message",
+  				description: "Налаштування повідомлень",
   				oneOf: [
   					{
-  						$ref: "#/definitions/Schema"
+  						$ref: "#/definitions/Schema",
+  						description: "Посилання на налаштування повідомлень"
   					},
   					{
-  						$ref: "#/definitions/Reference"
+  						$ref: "#/definitions/Reference",
+  						description: "Посилання на налаштування повідомлень"
   					}
   				]
   			}
@@ -6158,29 +6373,37 @@
   		]
   	},
   	{
+  		title: "Підсхема \"produce\"",
+  		description: "Налаштування публікувальника",
   		type: "object",
   		additionalProperties: false,
   		patternProperties: {
   			"^amqp": {
+  				title: "Підсхема \"connection\"",
+  				description: "Налаштування з'єднання з брокером повідомлень",
   				type: "object",
   				required: [
   					"url"
   				],
   				patternProperties: {
   					"^url$": {
+  						title: "url",
+  						description: "url з'єднання з брокером повідомлень",
   						type: "string",
   						format: "uri-reference"
   					}
   				},
   				errorMessage: {
-  					type: "Connection options should be an object.",
-  					required: "Connection url is required.",
+  					type: "Налаштування з'єднання повинно бути об'єктом.",
+  					required: "url з'єднання є обов'язковим.",
   					properties: {
-  						url: "Connection url should be a valid RabbitMQ connection url."
+  						url: "url повинен бути коректним RabbitMQ url з'єднання."
   					}
   				}
   			},
   			"^exchange$": {
+  				title: "exchange",
+  				description: "Налаштування обмінника",
   				oneOf: [
   					{
   						title: "Підсхема \"exchange\"",
@@ -6231,17 +6454,22 @@
   						}
   					},
   					{
-  						$ref: "#/definitions/Reference"
+  						$ref: "#/definitions/Reference",
+  						description: "Посилання на налаштування обмінника"
   					}
   				]
   			},
   			"^message$": {
+  				title: "message",
+  				description: "Налаштування повідомлення",
   				oneOf: [
   					{
-  						$ref: "#/definitions/Schema"
+  						$ref: "#/definitions/Schema",
+  						description: "Посилання на налаштування повідомлень"
   					},
   					{
-  						$ref: "#/definitions/Reference"
+  						$ref: "#/definitions/Reference",
+  						description: "Посилання на налаштування повідомлень"
   					}
   				]
   			}
@@ -6580,41 +6808,56 @@
   		type: "object"
   	},
   	"^consume$": {
+  		title: "Підсхема \"consume\"",
+  		description: "Налаштування споживача",
   		type: "object",
   		additionalProperties: false,
   		patternProperties: {
   			"^amqp": {
+  				title: "Підсхема \"connection\"",
+  				description: "Налаштування з'єднання з брокером повідомлень",
   				type: "object",
   				required: [
   					"url"
   				],
   				patternProperties: {
   					"^url$": {
+  						title: "url",
+  						description: "url з'єднання з брокером повідомлень",
   						type: "string",
   						format: "uri-reference"
   					}
   				},
   				errorMessage: {
-  					type: "Connection options should be an object.",
-  					required: "Connection url is required.",
+  					type: "Налаштування з'єднання повинно бути об'єктом.",
+  					required: "url з'єднання є обов'язковим.",
   					properties: {
-  						url: "Connection url should be a valid RabbitMQ connection url."
+  						url: "url повинен бути коректним RabbitMQ url з'єднання."
   					}
   				}
   			},
   			"^queue$": {
+  				title: "queue",
+  				description: "Налаштування черги",
   				oneOf: [
   					{
+  						title: "Підсхема \"queue\"",
+  						description: "Налаштування черги повідомлень",
   						type: "object",
   						additionalProperties: false,
   						patternProperties: {
   							"^name$": {
+  								title: "name",
+  								description: "ім'я черги повідомлень",
   								type: "string"
   							},
   							"^exchange$": {
+  								title: "exchange",
+  								description: "Налаштування обмінника повідомлень",
   								oneOf: [
   									{
-  										$ref: "#/definitions/Reference"
+  										$ref: "#/definitions/Reference",
+  										description: "Посилання на налаштування обмінника повідомлень"
   									},
   									{
   										title: "Підсхема \"exchange\"",
@@ -6667,25 +6910,37 @@
   								]
   							},
   							"^options$": {
+  								title: "Підсхема \"queue-options\"",
+  								description: "Налаштування черги",
   								type: "object",
   								patternProperties: {
   									"^noAck$": {
+  										title: "noAck",
+  										description: "Налаштування черги. Якщо встановлено значення ```true```,  то брокер буде видаляти повідомлення, надіслані  цьому споживачеві, з черги, як тільки вони будуть відправлені\n",
   										type: "boolean",
   										"default": false
   									},
   									"^exclusive$": {
+  										title: "exclusive",
+  										description: "Налаштування черги. Якщо встановлено занчення ```true```,  то брокер не дозволить нікому другому споживати з цієї черги.\n",
   										type: "boolean",
   										"default": false
   									},
   									"^durable$": {
+  										title: "durable",
+  										description: "Налаштування черги. Якщо встановлено значення ```true```, черга переживе перезапуск брокера, модулюючи вплив exclusive та  autoDelete.\n",
   										type: "boolean",
   										"default": true
   									},
   									"^autoDelete$": {
+  										title: "autoDelete",
+  										description: "Налаштування черги. Якщо встановлено значення ```true```,  черга буде видалена, коли кількість прив’язок знизиться до нуля\n",
   										type: "boolean",
   										"default": false
   									},
   									"^prefetch$": {
+  										title: "prefetch",
+  										description: "Налаштування черги. Визначає максимальну кількість повідомлень, які вибираються з черги одночасно\n",
   										type: "number",
   										"default": 1
   									}
@@ -6694,46 +6949,59 @@
   						}
   					},
   					{
-  						$ref: "#/definitions/Reference"
+  						$ref: "#/definitions/Reference",
+  						description: "Посилання на налаштування черги"
   					}
   				]
   			},
   			"^message$": {
+  				title: "message",
+  				description: "Налаштування повідомлень",
   				oneOf: [
   					{
-  						$ref: "#/definitions/Schema"
+  						$ref: "#/definitions/Schema",
+  						description: "Посилання на налаштування повідомлень"
   					},
   					{
-  						$ref: "#/definitions/Reference"
+  						$ref: "#/definitions/Reference",
+  						description: "Посилання на налаштування повідомлень"
   					}
   				]
   			}
   		}
   	},
   	"^produce$": {
+  		title: "Підсхема \"produce\"",
+  		description: "Налаштування публікувальника",
   		type: "object",
   		additionalProperties: false,
   		patternProperties: {
   			"^amqp": {
+  				title: "Підсхема \"connection\"",
+  				description: "Налаштування з'єднання з брокером повідомлень",
   				type: "object",
   				required: [
   					"url"
   				],
   				patternProperties: {
   					"^url$": {
+  						title: "url",
+  						description: "url з'єднання з брокером повідомлень",
   						type: "string",
   						format: "uri-reference"
   					}
   				},
   				errorMessage: {
-  					type: "Connection options should be an object.",
-  					required: "Connection url is required.",
+  					type: "Налаштування з'єднання повинно бути об'єктом.",
+  					required: "url з'єднання є обов'язковим.",
   					properties: {
-  						url: "Connection url should be a valid RabbitMQ connection url."
+  						url: "url повинен бути коректним RabbitMQ url з'єднання."
   					}
   				}
   			},
   			"^exchange$": {
+  				title: "exchange",
+  				description: "Налаштування обмінника",
   				oneOf: [
   					{
   						title: "Підсхема \"exchange\"",
@@ -6784,17 +7052,22 @@
   						}
   					},
   					{
-  						$ref: "#/definitions/Reference"
+  						$ref: "#/definitions/Reference",
+  						description: "Посилання на налаштування обмінника"
   					}
   				]
   			},
   			"^message$": {
+  				title: "message",
+  				description: "Налаштування повідомлення",
   				oneOf: [
   					{
-  						$ref: "#/definitions/Schema"
+  						$ref: "#/definitions/Schema",
+  						description: "Посилання на налаштування повідомлень"
   					},
   					{
-  						$ref: "#/definitions/Reference"
+  						$ref: "#/definitions/Reference",
+  						description: "Посилання на налаштування повідомлень"
   					}
   				]
   			}
@@ -7143,41 +7416,56 @@
   					type: "object"
   				},
   				"^consume$": {
+  					title: "Підсхема \"consume\"",
+  					description: "Налаштування споживача",
   					type: "object",
   					additionalProperties: false,
   					patternProperties: {
   						"^amqp": {
+  							title: "Підсхема \"connection\"",
+  							description: "Налаштування з'єднання з брокером повідомлень",
   							type: "object",
   							required: [
   								"url"
   							],
   							patternProperties: {
   								"^url$": {
+  									title: "url",
+  									description: "url з'єднання з брокером повідомлень",
   									type: "string",
   									format: "uri-reference"
   								}
   							},
   							errorMessage: {
-  								type: "Connection options should be an object.",
-  								required: "Connection url is required.",
+  								type: "Налаштування з'єднання повинно бути об'єктом.",
+  								required: "url з'єднання є обов'язковим.",
   								properties: {
-  									url: "Connection url should be a valid RabbitMQ connection url."
+  									url: "url повинен бути коректним RabbitMQ url з'єднання."
   								}
   							}
   						},
   						"^queue$": {
+  							title: "queue",
+  							description: "Налаштування черги",
   							oneOf: [
   								{
+  									title: "Підсхема \"queue\"",
+  									description: "Налаштування черги повідомлень",
   									type: "object",
   									additionalProperties: false,
   									patternProperties: {
   										"^name$": {
+  											title: "name",
+  											description: "ім'я черги повідомлень",
   											type: "string"
   										},
   										"^exchange$": {
+  											title: "exchange",
+  											description: "Налаштування обмінника повідомлень",
   											oneOf: [
   												{
-  													$ref: "#/definitions/Reference"
+  													$ref: "#/definitions/Reference",
+  													description: "Посилання на налаштування обмінника повідомлень"
   												},
   												{
   													title: "Підсхема \"exchange\"",
@@ -7230,25 +7518,37 @@
   											]
   										},
   										"^options$": {
+  											title: "Підсхема \"queue-options\"",
+  											description: "Налаштування черги",
   											type: "object",
   											patternProperties: {
   												"^noAck$": {
+  													title: "noAck",
+  													description: "Налаштування черги. Якщо встановлено значення ```true```,  то брокер буде видаляти повідомлення, надіслані  цьому споживачеві, з черги, як тільки вони будуть відправлені\n",
   													type: "boolean",
   													"default": false
   												},
   												"^exclusive$": {
+  													title: "exclusive",
+  													description: "Налаштування черги. Якщо встановлено занчення ```true```,  то брокер не дозволить нікому другому споживати з цієї черги.\n",
   													type: "boolean",
   													"default": false
   												},
   												"^durable$": {
+  													title: "durable",
+  													description: "Налаштування черги. Якщо встановлено значення ```true```, черга переживе перезапуск брокера, модулюючи вплив exclusive та  autoDelete.\n",
   													type: "boolean",
   													"default": true
   												},
   												"^autoDelete$": {
+  													title: "autoDelete",
+  													description: "Налаштування черги. Якщо встановлено значення ```true```,  черга буде видалена, коли кількість прив’язок знизиться до нуля\n",
   													type: "boolean",
   													"default": false
   												},
   												"^prefetch$": {
+  													title: "prefetch",
+  													description: "Налаштування черги. Визначає максимальну кількість повідомлень, які вибираються з черги одночасно\n",
   													type: "number",
   													"default": 1
   												}
@@ -7257,46 +7557,59 @@
   									}
   								},
   								{
-  									$ref: "#/definitions/Reference"
+  									$ref: "#/definitions/Reference",
+  									description: "Посилання на налаштування черги"
   								}
   							]
   						},
   						"^message$": {
+  							title: "message",
+  							description: "Налаштування повідомлень",
   							oneOf: [
   								{
-  									$ref: "#/definitions/Schema"
+  									$ref: "#/definitions/Schema",
+  									description: "Посилання на налаштування повідомлень"
   								},
   								{
-  									$ref: "#/definitions/Reference"
+  									$ref: "#/definitions/Reference",
+  									description: "Посилання на налаштування повідомлень"
   								}
   							]
   						}
   					}
   				},
   				"^produce$": {
+  					title: "Підсхема \"produce\"",
+  					description: "Налаштування публікувальника",
   					type: "object",
   					additionalProperties: false,
   					patternProperties: {
   						"^amqp": {
+  							title: "Підсхема \"connection\"",
+  							description: "Налаштування з'єднання з брокером повідомлень",
   							type: "object",
   							required: [
   								"url"
   							],
   							patternProperties: {
   								"^url$": {
+  									title: "url",
+  									description: "url з'єднання з брокером повідомлень",
   									type: "string",
   									format: "uri-reference"
   								}
   							},
   							errorMessage: {
-  								type: "Connection options should be an object.",
-  								required: "Connection url is required.",
+  								type: "Налаштування з'єднання повинно бути об'єктом.",
+  								required: "url з'єднання є обов'язковим.",
   								properties: {
-  									url: "Connection url should be a valid RabbitMQ connection url."
+  									url: "url повинен бути коректним RabbitMQ url з'єднання."
   								}
   							}
   						},
   						"^exchange$": {
+  							title: "exchange",
+  							description: "Налаштування обмінника",
   							oneOf: [
   								{
   									title: "Підсхема \"exchange\"",
@@ -7347,17 +7660,22 @@
   									}
   								},
   								{
-  									$ref: "#/definitions/Reference"
+  									$ref: "#/definitions/Reference",
+  									description: "Посилання на налаштування обмінника"
   								}
   							]
   						},
   						"^message$": {
+  							title: "message",
+  							description: "Налаштування повідомлення",
   							oneOf: [
   								{
-  									$ref: "#/definitions/Schema"
+  									$ref: "#/definitions/Schema",
+  									description: "Посилання на налаштування повідомлень"
   								},
   								{
-  									$ref: "#/definitions/Reference"
+  									$ref: "#/definitions/Reference",
+  									description: "Посилання на налаштування повідомлень"
   								}
   							]
   						}

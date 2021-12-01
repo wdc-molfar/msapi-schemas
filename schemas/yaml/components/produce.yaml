@@ -1,5 +1,5 @@
 title: Підсхема "produce"
-descriptions: Налаштування публікувальника
+description: Налаштування публікувальника
 type: object
 additionalProperties: false
 subschema: msapi.components.produce         
@@ -8,27 +8,27 @@ patternProperties:
   
   '^amqp':
     title: amqp
-    descriptions: Налаштування брокера повідомлень
+    description: Налаштування брокера повідомлень
     $ref: "./connection"
     definitions: Налаштування з’єднання
 
   '^exchange$':
     title: exchange
-    descriptions: Налаштування обмінника
+    description: Налаштування обмінника
     oneOf:
       - $ref: "./exchange"
-        descriptions: Налаштування обмінника
+        description: Налаштування обмінника
 
       - $ref: "#/definitions/Reference"
-        descriptions: Посилання на налаштування обмінника
+        description: Посилання на налаштування обмінника
   
   '^message$':
     title: message
-    descriptions: Налаштування повідомлення 
+    description: Налаштування повідомлення 
     oneOf:
       - $ref: "#/definitions/Schema"
-        descriptions: Посилання на налаштування повідомлень
+        description: Посилання на налаштування повідомлень
       - $ref: "#/definitions/Reference"
-        descriptions: Посилання на налаштування повідомлень
+        description: Посилання на налаштування повідомлень
 
     

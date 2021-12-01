@@ -75,7 +75,7 @@ patternProperties:
           - $ref: '#/definitions/Reference'
             description: Посилання на налаштування публікувальника повідомлень
           - $ref: './produce'
-              description: Налаштування публікувальника повідомлень
+            description: Налаштування публікувальника повідомлень
         
   
   '^settings$':

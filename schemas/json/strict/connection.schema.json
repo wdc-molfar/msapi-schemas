@@ -1,0 +1,23 @@
+{
+ "title": "Підсхема \"connection\"",
+ "description": "Налаштування з'єднання з брокером повідомлень",
+ "type": "object",
+ "required": [
+  "url"
+ ],
+ "patternProperties": {
+  "^url$": {
+   "title": "url",
+   "description": "url з'єднання з брокером повідомлень",
+   "type": "string",
+   "format": "uri-reference"
+  }
+ },
+ "errorMessage": {
+  "type": "Налаштування з'єднання повинно бути об'єктом.",
+  "required": "url з'єднання є обов'язковим.",
+  "properties": {
+   "url": "url повинен бути коректним RabbitMQ url з'єднання."
+  }
+ }
+}

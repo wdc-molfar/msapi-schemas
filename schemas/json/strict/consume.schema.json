@@ -1,0 +1,487 @@
+{
+ "type": "object",
+ "allOf": [
+  {
+   "required": [
+    "amqp",
+    "queue"
+   ]
+  },
+  {
+   "title": "Підсхема \"consume\"",
+   "description": "Налаштування споживача",
+   "type": "object",
+   "additionalProperties": false,
+   "patternProperties": {
+    "^amqp": {
+     "title": "Підсхема \"connection\"",
+     "description": "Налаштування з'єднання з брокером повідомлень",
+     "type": "object",
+     "required": [
+      "url"
+     ],
+     "patternProperties": {
+      "^url$": {
+       "title": "url",
+       "description": "url з'єднання з брокером повідомлень",
+       "type": "string",
+       "format": "uri-reference"
+      }
+     },
+     "errorMessage": {
+      "type": "Налаштування з'єднання повинно бути об'єктом.",
+      "required": "url з'єднання є обов'язковим.",
+      "properties": {
+       "url": "url повинен бути коректним RabbitMQ url з'єднання."
+      }
+     }
+    },
+    "^queue$": {
+     "title": "queue",
+     "description": "Налаштування черги",
+     "oneOf": [
+      {
+       "title": "Підсхема \"queue\"",
+       "description": "Налаштування черги повідомлень",
+       "type": "object",
+       "additionalProperties": false,
+       "patternProperties": {
+        "^name$": {
+         "title": "name",
+         "description": "ім'я черги повідомлень",
+         "type": "string"
+        },
+        "^exchange$": {
+         "title": "exchange",
+         "description": "Налаштування обмінника повідомлень",
+         "oneOf": [
+          {
+           "$ref": "#/definitions/Reference",
+           "description": "Посилання на налаштування обмінника повідомлень"
+          },
+          {
+           "title": "Підсхема \"exchange\"",
+           "description": "Налаштування обміника",
+           "type": "object",
+           "additionalProperties": false,
+           "patternProperties": {
+            "^name$": {
+             "title": "name",
+             "description": "Ім'я обміника",
+             "type": "string"
+            },
+            "^mode$": {
+             "title": "mode",
+             "description": "Тип обміника",
+             "enum": [
+              "fanout",
+              "direct",
+              "topic"
+             ],
+             "default": "fanout"
+            },
+            "^options$": {
+             "title": "Підсхема \"exchange-options\"",
+             "description": "Налаштування обміника",
+             "type": "object",
+             "patternProperties": {
+              "^durable$": {
+               "title": "durable",
+               "description": "Налаштування обмінника. Якщо встановлено значення ```true``` обмінник переживе перезапуск брокера\n",
+               "type": "boolean",
+               "default": true
+              },
+              "^autoDelete$": {
+               "title": "autoDelete",
+               "description": "Налаштування обмінника. Якщо встановлено значення ```true```, обмінник буде знищено, коли  кількість прив’язок, для яких він є джерелом, знизиться до нуля\n",
+               "type": "boolean",
+               "default": false
+              },
+              "^persistent$": {
+               "title": "persistent",
+               "description": "Налаштування обмінника. Якщо встановлено значення ```true```, повідомлення переживе перезапуск брокера за умови, що воно знаходиться в черзі, яка також витримує перезапуски. Відповідає і перевизначає властивість ```deliveryMode```\n",
+               "type": "boolean",
+               "default": true
+              }
+             }
+            }
+           }
+          }
+         ]
+        },
+        "^options$": {
+         "title": "Підсхема \"queue-options\"",
+         "description": "Налаштування черги",
+         "type": "object",
+         "patternProperties": {
+          "^noAck$": {
+           "title": "noAck",
+           "description": "Налаштування черги. Якщо встановлено значення ```true```,  то брокер буде видаляти повідомлення, надіслані  цьому споживачеві, з черги, як тільки вони будуть відправлені\n",
+           "type": "boolean",
+           "default": false
+          },
+          "^exclusive$": {
+           "title": "exclusive",
+           "description": "Налаштування черги. Якщо встановлено занчення ```true```,  то брокер не дозволить нікому другому споживати з цієї черги.\n",
+           "type": "boolean",
+           "default": false
+          },
+          "^durable$": {
+           "title": "durable",
+           "description": "Налаштування черги. Якщо встановлено значення ```true```, черга переживе перезапуск брокера, модулюючи вплив exclusive та  autoDelete.\n",
+           "type": "boolean",
+           "default": true
+          },
+          "^autoDelete$": {
+           "title": "autoDelete",
+           "description": "Налаштування черги. Якщо встановлено значення ```true```,  черга буде видалена, коли кількість прив’язок знизиться до нуля\n",
+           "type": "boolean",
+           "default": false
+          },
+          "^prefetch$": {
+           "title": "prefetch",
+           "description": "Налаштування черги. Визначає максимальну кількість повідомлень, які вибираються з черги одночасно\n",
+           "type": "number",
+           "default": 1
+          }
+         }
+        }
+       }
+      },
+      {
+       "$ref": "#/definitions/Reference",
+       "description": "Посилання на налаштування черги"
+      }
+     ]
+    },
+    "^message$": {
+     "title": "message",
+     "description": "Налаштування повідомлень",
+     "oneOf": [
+      {
+       "$ref": "#/definitions/Schema",
+       "description": "Посилання на налаштування повідомлень"
+      },
+      {
+       "$ref": "#/definitions/Reference",
+       "description": "Посилання на налаштування повідомлень"
+      }
+     ]
+    }
+   }
+  }
+ ],
+ "definitions": {
+  "Reference": {
+   "title": "Reference",
+   "type": "object",
+   "required": [
+    "$ref"
+   ],
+   "patternProperties": {
+    "^\\$ref$": {
+     "type": "string"
+    }
+   }
+  },
+  "Version": {
+   "title": "Version",
+   "type": "string",
+   "pattern": "^1\\.0\\.\\d(-.+)?$"
+  },
+  "Schema": {
+   "title": "Schema",
+   "type": "object",
+   "properties": {
+    "title": {
+     "type": "string"
+    },
+    "multipleOf": {
+     "type": "number",
+     "minimum": 0
+    },
+    "maximum": {
+     "type": "number"
+    },
+    "exclusiveMaximum": {
+     "type": "boolean",
+     "default": false
+    },
+    "minimum": {
+     "type": "number"
+    },
+    "exclusiveMinimum": {
+     "type": "boolean",
+     "default": false
+    },
+    "maxLength": {
+     "type": "integer",
+     "minimum": 0
+    },
+    "minLength": {
+     "type": "integer",
+     "minimum": 0,
+     "default": 0
+    },
+    "pattern": {
+     "type": "string",
+     "format": "regex"
+    },
+    "maxItems": {
+     "type": "integer",
+     "minimum": 0
+    },
+    "minItems": {
+     "type": "integer",
+     "minimum": 0,
+     "default": 0
+    },
+    "uniqueItems": {
+     "type": "boolean",
+     "default": false
+    },
+    "maxProperties": {
+     "type": "integer",
+     "minimum": 0
+    },
+    "minProperties": {
+     "type": "integer",
+     "minimum": 0,
+     "default": 0
+    },
+    "required": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "minItems": 1,
+     "uniqueItems": true
+    },
+    "enum": {
+     "type": "array",
+     "items": {},
+     "minItems": 1,
+     "uniqueItems": false
+    },
+    "type": {
+     "type": "string",
+     "enum": [
+      "array",
+      "boolean",
+      "integer",
+      "number",
+      "object",
+      "string"
+     ]
+    },
+    "not": {
+     "oneOf": [
+      {
+       "$ref": "#/definitions/Schema"
+      },
+      {
+       "$ref": "#/definitions/Reference"
+      }
+     ]
+    },
+    "allOf": {
+     "type": "array",
+     "items": {
+      "oneOf": [
+       {
+        "$ref": "#/definitions/Schema"
+       },
+       {
+        "$ref": "#/definitions/Reference"
+       }
+      ]
+     }
+    },
+    "oneOf": {
+     "type": "array",
+     "items": {
+      "oneOf": [
+       {
+        "$ref": "#/definitions/Schema"
+       },
+       {
+        "$ref": "#/definitions/Reference"
+       }
+      ]
+     }
+    },
+    "anyOf": {
+     "type": "array",
+     "items": {
+      "oneOf": [
+       {
+        "$ref": "#/definitions/Schema"
+       },
+       {
+        "$ref": "#/definitions/Reference"
+       }
+      ]
+     }
+    },
+    "items": {
+     "oneOf": [
+      {
+       "$ref": "#/definitions/Schema"
+      },
+      {
+       "$ref": "#/definitions/Reference"
+      }
+     ]
+    },
+    "properties": {
+     "type": "object",
+     "additionalProperties": {
+      "oneOf": [
+       {
+        "$ref": "#/definitions/Schema"
+       },
+       {
+        "$ref": "#/definitions/Reference"
+       }
+      ]
+     }
+    },
+    "additionalProperties": {
+     "oneOf": [
+      {
+       "$ref": "#/definitions/Schema"
+      },
+      {
+       "$ref": "#/definitions/Reference"
+      },
+      {
+       "type": "boolean"
+      }
+     ],
+     "default": true
+    },
+    "description": {
+     "type": "string"
+    },
+    "format": {
+     "type": "string"
+    },
+    "default": {},
+    "nullable": {
+     "type": "boolean",
+     "default": false
+    },
+    "discriminator": {
+     "$ref": "#/definitions/Discriminator"
+    },
+    "readOnly": {
+     "type": "boolean",
+     "default": false
+    },
+    "writeOnly": {
+     "type": "boolean",
+     "default": false
+    },
+    "example": {},
+    "externalDocs": {
+     "$ref": "#/definitions/ExternalDocumentation"
+    },
+    "deprecated": {
+     "type": "boolean",
+     "default": false
+    },
+    "xml": {
+     "$ref": "#/definitions/XML"
+    }
+   },
+   "patternProperties": {
+    "^x-": {}
+   },
+   "additionalProperties": false
+  },
+  "ExternalDocumentation": {
+   "type": "object",
+   "required": [
+    "url"
+   ],
+   "properties": {
+    "description": {
+     "type": "string"
+    },
+    "url": {
+     "type": "string",
+     "format": "uri-reference"
+    }
+   },
+   "patternProperties": {
+    "^x-": {}
+   },
+   "additionalProperties": false
+  },
+  "Discriminator": {
+   "title": "Discriminator",
+   "type": "object",
+   "required": [
+    "propertyName"
+   ],
+   "properties": {
+    "propertyName": {
+     "type": "string"
+    },
+    "mapping": {
+     "type": "object",
+     "additionalProperties": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  "XML": {
+   "title": "XML",
+   "type": "object",
+   "properties": {
+    "name": {
+     "type": "string"
+    },
+    "namespace": {
+     "type": "string",
+     "format": "uri"
+    },
+    "prefix": {
+     "type": "string"
+    },
+    "attribute": {
+     "type": "boolean",
+     "default": false
+    },
+    "wrapped": {
+     "type": "boolean",
+     "default": false
+    }
+   },
+   "patternProperties": {
+    "^x-": {}
+   },
+   "additionalProperties": false
+  },
+  "Extensible": {
+   "title": "Extensible",
+   "type": "object",
+   "required": [
+    "def"
+   ],
+   "additionalProperties": false,
+   "patternProperties": {
+    "^def$": {
+     "$ref": "#/definitions/Reference"
+    },
+    "^extendedBy": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/Reference"
+     }
+    }
+   }
+  }
+ }
+}

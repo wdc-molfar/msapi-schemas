@@ -8,7 +8,6 @@ patternProperties:
     title: amqp
     description: Налаштування брокера повідомлень
     $ref: "./connection"
-    description: Налаштування з’єднання
 
   '^queue$':
     title: queue
