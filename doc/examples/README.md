@@ -1,14 +1,69 @@
 # Специфікація опису систем оброблення даних з мікросервісною архітектурою
 
-## Особливості специфікацій
+## Концепція MSAPI-специфікацій
 
-TODO
+MSAPI-специфікації призначені для опису розподілених інформаційних систем з мікросервісною архітектурою.
+Взаємодія програмних модулів (мікросервісів) таких систем здійснюється за допомогою обміну
+повідомленнями за протоколом [Advanced Message Queuing Protocol (AMQP)](https://www.amqp.org/).
+
+**Опис робочого процесу** оброблення даних (```workflow```) складається з декларації множини розміщених на обчислювальних вузлах 
+системи налаштованих екземплярів сервісів (```service```).
+<center> 
+
+![uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/wdc-molfar/msapi-schemas/master/doc/intro/puml/workflow.puml) 
+
+</center>
+
+**Тип сервісу** ```service``` декларується у відповідності до концепції "чорної скриньки": 
+- вхідні налаштування ```config```
+- прослуховувач повідомлень ```consume```
+- публікувальник повідомлень ```produce```
+
+<center> 
+
+![uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/wdc-molfar/msapi-schemas/master/doc/intro/puml/service.puml) 
+
+</center>
+
+**Тип прослуховувача** ```consume``` декларує необхідні налаштування обмінника, черги та процесу вибірки повідомлень з використанням брокера повідомлень
+RabbitMQ:
+- ```amqp``` - налаштування ```url``` для з'єднання з брокером повідомлень
+-  ```queue``` - налаштування черги повідомлень, що буде прослуховуватись
+-  ```message``` - опис типу повідомлень (JSON Schema), які оброблюються сервісом
+
+**Тип публікувальника** ```produce``` декларує необхідні налаштування обмінника в брокері повідомлень RabbitMQ, в якому сервіс буде здійснювати 
+публікування повідомлень:
+- ```amqp``` - налаштування ```url``` для з'єднання з брокером повідомлень
+-  ```exchange``` - налаштування обмінника повідомлень, що буде використовуватись сервісом для публікування повідомлень
+-  ```message``` - опис типу повідомлень (JSON Schema), які надсилаються сервісом
+
+Оскільки сервіси, об'єднані в робочий процес повинні мати спільні налаштування, наприклад, налаштування ```produce``` та ```consume``` для двох 
+послідовно з'єднаних сервісів, важливим є забезпечення можливості опису компонентів повторюваного використання (```components```) та способу посилання на такі компоненти.
+
+В MSAPI-специфікаціях можна використовувати наступні **компоненти повторюваного використання**:
+- ```settings``` - будь-які налаштування
+- ```schemas``` - описи типів (JSON Schema)
+- ```exchanges``` - описи налаштувань обмінників повідомлень
+- ```queues``` - описи налаштувань черг повідомлень
+- ```consumes``` - описи налаштувань прослуховувачів повідомлень
+- ```produces``` - описи налаштувань публікувальників повідомлень
+
+Для посилання на компоненти повторюваного використання застосовуються [JSON References](http://tools.ietf.org/html/draft-pbryan-zyp-json-ref-03) та 
+[JSON Pointers](http://tools.ietf.org/html/rfc6901).
+
+Секція налаштувань може містити будь-які описи (прості і об'єкти). Доступ до них здійснюється за доповогою посилань `$ref`. Можна використовувати як локальні посилання (в межах локальної файлової системи), так і віддалені.
+Наприклад:
+- Локальне посилання (в межах поточної специфікації) – `$ref: "#/settings/amqp_url"`
+- Віддалене посилання (в іншій специфікації) – `$ref: "02.example-components/#/settings/amqp_url"`
+
+Для збереження та спільного доступу до специфікацій можна використовувати сервіс [msapi-registry](https://msapi-registry.herokuapp.com/), що реалізує реєстр MSAPI-специфікацій.  
+
 
 ## Використання MSAPI-специфікацій для опису систем збору та оброблення даних
 
 ### Базовий приклад
 
-Створюються екземпляри ```publisher``` і ```consumer``` на основі базових і користувацьких параметрів підключення.
+Базовий приклад специфікації MSAPI демонструє мінімальний склад специфікації MSAPI. Він описує два екземпляри сервісів `producer` та `consumer`, які створюються на основі базових і користувацьких параметрів підключення та використовують спільну чергу `queue` для передачі повідомлень.
 
 <center>
 
@@ -16,12 +71,7 @@ TODO
 
 </center>
 
-Базовий приклад специфікації MSAPI демонструє мінімальний склад специфікації MSAPI. Він описує два екземпляри сервісів `publisher` та `consumer`, які використовують спільну чергу `queue` для передачі повідомлень.
 
-Секція налаштувань може містити будь-які описи (прості і об'єкти). Доступ до них здійснюється за доповогою посилань `$ref`
-Наприклад:
-- Локальне посилання (в межах поточної специфікації) – `$ref: "#/settings/amqp_url"`
-- Зовнішнє посилання (в іншій специфікації) – `$ref: "02.example-components/#/settings/amqp_url"`
 
 
 ```yaml
@@ -29,7 +79,7 @@ msapi: "1.0.1"
 
 metadata: 
   
-    id: 01.example-min-spec
+    id: 01.use-msapi
   
     title: Базовий приклад специфікації MSAPI
   
@@ -170,7 +220,7 @@ workflow:
 
 </center>
 
-Для цього необхідно скористатись прикладами yaml конфігів, які наведені нижче. З головних деталей: 
+Для цього необхідно скористатись прикладами  `yaml`-конфігураціями, які наведені нижче. З головних деталей: 
 - amqp.url однакова у всім consumer(те, що publisher i consumer мають однакову url без додаткових параметрів як роути, і так зрозуміло)
 - queue.exchange.name однаоквий для двох consumer
 - queue.exchange.mode === fanout для відправки повідомлення з обмінника в усі черги
@@ -344,8 +394,7 @@ workflow:
 
 ### Організація черги завдань
 
-При необхідності організації паралельного однотипного оброблення повідомлень декількома обробниками, можна організувати
-розбір завдань декількома споживачами з спільної черги завдань. На відміну від попереднього випадку, якщо вибірка повідомлення підтверджена одним з споживачів, інші споживачі вже не отримують це повідомлення. 
+При необхідності організації паралельного однотипного оброблення повідомлень декількома обробниками, можна організувати розбір завдань декількома споживачами з спільної черги завдань. На відміну від попереднього випадку, якщо вибірка повідомлення підтверджена одним з споживачів, інші споживачі вже не отримують це повідомлення. 
 
 <center>
 
@@ -353,36 +402,41 @@ workflow:
 
 </center>
 
-Для цього необхідно скористатись прикладами yaml конфігів, які наведені нижче. З головних деталей, які додались в порівнянні з попереднім прикладом: 
-- queue.options.prefetch - якщо в обміннику є повідомлення, то consumer(в даному випадку worker за 1 раз "забере" вказане число повідомлень)
-- queue.options.noAck - consumer може автоматично "давати знати", що повідомлення доставлено, а можна це зробити мануально, викликавши метод .ack(), але пр цьому вказавши noAck: false.
-
-Ініціалізація одного publisher і 2 consumer, які слухають одну й ту саму чергу як і в попередньому прикладі. Але, різниця полягає в тому, що в yaml конфігу задано noAck: false. Це означає, що потрібно викликати .ack(). Якщо цього не зробити, слухач "зупиниться" на цьому повідомленні, як і реалізовано: за час 4 сек, другий воркер опрацює всі повідомлення в черзі, а перший воркер буде 'вісіти' на першому повідомленні
-
 ***Файл ```scheduler.yaml```. Налаштування планувальника завдань***
-
 
 ```yaml
 
-# Scheduler AMQP settings
-amqp:
-    url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+msapi: "1.0.1"
 
-exchange:
-    name: test_task
-    mode: direct
+metadata: 
+  
+    id: task_queue.scheduler
+  
+    title: Планувальник завдань
+  
+    description: >
+        Описує сервіс публікувальника повідомлень. Повідомленя типізовані
+
+service:
+
+    produce:
+        amqp:
+            url: amqps://yourRabbitMQConnectionUrl
         
-message:
-    type: object
-    required:
-        - id
-        - timeout
-    properties:
-        id:
-          type: number
-        timeout:
-          type: number  
-          
+        exchange:
+            name: test_task
+            mode: direct
+                
+        message:
+            type: object
+            required:
+                - id
+                - timeout
+            properties:
+                id:
+                  type: number
+                timeout:
+                  type: number
 
 ```
 
@@ -390,37 +444,74 @@ message:
 
 ```yaml
 
-# Worker AMQP settings
-amqp:
-    url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+msapi: "1.0.1"
 
-queue:
-    name: test_task
-    exchange:
-        name: test_task
-        mode: direct
-    options:
-        prefetch: 1
-        noAck: false
+metadata: 
+  
+    id: task_queue.worker
+  
+    title: Споживач
+  
+    description: >
+        Описує сервіс споживання черги повідомлень. Повідомленя типізовані
+    
+service:
+    consume:
+        amqp:
+            url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
         
-message:
-    type: object
-    required:
-        - id
-        - timeout
-    properties:
-        id:
-          type: number
-        timeout:
-          type: number  
-
+        queue:
+            name: test_task
+            exchange:
+                name: test_task
+                mode: direct
+            options:
+                prefetch: 1
+                noAck: false
+                
+        message:
+            type: object
+            required:
+                - id
+                - timeout
+            properties:
+                id:
+                  type: number
+                timeout:
+                  type: number
 
 ```
+
+***Файл ```workflow.yaml```. Налаштування робочого процесу***
+
+```yaml
+
+msapi: "1.0.1"
+
+metadata: 
+  
+    id: task_queue.workflow
+  
+    title: task_queue.workflow
+  
+    description: >
+        Описує робочий процес для організації черги повідомлень, та оброблення
+        повідомлень декількома споживачами
+
+workflow:
+    - instance:
+        $ref: "./task_queue.scheduler/#/service"
+    - instance:
+        $ref: "./task_queue.worker/#/service"
+    - instance:
+        $ref: "./task_queue.worker/#/service"
+
+```
+
 
 ### Об'єднання потоків повідомлень
 
 У випадку необхідності злиття потоків повідомлень для оброблення в одному обробнику використовується спільний обмінник повідомлень для декількох публікувальників.
-
 
 <center>
 
@@ -428,76 +519,125 @@ message:
 
 </center>
 
-Для цього необхідно скористатись прикладами yaml конфігів, які наведені нижче. З головних деталей: 
-- amqp.url, exchange.name, exchange.mode є однаковим
-- валідація повідомлень представлена: message.id, message.producer, message.timeout  
+Для цього необхідно скористатись прикладами `yaml`-конфігураціями, які наведені нижче. З головних деталей: 
+- amqp.url, exchange.name, exchange.mode є однаковими 
 
-***Файл ```listener.yaml```. Налаштування прослуховувача***
-
-```yaml
-
-
-amqp:
-    url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
-
-queue:
-    name: dataflow
-    
-    exchange:
-        name: concentrator
-        mode: fanout
-
-    options:
-        noAck: true
-        
-message:
-    type: object
-    required:
-        - id
-        - producer
-        - timeout
-    properties:
-        id:
-          type: number
-        producer:
-          type: number
-        timeout:
-          type: number  
-
-```
 
 ***Файл ```producer.yaml```. Налаштування публікувальника***
 
 ```yaml
 
+msapi: "1.0.1"
 
-amqp:
-    url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+metadata: 
+  
+    id: example_2producers.producer
+  
+    title: Публікувальник
+  
+    description: >
+        Описує сервіс публікування повідомлень. Повідомленя типізовані
 
-exchange:
-    name: concentrator
-    mode: fanout
+service:
+
+    produce:
+        amqp:
+            url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
         
-message:
-    type: object
-    required:
-        - id
-        - producer
-        - timeout
-    properties:
-        id:
-          type: number
-        producer:
-          type: number
-        timeout:
-          type: number  
+        exchange:
+            name: concentrator
+            mode: fanout
+                
+        message:
+            type: object
+            required:
+                - id
+                - producer
+                - timeout
+            properties:
+                id:
+                  type: number
+                producer:
+                  type: number
+                timeout:
+                  type: number  
           
+```
+
+***Файл ```listener.yaml```. Налаштування прослуховувача***
+
+```yaml
+
+msapi: "1.0.1"
+
+metadata: 
+  
+    id: example_2producers.listener
+  
+    title: Прослуховувач
+  
+    description: >
+        Описує сервіс споживання черги повідомлень. Повідомленя типізовані
+    
+service:
+    consume:
+        amqp:
+            url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+        
+        queue:
+            name: concentrator
+            
+            exchange:
+                name: concentrator
+                mode: fanout
+        
+            options:
+                noAck: true
+                
+        message:
+            type: object
+            required:
+                - id
+                - producer
+                - timeout
+            properties:
+                id:
+                  type: number
+                producer:
+                  type: number
+                timeout:
+                  type: number  
+
+```
+
+***Файл ```workflow.yaml```. Налаштування робочого процесу***
+
+```yaml
+
+msapi: "1.0.1"
+
+metadata: 
+  
+    id: example_2producers.workflow
+  
+    title: Робочий процес для організації єдиної черги повідомлень
+  
+    description: >
+        Описує робочий процес для організації єдиної черги повідомлень від двох публікувальників, та оброблення повідомлень споживачем
+
+workflow:
+    - instance:
+        $ref: "./example_2producers.producer/#/service"
+    - instance:
+        $ref: "./example_2producers.producer/#/service"
+    - instance:
+        $ref: "./example_2producers.listener/#/service"
+
 ```
 
 ### Послідовний робочий процес оброблення повідомлень
 
-Організація послідовного робочого процесу оброблення повідомлень пов'язана з використанням в екземплярах мікросервісів
-публікувальників та споживачів повідомлень. Мікросервіси-джерела, наприклад ```initiator```, мають публікувальника;
+Організація послідовного робочого процесу оброблення повідомлень пов'язана з використанням в екземплярах мікросервісів публікувальників та споживачів повідомлень. Мікросервіси-джерела, наприклад ```initiator```, мають публікувальника;
 проміжні обробники (```worker1```) - як публікувальника, так і споживача, стоки повідомлень (```worker2```)- тільки споживача.
 
 <center>
@@ -506,81 +646,184 @@ message:
 
 </center>
 
-Для цього необхідно скористатись прикладами yaml конфігів, які наведені нижче. З головних деталей: 
-- ```initiator-listener.yaml and initiator.yaml```: queue.exchange.name === exchange.name('initiator'), queue.exchange.mode === exchange.mode
-- ```initiator-listener.yaml```: queue.options.noAck: true(manual підтвердження доставки)
-- ```producer-listener.yaml and producer.yaml```: queue.exchange.name === exchange.name('producer'), queue.exchange.mode === exchange.mode
-- ```producer-listener.yaml```: queue.options.noAck: true(manual підтвердження доставки)
-- валідація повідомлень представлена(як і в минулих прикладах): message.id, message.producer, message.timeout  
-
-Initiator пара надсилає і отримує повідомлення, і під час останнього тригерить publisher з інших пари, який запускає вже свій процес з надсилання і отрмування повідомлення відповідно cunsumer. Queue та exchange для кожної пари різний.
-
-***Файл ```initiator-listener.yaml```***
-
-```yaml
-
-amqp:
-    url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
-
-queue:
-    name: initiator
-    
-    exchange:
-        name: initiator
-        mode: fanout
-
-    options:
-        noAck: true        
-      
-
-```
+Для цього необхідно скористатись прикладами `yaml`-конфігураціями, які наведені нижче.
 
 ***Файл ```initiator.yaml```***
 
 ```yaml
 
-amqp:
-    url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+msapi: "1.0.1"
 
-exchange:
-    name: initiator
-    mode: fanout
+metadata: 
+  
+    id: example_chain.producer
+  
+    title: Публікувальник-ініціатор
+  
+    description: >
+        Описує сервіс ініціювання публікування повідомлень. Повідомленя типізовані
+
+service:
+
+    produce:
+        amqp:
+            url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+        
+        exchange:
+            name: initiator
+            mode: fanout
+                
+        message:
+            type: object
+            required:
+                - id
+                - producer
+                - timeout
+            properties:
+                id:
+                  type: number
+                producer:
+                  type: number
+                timeout:
+                  type: number
 
 ```
 
-***Файл ```producer-listener.yaml```***
+***Файл ```worker1.yaml```. Налаштування першого працівника***
 
 ```yaml
 
-amqp:
-    url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+msapi: "1.0.1"
 
-queue:
-    name: producer
+metadata: 
+  
+    id: example_chain.worker1
+  
+    title: Працівник1
+  
+    description: >
+        Описує сервіс споживання черги повідомлень від ініціатора та публікування повідомлень. Повідомленя типізовані
     
-    exchange:
-        name: producer
-        mode: fanout
-
-    options:
-        noAck: true
+service:
+    consume:
+        amqp:
+            url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+        
+        queue:
+            name: initiator
+            exchange:
+                name: initiator
+                mode: direct
+            options:
+                prefetch: 1
+                noAck: false
+                
+        message:
+            type: object
+            required:
+                - id
+                - timeout
+            properties:
+                id:
+                  type: number
+                timeout:
+                  type: number
+    
+    produce:
+        amqp:
+            url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+        
+        exchange:
+            name: producer
+            mode: fanout
+                
+        message:
+            type: object
+            required:
+                - id
+                - producer
+                - timeout
+            properties:
+                id:
+                  type: number
+                producer:
+                  type: number
+                timeout:
+                  type: number
 
 ```
 
-***Файл ```producer.yaml```***
+***Файл ```worker2.yaml```. Налаштування другого працівника***
 
 ```yaml
 
-amqp:
-    url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+msapi: "1.0.1"
 
-exchange:
-    name: producer
-    mode: fanout
+metadata: 
+  
+    id: example_chain.worker2
+  
+    title: Працівник2
+  
+    description: >
+        Описує сервіс споживання черги повідомлень. Повідомленя типізовані
+    
+service:
+    consume:
+        amqp:
+            url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+        
+        queue:
+            name: producer
+            exchange:
+                name: producer
+                mode: direct
+            options:
+                prefetch: 1
+                noAck: false
+                
+        message:
+            type: object
+            required:
+                - id
+                - timeout
+            properties:
+                id:
+                  type: number
+                timeout:
+                  type: number
 
 ```
 
-### Часткове оброблення повідомлень та композиция результатів
+***Файл ```workflow.yaml```. Налаштування робочого процесу***
+
+```yaml
+
+msapi: "1.0.1"
+
+metadata: 
+  
+    id: example_chain.workflow
+  
+    title: Послідовний робочий процес оброблення повідомлень
+  
+    description: >
+        Описує послідовний робочий процес оброблення повідомлень, де є:
+        публікувальник-ініціатор, що публікує повідомлення; 
+        працівник1, який обробляє та публікує повідомлення; 
+        та працівник2, що оброблює повідомлення
+
+workflow:
+    - instance:
+        $ref: "./example_chain.producer/#/service"
+    - instance:
+        $ref: "./example_chain.worker1/#/service"
+    - instance:
+        $ref: "./example_chain.worker2/#/service"
+
+```
+
+### Часткове оброблення повідомлень та композиція результатів
 
 Використовуючи схему взаємодії для прослуховування декількома споживачами однієї черги повідомлень та 
 схему взаємодії для об'єднання потоків повідомлень, можна організувати паралельне часткове оброблення
@@ -592,50 +835,248 @@ exchange:
 
 </center>
 
-Для цього необхідно скористатись прикладами yaml конфігів, які наведені нижче.
+Для цього необхідно скористатись прикладами `yaml`-конфігураціями, які наведені нижче.
 
 ***Файл ```initiator.yaml```***
 
 ```yaml
 
-amqp:
-    url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+msapi: "1.0.1"
 
-exchange:
-    name: messages
-    mode: fanout
+metadata: 
+  
+    id: example_partial_queue.producer
+  
+    title: Публікувальник-ініціатор
+  
+    description: >
+        Описує сервіс ініціювання публікування повідомлень. Повідомленя типізовані
+
+service:
+
+    produce:
+        amqp:
+            url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+        
+        exchange:
+            name: messages
+            mode: fanout
+                
+        message:
+            type: object
+            required:
+                - id
+                - producer
+                - timeout
+            properties:
+                id:
+                  type: number
+                producer:
+                  type: number
+                timeout:
+                  type: number
 
 ```
 
-***Файл ```partial-listener.yaml```***
+***Файл ```partial_ner.yaml```. Налаштування обробника partial_ner***
 
 ```yaml
 
-amqp:
-    url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+msapi: "1.0.1"
 
-queue:
-    name: messages
+metadata: 
+  
+    id: example_partial_queue.partial_ner
+  
+    title: Обробник partial_ner
+  
+    description: >
+        Описує сервіс споживання черги повідомлень від ініціатора та публікування повідомлень. Повідомленя типізовані
     
-    exchange:
-        name: messages
-        mode: fanout
+service:
+    consume:
+        amqp:
+            url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+        
+        queue:
+            name: partial_ner
+            exchange:
+                name: messages
+                mode: direct
+            options:
+                prefetch: 1
+                noAck: false
+                
+        message:
+            type: object
+            required:
+                - id
+                - timeout
+            properties:
+                id:
+                  type: number
+                timeout:
+                  type: number
+    
+    produce:
+        amqp:
+            url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+        
+        exchange:
+            name: composer_input
+            mode: fanout
+                
+        message:
+            type: object
+            required:
+                - id
+                - producer
+                - timeout
+            properties:
+                id:
+                  type: number
+                producer:
+                  type: number
+                timeout:
+                  type: number
 
-    options:
-        noAck: true
-    
 ```
 
-***Файл ```partial-producer.yaml```***
+***Файл ```partial_sa.yaml```. Налаштування обробника partial_sa***
 
 ```yaml
 
-amqp:
-    url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+msapi: "1.0.1"
 
-exchange:
-    name: composer_input
-    mode: fanout
+metadata: 
+  
+    id: example_partial_queue.partial_sa
+  
+    title: Обробник partial_sa
+  
+    description: >
+        Описує сервіс споживання черги повідомлень від ініціатора та публікування повідомлень. Повідомленя типізовані
+    
+service:
+    consume:
+        amqp:
+            url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+        
+        queue:
+            name: partial_sa
+            exchange:
+                name: messages
+                mode: direct
+            options:
+                prefetch: 1
+                noAck: false
+                
+        message:
+            type: object
+            required:
+                - id
+                - timeout
+            properties:
+                id:
+                  type: number
+                timeout:
+                  type: number
+    
+    produce:
+        amqp:
+            url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+        
+        exchange:
+            name: composer_input
+            mode: fanout
+                
+        message:
+            type: object
+            required:
+                - id
+                - producer
+                - timeout
+            properties:
+                id:
+                  type: number
+                producer:
+                  type: number
+                timeout:
+                  type: number
 
 ```
 
+***Файл ```composer.yaml```. Налаштування композитора результатів***
+
+```yaml
+
+msapi: "1.0.1"
+
+metadata: 
+  
+    id: example_partial_queue.composer
+  
+    title: Композитор
+  
+    description: >
+        Описує сервіс композиції результатів, що отримані від двох паралельних часткових обробників
+    
+service:
+    consume:
+        amqp:
+            url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+        
+        queue:
+            name: composer_input
+            exchange:
+                name: composer_input
+                mode: direct
+            options:
+                prefetch: 1
+                noAck: false
+                
+        message:
+            type: object
+            required:
+                - id
+                - timeout
+            properties:
+                id:
+                  type: number
+                timeout:
+                  type: number
+
+```
+
+***Файл ```workflow.yaml```. Налаштування робочого процесу***
+
+```yaml
+
+msapi: "1.0.1"
+
+metadata: 
+  
+    id: example_partial_queue.workflow
+  
+    title: Послідовний робочий процес оброблення повідомлень
+  
+    description: >
+        Описує послідовний робочий процес оброблення повідомлень з паралельним частковим обробленням 
+        повідомлень та композицією результатів, де є:
+        публікувальник-ініціатор, що публікує повідомлення; 
+        обробник partial_ner, який обробляє та публікує повідомлення; 
+        обробник partial_sa, який обробляє та публікує повідомлення;
+        та композитор, що оброблює та створює композицію результатів, що отримані від двох паралельних 
+        часткових обробників повідомлень – partial_ner та partial_sa
+
+workflow:
+    - instance:
+        $ref: "./example_partial_queue.producer/#/service"
+    - instance:
+        $ref: "./example_partial_queue.partial_ner/#/service"
+    - instance:
+        $ref: "./example_partial_queue.partial_sa/#/service"
+    - instance:
+        $ref: "./example_partial_queue.composer/#/service"
+
+```
