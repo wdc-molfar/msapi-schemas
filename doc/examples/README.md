@@ -51,28 +51,347 @@ RabbitMQ:
 Для посилання на компоненти повторюваного використання застосовуються [JSON References](http://tools.ietf.org/html/draft-pbryan-zyp-json-ref-03) та 
 [JSON Pointers](http://tools.ietf.org/html/rfc6901).
 
-Секція налаштувань може містити будь-які описи (прості і об'єкти). Доступ до них здійснюється за доповогою посилань `$ref`. Можна використовувати як локальні посилання (в межах локальної файлової системи), так і віддалені.
+Можна використовувати як локальні посилання (в межах локальної файлової системи), так і віддалені.
+
+Для збереження та спільного доступу до специфікацій можна використовувати сервіс [msapi-registry](https://msapi-registry.herokuapp.com/), що реалізує реєстр MSAPI-специфікацій.  
+
+## Особливості використання специфікацій
+
+**Мінімальний склад специфікації** повинен містити: 
+- версію MSAPI, наприклад
+```yaml
+
+msapi: "1.0.1"
+
+```
+- метадані `metadata`, до яких входять:
+    - ідентифікатор – `id`, що використовується у посиланнях
+    - назва – `title`
+    - опис – `description`, який дозволяє зрозуміти зміст специфікації та що вона описує
+
+***Файл ```01.example-min-spec.yaml```. Базовий приклад*** демонструє мінімальний склад специфікації MSAPI.
+```yaml
+
+msapi: 1.0.1
+
+metadata:
+    id: 01.example-min-spec
+    title: Приклад специфікації MSAPI
+    description: Демонструє мінімальний склад специфікації MSAPI 
+
+```
+
+**Cекція налаштувань `settings`** містить всі описи налаштуваннь.
+
+Секція налаштувань може містити будь-які описи, як прості, так і об'єкти.
+Загальні налаштування `url`-з'єднання можуть бути подані у вигляді рядка, наприклад
+```yaml
+
+amqp_url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+
+```
+а налаштування системи моніторингу стану мікросервісів – у вигляді об'єкта, наприклад
+```yaml
+
+health_control:
+    exchange_name: ms_health
+    interval: 1000 #ms
+
+```
+
+***Файл ```02.example-components.yaml```. Приклад специфікації MSAPI для компонентів повторюваного використання*** демонструє опис налаштувань повторюваного використання.
+```yaml
+
+msapi: 1.0.1
+
+metadata:
+    id: 02.example-components
+    title: Приклад специфікації MSAPI для компонентів повторюваного використання
+    description: Демонструє опис налаштувань повторюваного використання
+
+settings:
+    amqp_url: amqps://xoilebqg:Nx46t4t9cxQ2M0rF2rIyZPS_xbAhmJIG@hornet.rmq.cloudamqp.com/xoilebqg
+    
+    health_control:
+        exchange_name: ms_health
+        interval: 1000 #ms
+
+    ```
+
+**Секція JSON-схем `schemas`** може містити описи JSON-схем повторюваного використання: `TASK_MSG_SCHEMA`, `DATA_MSG_SCHEMA`.
+
+***Файл ```03.example-components.yaml```. Приклад специфікації MSAPI для компонентів повторюваного використання*** демонструє опис JSON-схем повторюваного використання.
+```yaml
+
+msapi: 1.0.1
+
+metadata:
+    id: 03.example-components
+    title: Приклад специфікації MSAPI для компонентів повторюваного використання
+    description: Демонструє опис JSON-схем повторюваного використання
+
+schemas:
+    
+    TASK_MSG_SCHEMA:
+        type: object
+        required:
+            - id
+            - options
+        properties:
+            id:
+                type: string
+            options:
+                type: object
+        additionalProperties: false
+        
+    DATA_MSG_SCHEMA:
+        type: object
+        required:
+            - id
+            - text
+            - meta
+        properties:
+            id:
+                type: string
+            text:
+                type: string
+            meta:
+                type: object
+        additionalProperties: false
+
+```
+
+**Секція обмінників `exchanges`** може містити описи обмінників даних: `TASK_EXCHANGE`, `SCRAPPED_MSG_EXCHANGE`.
+
+***Файл ```04.example-components.yaml```. Приклад специфікації MSAPI для компонентів повторюваного використання*** демонструє опис обмінників даних повторюваного використання.
+```yaml
+
+msapi: 1.0.1
+
+metadata:
+    id: 04.example-components
+    title: Приклад специфікації MSAPI для компонентів повторюваного використання
+    description: Демонструє опис обмінників даних повторюваного використання
+
+exchanges:
+    
+    TASK_EXCHANGE:
+        name: task_exch
+        mode: fanout
+        options:
+            durable: true
+    
+    SCRAPPED_MSG_EXCHANGE:
+        name: scrapper_exch
+        mode: fanout
+
+```
+
+**Секція черг `queues`** може містити описи черг повідомлень `TASK_QUEUE`.
+Опис черги `TASK_QUEUE` має містити:
+- назву черги `name`, наприклад
+```yaml
+
+name: task_queue
+
+```
+- налаштування `options` для обмінника `exchange`, наприклад
+```yaml
+
+options:
+    durable: true
+
+``` 
+- налаштування `options` черги та процесу вибірки повідомлень, наприклад
+```yaml
+
+options:
+    noAck: false
+    prefetch: 1
+    exclusive: true
+
+``` 
+
+***Файл ```05.example-components.yaml```. Приклад специфікації MSAPI для компонентів повторюваного використання*** демонструє опис черг повторюваного використання.
+```yaml
+
+msapi: 1.0.1
+
+metadata:
+    id: 03.example-components
+    title: Приклад специфікації MSAPI для компонентів повторюваного використання
+    description: Демонструє опис черг повторюваного використання
+
+queues:
+    TASK_QUEUE:
+        name: task_queue
+        exchange:
+            name: task_exch
+            mode: fanout
+            options:
+                durable: true
+        options:
+            noAck: false
+            prefetch: 1
+            exclusive: true
+
+```
+
+Доступ до схем та компонентів повторюваного використання здійснюється за допомогою **використання посилань** – `$ref`.
+Можна використовувати як локальні посилання (в межах локальної файлової системи), так і віддалені.
 Наприклад:
 - Локальне посилання (в межах поточної специфікації) – `$ref: "#/settings/amqp_url"`
 - Віддалене посилання (в іншій специфікації) – `$ref: "02.example-components/#/settings/amqp_url"`
 
-Для збереження та спільного доступу до специфікацій можна використовувати сервіс [msapi-registry](https://msapi-registry.herokuapp.com/), що реалізує реєстр MSAPI-специфікацій.  
+***Файл ```06.example-use-refs.yaml```. Приклад специфікації MSAPI для компонентів повторюваного використання*** демонструє використання посилань.
+```yaml
 
+msapi: 1.0.1
+
+metadata:
+    id: 06.example-use-refs
+    title: Приклад специфікації MSAPI для компонентів повторюваного використання
+    description: Демонструє використання посилань
+
+settings:
+
+    task_exchange_name: task_exch
+    
+    task_exchange_options:
+        durable: true
+    
+    task_queue_name: task_queue
+    
+    task_queue_options: 
+        noAck: false
+        prefetch: 1
+        exclusive: true
+
+exchanges:
+    
+    TASK_EXCHANGE:
+        name:
+            $ref: "#/settings/task_exchange_name"
+        mode: fanout
+        options:
+            $ref: "#/settings/task_exchange_options"
+    
+queues:
+    
+    TASK_QUEUE:
+        name: 
+            $ref: "#/settings/task_queue_name"
+        exchange:
+            $ref: "#/exchanges/TASK_EXCHANGE"
+        options:
+            $ref: "#/settings/task_queue_options"
+
+```
+
+**Опис `TASK_SCHEDULER` публікувальника повідомлень `produces`** має містити:
+- налаштування підключення `url` до брокера повідомлень, наприклад
+```yaml
+
+amqp:
+    url:
+        $ref: "02.example-components/#/settings/amqp_url"
+
+```
+- опис обмінника `exchange`, в якому будуть публікуватися повідомлення, наприклад
+```yaml
+
+exchange:
+    $ref: "06.example-use-refs/#/exchanges/TASK_EXCHANGE"
+
+```
+- опис схеми повідомлень `message`, які будуть публікуватися цим публікувальником, наприклад
+```yaml
+
+message:
+    $ref: "03.example-components/#/schemas/TASK_MSG_SCHEMA"
+
+```
+
+***Файл ```07.example-produce.yaml```. Приклад специфікації MSAPI для компонентів повторюваного використання*** демонструє опис публікувальника даних.
+```yaml
+
+msapi: 1.0.1
+
+metadata:
+    id: 07.example-produce
+    title: Приклад специфікації MSAPI для компонентів повторюваного використання
+    description: Демонструє опис публікувальника даних
+
+produces:
+
+    TASK_SCHEDULER:
+        amqp:
+            url:
+                $ref: "02.example-components/#/settings/amqp_url"
+        exchange:
+            $ref: "06.example-use-refs/#/exchanges/TASK_EXCHANGE"
+        message:
+            $ref: "03.example-components/#/schemas/TASK_MSG_SCHEMA"
+
+```
+
+**Опис `TASK_CONSUME` споживача повідомлень `consumes`** має містити:
+- налаштування підключення `url` до брокера повідомлень, наприклад
+```yaml
+
+amqp:
+    url:
+        $ref: "02.example-components/#/settings/amqp_url"
+
+```
+- опис черги повідомлень `queue`, наприклад
+```yaml
+
+queue:
+    $ref: "06.example-use-refs/#/queues/TASK_QUEUE"
+
+```
+- опис схеми повідомлень `message`, наприклад
+```yaml
+
+message:
+    $ref: "03.example-components/#/schemas/TASK_MSG_SCHEMA"
+
+```
+
+***Файл ```08.example-consume.yaml```. Приклад специфікації MSAPI для компонентів повторюваного використання*** демонструє опис споживача даних.
+```yaml
+
+msapi: 1.0.1
+
+metadata:
+    id: 08.example-consume
+    title: Приклад специфікації MSAPI для компонентів повторюваного використання
+    description: Демонструє опис споживача даних
+
+consumes:
+    TASK_CONSUME:
+        amqp:
+            url:
+                $ref: "02.example-components/#/settings/amqp_url"
+        queue:
+            $ref: "06.example-use-refs/#/queues/TASK_QUEUE"
+        message:
+            $ref: "03.example-components/#/schemas/TASK_MSG_SCHEMA"
+
+```
 
 ## Використання MSAPI-специфікацій для опису систем збору та оброблення даних
 
 ### Базовий приклад
 
-Базовий приклад специфікації MSAPI демонструє мінімальний склад специфікації MSAPI. Він описує два екземпляри сервісів `producer` та `consumer`, які створюються на основі базових і користувацьких параметрів підключення та використовують спільну чергу `queue` для передачі повідомлень.
+Базовий приклад описує два екземпляри сервісів `producer` та `consumer`, які створюються на основі базових і користувацьких параметрів підключення та використовують спільну чергу `queue` для передачі повідомлень.
 
 <center>
 
 ![uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/wdc-molfar/msapi-schemas/master/doc/examples/puml/01.example.puml)
 
 </center>
-
-
-
 
 ```yaml
 msapi: "1.0.1"
