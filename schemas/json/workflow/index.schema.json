@@ -1,4 +1,6 @@
 {
+ "title": "Підсхема \"workflow\"",
+ "description": "Налаштування робочого процесу повторюваного використання",
  "type": "array",
  "items": {
   "type": "object",
@@ -8,15 +10,23 @@
   "additionalProperties": false,
   "patternProperties": {
    "^instance$": {
+    "title": "instance",
+    "description": "Налаштування екземплярів",
     "oneOf": [
      {
+      "title": "Підсхема \"service\"",
+      "description": "Налаштування мікросервісу повторюваного використання",
       "type": "object",
       "additionalProperties": false,
       "patternProperties": {
        "^config$": {
+        "title": "config",
+        "description": "Дані для налаштування мікросервісу\n",
         "type": "object"
        },
        "^consume$": {
+        "title": "consume",
+        "description": "Налаштування прослуховувачів повідомлень",
         "oneOf": [
          {
           "type": "object",
@@ -150,11 +160,14 @@
           }
          },
          {
-          "$ref": "#/definitions/Extensible"
+          "$ref": "#/definitions/Extensible",
+          "description": "Посилання на налаштування прослуховувача повідомлень"
          }
         ]
        },
        "^produce$": {
+        "title": "produce",
+        "description": "Налаштування публікувальників повідомлень",
         "oneOf": [
          {
           "type": "object",
@@ -247,21 +260,27 @@
           }
          },
          {
-          "$ref": "#/definitions/Extensible"
+          "$ref": "#/definitions/Extensible",
+          "description": "Посилання на налаштування публікувальника повідомлень"
          }
         ]
        }
       }
      },
      {
-      "$ref": "#/definitions/Reference"
+      "$ref": "#/definitions/Reference",
+      "description": "Посилання на налаштування екземпляру"
      }
     ]
    },
    "^name$": {
+    "title": "name",
+    "description": "Назва екземпляру",
     "type": "string"
    },
    "^configuredBy$": {
+    "title": "configuredBy",
+    "description": "Налаштовано",
     "type": "object"
    }
   }

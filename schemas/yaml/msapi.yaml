@@ -1,9 +1,12 @@
 title: MSAPI
-description: Validation schema for MSAPI Specification 1.0.X.
+description: >
+  Схема перевірки MSAPI-специфікації 1.0.X.
 subschema: msapi
 #$schema: http://json-schema.org/draft-04/schema#
 type: object
 
+
+# Обов'язкові структури для налаштування 
 required:
   - msapi
   - metadata
@@ -16,15 +19,26 @@ properties:
     $ref: "#/definitions/Version"
   
   metadata:
+    title: Метадані
+    description: Налаштування метаданих повторюваного використання
     $ref: "./metadata/index"
   
   components:
-
+    title: Компоненти
+    description: Налаштування компонентів повторюваного використання
     $ref: "./components/index"  
   
   service:
+    title: Мікросервіс
+    description: Налаштування мікросервісів повторюваного використання
     $ref: "./service/index"  
   
   workflow:
+    title: Робочі процеси
+    description: Налаштування робочих процеcів повторюваного використання
     $ref: "./workflow/index"  
+
+definitions:
+  Version:  1.0.1
+
   

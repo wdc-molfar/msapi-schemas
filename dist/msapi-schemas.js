@@ -340,7 +340,7 @@
   });
 
   var title = "MSAPI";
-  var description = "Validation schema for MSAPI Specification 1.0.X.";
+  var description = "Схема перевірки MSAPI-специфікації 1.0.X.\n";
   var type$6 = "object";
   var required$1 = [
   	"msapi",
@@ -353,6 +353,8 @@
   		$ref: "#/definitions/Version"
   	},
   	metadata: {
+  		title: "Підсхема \"metadata\"",
+  		description: "Налаштування метаданих повторюваного використання",
   		type: "object",
   		required: [
   			"id",
@@ -360,25 +362,39 @@
   		],
   		properties: {
   			id: {
+  				title: "id",
+  				description: "Ідентифікатор метаданих",
   				type: "string"
   			},
   			title: {
+  				title: "title",
+  				description: "Назва метаданих",
   				type: "string"
   			},
   			description: {
+  				title: "description",
+  				description: "Опис метаданих",
   				type: "string"
   			},
   			contact: {
+  				title: "Contact",
+  				description: "Контактна інформація",
   				type: "object",
   				properties: {
   					name: {
+  						title: "name",
+  						description: "Ім'я для отримання контактної інформації",
   						type: "string"
   					},
   					url: {
+  						title: "url",
+  						description: "Гіперпосилання на контактну інформацію",
   						type: "string",
   						format: "uri-reference"
   					},
   					email: {
+  						title: "email",
+  						description: "Адреса електронної пошти",
   						type: "string",
   						format: "email"
   					}
@@ -390,15 +406,21 @@
   				additionalProperties: false
   			},
   			license: {
+  				title: "License",
+  				description: "Інформацію про ліцензію",
   				type: "object",
   				required: [
   					"name"
   				],
   				properties: {
   					name: {
+  						title: "name",
+  						description: "Назва ліцензії",
   						type: "string"
   					},
   					url: {
+  						title: "url",
+  						description: "Гіперпосилання на інформацію про ліцензію",
   						type: "string",
   						format: "uri-reference"
   					}
@@ -410,6 +432,8 @@
   				additionalProperties: false
   			},
   			repo: {
+  				title: "repo",
+  				description: "Посилання на репозиторій",
   				type: "string",
   				format: "uri-reference"
   			}
@@ -421,16 +445,24 @@
   		additionalProperties: true,
   		definitions: {
   			Contact: {
+  				title: "Contact",
+  				description: "Контактна інформація",
   				type: "object",
   				properties: {
   					name: {
+  						title: "name",
+  						description: "Ім'я для отримання контактної інформації",
   						type: "string"
   					},
   					url: {
+  						title: "url",
+  						description: "Гіперпосилання на контактну інформацію",
   						type: "string",
   						format: "uri-reference"
   					},
   					email: {
+  						title: "email",
+  						description: "Адреса електронної пошти",
   						type: "string",
   						format: "email"
   					}
@@ -442,15 +474,21 @@
   				additionalProperties: false
   			},
   			License: {
+  				title: "License",
+  				description: "Інформацію про ліцензію",
   				type: "object",
   				required: [
   					"name"
   				],
   				properties: {
   					name: {
+  						title: "name",
+  						description: "Назва ліцензії",
   						type: "string"
   					},
   					url: {
+  						title: "url",
+  						description: "Гіперпосилання на інформацію про ліцензію",
   						type: "string",
   						format: "uri-reference"
   					}
@@ -901,13 +939,19 @@
   		}
   	},
   	service: {
+  		title: "Підсхема \"service\"",
+  		description: "Налаштування мікросервісу повторюваного використання",
   		type: "object",
   		additionalProperties: false,
   		patternProperties: {
   			"^config$": {
+  				title: "config",
+  				description: "Дані для налаштування мікросервісу\n",
   				type: "object"
   			},
   			"^consume$": {
+  				title: "consume",
+  				description: "Налаштування прослуховувачів повідомлень",
   				oneOf: [
   					{
   						type: "object",
@@ -1041,11 +1085,14 @@
   						}
   					},
   					{
-  						$ref: "#/definitions/Extensible"
+  						$ref: "#/definitions/Extensible",
+  						description: "Посилання на налаштування прослуховувача повідомлень"
   					}
   				]
   			},
   			"^produce$": {
+  				title: "produce",
+  				description: "Налаштування публікувальників повідомлень",
   				oneOf: [
   					{
   						type: "object",
@@ -1138,13 +1185,16 @@
   						}
   					},
   					{
-  						$ref: "#/definitions/Extensible"
+  						$ref: "#/definitions/Extensible",
+  						description: "Посилання на налаштування публікувальника повідомлень"
   					}
   				]
   			}
   		}
   	},
   	workflow: {
+  		title: "Підсхема \"workflow\"",
+  		description: "Налаштування робочого процесу повторюваного використання",
   		type: "array",
   		items: {
   			type: "object",
@@ -1154,15 +1204,23 @@
   			additionalProperties: false,
   			patternProperties: {
   				"^instance$": {
+  					title: "instance",
+  					description: "Налаштування екземплярів",
   					oneOf: [
   						{
+  							title: "Підсхема \"service\"",
+  							description: "Налаштування мікросервісу повторюваного використання",
   							type: "object",
   							additionalProperties: false,
   							patternProperties: {
   								"^config$": {
+  									title: "config",
+  									description: "Дані для налаштування мікросервісу\n",
   									type: "object"
   								},
   								"^consume$": {
+  									title: "consume",
+  									description: "Налаштування прослуховувачів повідомлень",
   									oneOf: [
   										{
   											type: "object",
@@ -1296,11 +1354,14 @@
   											}
   										},
   										{
-  											$ref: "#/definitions/Extensible"
+  											$ref: "#/definitions/Extensible",
+  											description: "Посилання на налаштування прослуховувача повідомлень"
   										}
   									]
   								},
   								"^produce$": {
+  									title: "produce",
+  									description: "Налаштування публікувальників повідомлень",
   									oneOf: [
   										{
   											type: "object",
@@ -1393,21 +1454,27 @@
   											}
   										},
   										{
-  											$ref: "#/definitions/Extensible"
+  											$ref: "#/definitions/Extensible",
+  											description: "Посилання на налаштування публікувальника повідомлень"
   										}
   									]
   								}
   							}
   						},
   						{
-  							$ref: "#/definitions/Reference"
+  							$ref: "#/definitions/Reference",
+  							description: "Посилання на налаштування екземпляру"
   						}
   					]
   				},
   				"^name$": {
+  					title: "name",
+  					description: "Назва екземпляру",
   					type: "string"
   				},
   				"^configuredBy$": {
+  					title: "configuredBy",
+  					description: "Налаштовано",
   					type: "object"
   				}
   			}
@@ -1415,6 +1482,11 @@
   	}
   };
   var definitions$4 = {
+  	Version: {
+  		title: "Version",
+  		type: "string",
+  		pattern: "^1\\.0\\.\\d(-.+)?$"
+  	},
   	Reference: {
   		title: "Reference",
   		type: "object",
@@ -1426,11 +1498,6 @@
   				type: "string"
   			}
   		}
-  	},
-  	Version: {
-  		title: "Version",
-  		type: "string",
-  		pattern: "^1\\.0\\.\\d(-.+)?$"
   	},
   	Schema: {
   		title: "Schema",
