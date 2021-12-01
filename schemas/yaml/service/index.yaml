@@ -1,6 +1,6 @@
 # service schema
 title: Підсхема "service"
-description: Налаштування мікросервісу повторюваного використання
+description: Налаштування типу сервісу
 subschema: msapi.service        
 
 type: object
@@ -10,12 +10,12 @@ patternProperties:
   '^config$':
       title: config
       description: >
-        Дані для налаштування мікросервісу
+        Дані для налаштування сервісу
       type: object
 
   '^consume$':
     title: consume
-    description: Налаштування прослуховувачів повідомлень
+    description: Налаштування прослуховувача повідомлень
     oneOf:
       - $ref: "../components/consume"
         description: Налаштування прослуховувача повідомлень
@@ -24,7 +24,7 @@ patternProperties:
   
   '^produce$': 
     title: produce 
-    description: Налаштування публікувальників повідомлень   
+    description: Налаштування публікувальника повідомлень   
     oneOf:
       - $ref: "../components/produce"
         description: Налаштування публікувальника повідомлень

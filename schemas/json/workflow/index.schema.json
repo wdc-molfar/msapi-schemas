@@ -1,6 +1,6 @@
 {
  "title": "Підсхема \"workflow\"",
- "description": "Налаштування робочого процесу повторюваного використання",
+ "description": "Налаштування робочого процесу. Визначає сукупність екземплярів сервісів та їх налаштування\n",
  "type": "array",
  "items": {
   "type": "object",
@@ -11,22 +11,22 @@
   "patternProperties": {
    "^instance$": {
     "title": "instance",
-    "description": "Налаштування екземплярів",
+    "description": "Налаштування екземпляру сервісу",
     "oneOf": [
      {
       "title": "Підсхема \"service\"",
-      "description": "Налаштування мікросервісу повторюваного використання",
+      "description": "Налаштування типу сервісу",
       "type": "object",
       "additionalProperties": false,
       "patternProperties": {
        "^config$": {
         "title": "config",
-        "description": "Дані для налаштування мікросервісу\n",
+        "description": "Дані для налаштування сервісу\n",
         "type": "object"
        },
        "^consume$": {
         "title": "consume",
-        "description": "Налаштування прослуховувачів повідомлень",
+        "description": "Налаштування прослуховувача повідомлень",
         "oneOf": [
          {
           "type": "object",
@@ -167,7 +167,7 @@
        },
        "^produce$": {
         "title": "produce",
-        "description": "Налаштування публікувальників повідомлень",
+        "description": "Налаштування публікувальника повідомлень",
         "oneOf": [
          {
           "type": "object",
@@ -269,18 +269,18 @@
      },
      {
       "$ref": "#/definitions/Reference",
-      "description": "Посилання на налаштування екземпляру"
+      "description": "Посилання на налаштування екземпляру сервісу"
      }
     ]
    },
    "^name$": {
     "title": "name",
-    "description": "Назва екземпляру",
+    "description": "Назва екземпляру сервісу",
     "type": "string"
    },
    "^configuredBy$": {
     "title": "configuredBy",
-    "description": "Налаштовано",
+    "description": "Налаштування екземпляру сервісу",
     "type": "object"
    }
   }

@@ -348,7 +348,7 @@ var properties = {
 	},
 	metadata: {
 		title: "Підсхема \"metadata\"",
-		description: "Налаштування метаданих повторюваного використання",
+		description: "Метадані специфікації",
 		type: "object",
 		required: [
 			"id",
@@ -357,17 +357,17 @@ var properties = {
 		properties: {
 			id: {
 				title: "id",
-				description: "Ідентифікатор метаданих",
+				description: "Ідентифікатор специфікації. Зазвичай співпадає з посиланням на неї та використовується у ```$ref```",
 				type: "string"
 			},
 			title: {
 				title: "title",
-				description: "Назва метаданих",
+				description: "Назва специфікації",
 				type: "string"
 			},
 			description: {
 				title: "description",
-				description: "Опис метаданих",
+				description: "Опис специфікації",
 				type: "string"
 			},
 			contact: {
@@ -382,7 +382,7 @@ var properties = {
 					},
 					url: {
 						title: "url",
-						description: "Гіперпосилання на контактну інформацію",
+						description: "Посилання на контактну інформацію",
 						type: "string",
 						format: "uri-reference"
 					},
@@ -414,7 +414,7 @@ var properties = {
 					},
 					url: {
 						title: "url",
-						description: "Гіперпосилання на інформацію про ліцензію",
+						description: "Посилання на інформацію про ліцензію",
 						type: "string",
 						format: "uri-reference"
 					}
@@ -427,7 +427,7 @@ var properties = {
 			},
 			repo: {
 				title: "repo",
-				description: "Посилання на репозиторій",
+				description: "Посилання на репозиторій, де міститься вихідний код",
 				type: "string",
 				format: "uri-reference"
 			}
@@ -450,7 +450,7 @@ var properties = {
 					},
 					url: {
 						title: "url",
-						description: "Гіперпосилання на контактну інформацію",
+						description: "Посилання на контактну інформацію",
 						type: "string",
 						format: "uri-reference"
 					},
@@ -482,7 +482,7 @@ var properties = {
 					},
 					url: {
 						title: "url",
-						description: "Гіперпосилання на інформацію про ліцензію",
+						description: "Посилання на інформацію про ліцензію",
 						type: "string",
 						format: "uri-reference"
 					}
@@ -934,18 +934,18 @@ var properties = {
 	},
 	service: {
 		title: "Підсхема \"service\"",
-		description: "Налаштування мікросервісу повторюваного використання",
+		description: "Налаштування типу сервісу",
 		type: "object",
 		additionalProperties: false,
 		patternProperties: {
 			"^config$": {
 				title: "config",
-				description: "Дані для налаштування мікросервісу\n",
+				description: "Дані для налаштування сервісу\n",
 				type: "object"
 			},
 			"^consume$": {
 				title: "consume",
-				description: "Налаштування прослуховувачів повідомлень",
+				description: "Налаштування прослуховувача повідомлень",
 				oneOf: [
 					{
 						type: "object",
@@ -1086,7 +1086,7 @@ var properties = {
 			},
 			"^produce$": {
 				title: "produce",
-				description: "Налаштування публікувальників повідомлень",
+				description: "Налаштування публікувальника повідомлень",
 				oneOf: [
 					{
 						type: "object",
@@ -1188,7 +1188,7 @@ var properties = {
 	},
 	workflow: {
 		title: "Підсхема \"workflow\"",
-		description: "Налаштування робочого процесу повторюваного використання",
+		description: "Налаштування робочого процесу. Визначає сукупність екземплярів сервісів та їх налаштування\n",
 		type: "array",
 		items: {
 			type: "object",
@@ -1199,22 +1199,22 @@ var properties = {
 			patternProperties: {
 				"^instance$": {
 					title: "instance",
-					description: "Налаштування екземплярів",
+					description: "Налаштування екземпляру сервісу",
 					oneOf: [
 						{
 							title: "Підсхема \"service\"",
-							description: "Налаштування мікросервісу повторюваного використання",
+							description: "Налаштування типу сервісу",
 							type: "object",
 							additionalProperties: false,
 							patternProperties: {
 								"^config$": {
 									title: "config",
-									description: "Дані для налаштування мікросервісу\n",
+									description: "Дані для налаштування сервісу\n",
 									type: "object"
 								},
 								"^consume$": {
 									title: "consume",
-									description: "Налаштування прослуховувачів повідомлень",
+									description: "Налаштування прослуховувача повідомлень",
 									oneOf: [
 										{
 											type: "object",
@@ -1355,7 +1355,7 @@ var properties = {
 								},
 								"^produce$": {
 									title: "produce",
-									description: "Налаштування публікувальників повідомлень",
+									description: "Налаштування публікувальника повідомлень",
 									oneOf: [
 										{
 											type: "object",
@@ -1457,18 +1457,18 @@ var properties = {
 						},
 						{
 							$ref: "#/definitions/Reference",
-							description: "Посилання на налаштування екземпляру"
+							description: "Посилання на налаштування екземпляру сервісу"
 						}
 					]
 				},
 				"^name$": {
 					title: "name",
-					description: "Назва екземпляру",
+					description: "Назва екземпляру сервісу",
 					type: "string"
 				},
 				"^configuredBy$": {
 					title: "configuredBy",
-					description: "Налаштовано",
+					description: "Налаштування екземпляру сервісу",
 					type: "object"
 				}
 			}
@@ -1476,11 +1476,6 @@ var properties = {
 	}
 };
 var definitions$4 = {
-	Version: {
-		title: "Version",
-		type: "string",
-		pattern: "^1\\.0\\.\\d(-.+)?$"
-	},
 	Reference: {
 		title: "Reference",
 		type: "object",
@@ -1492,6 +1487,11 @@ var definitions$4 = {
 				type: "string"
 			}
 		}
+	},
+	Version: {
+		title: "Version",
+		type: "string",
+		pattern: "^1\\.0\\.\\d(-.+)?$"
 	},
 	Schema: {
 		title: "Schema",

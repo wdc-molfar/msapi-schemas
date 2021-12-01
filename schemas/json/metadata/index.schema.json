@@ -1,6 +1,6 @@
 {
  "title": "Підсхема \"metadata\"",
- "description": "Налаштування метаданих повторюваного використання",
+ "description": "Метадані специфікації",
  "type": "object",
  "required": [
   "id",
@@ -9,32 +9,32 @@
  "properties": {
   "id": {
    "title": "id",
-   "description": "Ідентифікатор метаданих",
+   "description": "Ідентифікатор специфікації. Зазвичай співпадає з посиланням на неї та використовується у ```$ref```",
    "type": "string"
   },
   "title": {
    "title": "title",
-   "description": "Назва метаданих",
+   "description": "Назва специфікації",
    "type": "string"
   },
   "description": {
    "title": "description",
-   "description": "Опис метаданих",
+   "description": "Опис специфікації",
    "type": "string"
   },
   "contact": {
    "title": "contact",
-   "description": "Посилання на контактну інформацію",
+   "description": "Контактна інформація",
    "$ref": "#/definitions/Contact"
   },
   "license": {
    "title": "license",
-   "description": "Посилання на інформацію про ліцензію",
+   "description": "Інформація про ліцензію",
    "$ref": "#/definitions/License"
   },
   "repo": {
    "title": "repo",
-   "description": "Посилання на репозиторій",
+   "description": "Посилання на репозиторій, де міститься вихідний код",
    "type": "string",
    "format": "uri-reference"
   }
@@ -56,7 +56,7 @@
     },
     "url": {
      "title": "url",
-     "description": "Гіперпосилання на контактну інформацію",
+     "description": "Посилання на контактну інформацію",
      "type": "string",
      "format": "uri-reference"
     },
@@ -87,7 +87,7 @@
     },
     "url": {
      "title": "url",
-     "description": "Гіперпосилання на інформацію про ліцензію",
+     "description": "Посилання на інформацію про ліцензію",
      "type": "string",
      "format": "uri-reference"
     }

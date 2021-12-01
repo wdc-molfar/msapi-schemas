@@ -2,7 +2,6 @@ title: MSAPI
 description: >
   Схема перевірки MSAPI-специфікації 1.0.X.
 subschema: msapi
-#$schema: http://json-schema.org/draft-04/schema#
 type: object
 
 
@@ -20,7 +19,7 @@ properties:
   
   metadata:
     title: Метадані
-    description: Налаштування метаданих повторюваного використання
+    description: Налаштування метаданих специфікації
     $ref: "./metadata/index"
   
   components:
@@ -30,15 +29,12 @@ properties:
   
   service:
     title: Мікросервіс
-    description: Налаштування мікросервісів повторюваного використання
+    description: Налаштування типу сервісу. Специфікація може мати опис лише одного типу сервісу 
     $ref: "./service/index"  
   
   workflow:
-    title: Робочі процеси
-    description: Налаштування робочих процеcів повторюваного використання
+    title: Робочий процес
+    description: Налаштування робочого процеcу. Специфікація може мати опис лише одного робочого процесу
     $ref: "./workflow/index"  
-
-definitions:
-  Version:  1.0.1
 
   

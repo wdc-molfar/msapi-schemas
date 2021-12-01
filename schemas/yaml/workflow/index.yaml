@@ -1,6 +1,8 @@
 # workflow schema 
 title: Підсхема "workflow"
-description: Налаштування робочого процесу повторюваного використання
+description: >
+  Налаштування робочого процесу. Визначає сукупність екземплярів сервісів та їх
+  налаштування
 subschema: msapi.workflow         
 
 type: array
@@ -17,19 +19,19 @@ items:
       
       '^instance$':
           title: instance
-          description: Налаштування екземплярів
+          description: Налаштування екземпляру сервісу
           oneOf:
             - $ref: '../service/index'
-              description: Налаштування екземпляру
+              description: Налаштування екземпляру сервісу
             - $ref: '#/definitions/Reference' 
-              description: Посилання на налаштування екземпляру 
+              description: Посилання на налаштування екземпляру сервісу 
       
       '^name$':
           title: name
-          description: Назва екземпляру
+          description: Назва екземпляру сервісу
           type: string
 
       '^configuredBy$': 
           title: configuredBy
-          description: Налаштовано
+          description: Налаштування екземпляру сервісу
           type: object        

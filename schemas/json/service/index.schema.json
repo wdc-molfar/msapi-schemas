@@ -1,17 +1,17 @@
 {
  "title": "Підсхема \"service\"",
- "description": "Налаштування мікросервісу повторюваного використання",
+ "description": "Налаштування типу сервісу",
  "type": "object",
  "additionalProperties": false,
  "patternProperties": {
   "^config$": {
    "title": "config",
-   "description": "Дані для налаштування мікросервісу\n",
+   "description": "Дані для налаштування сервісу\n",
    "type": "object"
   },
   "^consume$": {
    "title": "consume",
-   "description": "Налаштування прослуховувачів повідомлень",
+   "description": "Налаштування прослуховувача повідомлень",
    "oneOf": [
     {
      "type": "object",
@@ -152,7 +152,7 @@
   },
   "^produce$": {
    "title": "produce",
-   "description": "Налаштування публікувальників повідомлень",
+   "description": "Налаштування публікувальника повідомлень",
    "oneOf": [
     {
      "type": "object",

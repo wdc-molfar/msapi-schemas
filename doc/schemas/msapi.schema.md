@@ -11,10 +11,10 @@
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
 |**msapi**|`string`|Pattern: ^1\\\.0\\\.\\d\(\-\.\+\)?$<br/>|yes|
-|**metadata**|`object`|Підсхема &quot;metadata&quot;.Налаштування метаданих повторюваного використання<br/>Subschema: [Підсхема "metadata"](#msapimetadata)<br/>|yes|
+|**metadata**|`object`|Підсхема &quot;metadata&quot;.Метадані специфікації<br/>Subschema: [Підсхема "metadata"](#msapimetadata)<br/>|yes|
 |**components**|`object`|Підсхема components.Компоненти повторюваного використання<br/>Subschema: [Підсхема components](#msapicomponents)<br/>|no|
-|**service**|`object`|Підсхема &quot;service&quot;.Налаштування мікросервісу повторюваного використання<br/>Subschema: [Підсхема "service"](#msapiservice)<br/>|no|
-|**workflow**|`object[]`|Підсхема &quot;workflow&quot;.Налаштування робочого процесу повторюваного використання<br/>Subschema: [Підсхема "workflow"](#msapiworkflow)<br/>|no|
+|**service**|`object`|Підсхема &quot;service&quot;.Налаштування типу сервісу<br/>Subschema: [Підсхема "service"](#msapiservice)<br/>|no|
+|**workflow**|`object[]`|Підсхема &quot;workflow&quot;.Налаштування робочого процесу. Визначає сукупність екземплярів сервісів та їх налаштування<br/>Subschema: [Підсхема "workflow"](#msapiworkflow)<br/>|no|
 
 
 ## msapi(Версія MSAPI-специфікації)
@@ -35,7 +35,7 @@ Reference to [\#/definitions/Version](\#/definitions/Version)
 ## metadata (Підсхема &quot;metadata&quot;)
 
 **Description**: 
-Налаштування метаданих повторюваного використання
+Метадані специфікації
 
 Reference [msapi.metadata](#msapimetadata)
 
@@ -51,7 +51,7 @@ Reference [msapi.components](#msapicomponents)
 ## service (Підсхема &quot;service&quot;)
 
 **Description**: 
-Налаштування мікросервісу повторюваного використання
+Налаштування типу сервісу
 
 Reference [msapi.service](#msapiservice)
 
@@ -59,7 +59,8 @@ Reference [msapi.service](#msapiservice)
 ## workflow\[\] (Підсхема &quot;workflow&quot;)
 
 **Description**: 
-Налаштування робочого процесу повторюваного використання
+Налаштування робочого процесу. Визначає сукупність екземплярів сервісів та їх налаштування
+
 
 Reference [msapi.workflow](#msapiworkflow)
 
@@ -81,26 +82,26 @@ Reference [msapi.workflow](#msapiworkflow)
 **Description**: 
 
 
-Налаштування метаданих повторюваного використання
+Метадані специфікації
 
 **Additional Properties:** allowed<br/>
 **Properties**(6)
 
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
-|**id**|`string`|id.Ідентифікатор метаданих<br/>|yes|
-|**title**|`string`|title.Назва метаданих<br/>|yes|
-|**description**|`string`|description.Опис метаданих<br/>|no|
+|**id**|`string`|id.Ідентифікатор специфікації. Зазвичай співпадає з посиланням на неї та використовується у ```$ref```<br/>|yes|
+|**title**|`string`|title.Назва специфікації<br/>|yes|
+|**description**|`string`|description.Опис специфікації<br/>|no|
 |**contact**|`object`|Contact.Контактна інформація<br/>|no|
 |**license**|`object`|License.Інформацію про ліцензію<br/>|yes|
-|**repo**|`string`|repo.Посилання на репозиторій<br/>Format: `"uri-reference"`<br/>|no|
+|**repo**|`string`|repo.Посилання на репозиторій, де міститься вихідний код<br/>Format: `"uri-reference"`<br/>|no|
 
 
 ## id(id)
 
 
 **Description**: 
-Ідентифікатор метаданих
+Ідентифікатор специфікації. Зазвичай співпадає з посиланням на неї та використовується у ```$ref```
 
 
 **Type:** `string`<br/>
@@ -116,7 +117,7 @@ Reference [msapi.workflow](#msapiworkflow)
 
 
 **Description**: 
-Назва метаданих
+Назва специфікації
 
 
 **Type:** `string`<br/>
@@ -132,7 +133,7 @@ Reference [msapi.workflow](#msapiworkflow)
 
 
 **Description**: 
-Опис метаданих
+Опис специфікації
 
 
 **Type:** `string`<br/>
@@ -156,7 +157,7 @@ Reference [msapi.workflow](#msapiworkflow)
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
 |**name**|`string`|name.Ім'я для отримання контактної інформації<br/>||
-|**url**|`string`|url.Гіперпосилання на контактну інформацію<br/>Format: `"uri-reference"`<br/>||
+|**url**|`string`|url.Посилання на контактну інформацію<br/>Format: `"uri-reference"`<br/>||
 |**email**|`string`|email.Адреса електронної пошти<br/>Format: `"email"`<br/>||
 
 
@@ -180,7 +181,7 @@ Reference [msapi.workflow](#msapiworkflow)
 
 
 **Description**: 
-Гіперпосилання на контактну інформацію
+Посилання на контактну інформацію
 
 
 **Type:** `string`<br/>
@@ -254,7 +255,7 @@ Reference [msapi.workflow](#msapiworkflow)
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
 |**name**|`string`|name.Назва ліцензії<br/>|yes|
-|**url**|`string`|url.Гіперпосилання на інформацію про ліцензію<br/>Format: `"uri-reference"`<br/>|no|
+|**url**|`string`|url.Посилання на інформацію про ліцензію<br/>Format: `"uri-reference"`<br/>|no|
 
 
 ### license\.name(name)
@@ -277,7 +278,7 @@ Reference [msapi.workflow](#msapiworkflow)
 
 
 **Description**: 
-Гіперпосилання на інформацію про ліцензію
+Посилання на інформацію про ліцензію
 
 
 **Type:** `string`<br/>
@@ -326,7 +327,7 @@ Reference [msapi.workflow](#msapiworkflow)
 
 
 **Description**: 
-Посилання на репозиторій
+Посилання на репозиторій, де міститься вихідний код
 
 
 **Type:** `string`<br/>
@@ -1185,7 +1186,7 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 **Description**: 
 
 
-Налаштування мікросервісу повторюваного використання
+Налаштування типу сервісу
 
 **Additional Properties:** not allowed<br/>
 
@@ -1195,15 +1196,15 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
-|**^config$**|`object`|config.Дані для налаштування мікросервісу<br/>||
-|**^consume$**||consume.Налаштування прослуховувачів повідомлень<br/>||
-|**^produce$**||produce.Налаштування публікувальників повідомлень<br/>||
+|**^config$**|`object`|config.Дані для налаштування сервісу<br/>||
+|**^consume$**||consume.Налаштування прослуховувача повідомлень<br/>||
+|**^produce$**||produce.Налаштування публікувальника повідомлень<br/>||
 
 ## ^config$(config)
 
 
 **Description**: 
-Дані для налаштування мікросервісу
+Дані для налаштування сервісу
 
 
 
@@ -1223,7 +1224,7 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 
 **Description**: 
-Налаштування прослуховувачів повідомлень
+Налаштування прослуховувача повідомлень
 
  
 
@@ -1329,7 +1330,7 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 
 **Description**: 
-Налаштування публікувальників повідомлень
+Налаштування публікувальника повідомлень
 
  
 
@@ -1370,7 +1371,8 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 **Description**: 
 
 
-Налаштування робочого процесу повторюваного використання
+Налаштування робочого процесу. Визначає сукупність екземплярів сервісів та їх налаштування
+
 
 **Items**
 
@@ -1382,15 +1384,15 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
-|**^instance$**||instance.Налаштування екземплярів<br/>|no|
-|**^name$**|`string`|name.Назва екземпляру<br/>|no|
-|**^configuredBy$**|`object`|configuredBy.Налаштовано<br/>|no|
+|**^instance$**||instance.Налаштування екземпляру сервісу<br/>|no|
+|**^name$**|`string`|name.Назва екземпляру сервісу<br/>|no|
+|**^configuredBy$**|`object`|configuredBy.Налаштування екземпляру сервісу<br/>|no|
 
 ### item\.^instance$(instance)
 
 
 **Description**: 
-Налаштування екземплярів
+Налаштування екземпляру сервісу
 
  
 
@@ -1398,12 +1400,12 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 - **Option 1 (alternative):**    
     **Description**: 
-    Налаштування мікросервісу повторюваного використання
+    Налаштування типу сервісу
     
     Reference [msapi.service](#msapiservice)
     
 - **Option 2 (alternative):**    
-    **Description**: Посилання на налаштування екземпляру
+    **Description**: Посилання на налаштування екземпляру сервісу
     
     
     Reference to [\#/definitions/Reference](\#/definitions/Reference)  
@@ -1422,7 +1424,7 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 
 **Description**: 
-Назва екземпляру
+Назва екземпляру сервісу
 
 
 **Type:** `string`<br/>
@@ -1438,7 +1440,7 @@ Reference [msapi.components.exchange.exchange-options](#msapicomponentsexchangee
 
 
 **Description**: 
-Налаштовано
+Налаштування екземпляру сервісу
 
 
 
