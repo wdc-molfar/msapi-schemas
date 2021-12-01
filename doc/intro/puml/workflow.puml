@@ -1,10 +1,26 @@
 @startuml
-  component  service1 <<instance>>
+  component  service1 <<instance>> #aaffaa
   interface produce1
-  component  service2 <<instance>>
+  component  service2 <<instance>> #eeeeff
   interface consume2
+  
+  component  service3 <<instance>> 
+  interface consume3
+  interface produce3
+  
+  component  service4 <<instance>> #eeeeff
+  interface consume4
+  
   
   service1 -> produce1
   produce1 ..> consume2
   consume2 -> service2
+  produce1 .u.> consume3
+  consume3 -> service3
+  service3 -> produce3
+  consume4 -> service4
+  produce3 ..> consume4
+  
+  
+  
 @enduml
