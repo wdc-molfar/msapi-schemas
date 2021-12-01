@@ -1,7 +1,7 @@
 @startuml
-  component service1
+  component  service1 <<instance>>
   interface produce1
-  component service2
+  component  service2 <<instance>>
   interface consume2
   
   service1 -> produce1
