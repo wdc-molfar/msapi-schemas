@@ -79,6 +79,11 @@ MSAPI-специфікації призначені для опису розпо
 
 Опис робочого процесу оброблення даних (```workflow```) складається з декларації множини розміщених на обчислювальних вузлах 
 системи налаштованих екземплярів сервісів (```service```).
+<center> 
+
+![uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/wdc-molfar/msapi-schemas/master/doc/intro/puml/workflow.puml) 
+
+</center>
 
 Тип сервісу декларується у відповідності до концепції "чорної скриньки": 
     - вхідні налаштування ```config```
