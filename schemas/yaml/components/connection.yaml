@@ -1,4 +1,5 @@
-
+title: Підсхема "connection"
+description: Налаштування з’єднання
 subschema: msapi.components.connection         
 type: object
 
@@ -8,6 +9,8 @@ required:
 
 patternProperties:  
   '^url$':
+    title: url
+    description: Налаштування посилання
     type: string
     format: uri-reference
 

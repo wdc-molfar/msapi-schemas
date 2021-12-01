@@ -1,18 +1,29 @@
 subschema: msapi.components.queue         
 
+title: Підсхема "queue"
+description: Налаштування черг
 type: object
 additionalProperties: false
 patternProperties:
   
   
   '^name$':
+    title: name
+    definitions: Ім'я черги
     type: string
   
   '^exchange$':
+    title: exchange
+    description: Обмінник черги
     oneOf:
       - $ref: "#/definitions/Reference"
+        description: Посилання на налаштування обмінника
       - $ref: "./exchange"
+        description: Налаштування обмінника
 
   '^options$':
+    title: options
+    definitions: Налаштування черги
       $ref: "./queue-options"
+      definitions: Налаштування черги
     

@@ -1,19 +1,31 @@
-
+title: Підсхема "consume"
+description: Налаштування споживача
 type: object
 additionalProperties: false
 patternProperties:
   
   '^amqp':
+    title: amqp
+    description: Налаштування брокера повідомлень
     $ref: "./connection"
+    description: Налаштування з’єднання
 
   '^queue$':
+    title: queue
+    description: Налаштування черги
     oneOf:
       - $ref: "./queue"
+        description: Налаштування черг
       - $ref: "#/definitions/Reference"
+        description: Посилання на налаштування черги
   
   '^message$':
+    title: message
+    description: Налаштування повідомлень
     oneOf:
       - $ref: "#/definitions/Schema"
+        description: Посилання на налаштування повідомлень
       - $ref: "#/definitions/Reference"
+        description: Посилання на налаштування повідомлень
 
     
