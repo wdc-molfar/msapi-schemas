@@ -8,7 +8,10 @@ patternProperties:
 
   '^noAck$': 
     title: noAck
-    description:
+    description: >
+      Налаштування черги. Якщо встановлено занчення ```true```, 
+      то брокер буде видаляти повідомлення, надіслані 
+      цьому споживачеві, з черги, як тільки вони будуть відправлені
     type: boolean
     default: false       
 
@@ -16,7 +19,8 @@ patternProperties:
     title: exclusive
     description: >
      Налаштування черги. Якщо встановлено занчення ```true```, 
-
+     то брокер не дозволить нікому другому споживати з цієї черги.
+     Якщо споживач уже є, то ваш канал зникне
 
     type: boolean
     default: false            # if true, scopes the queue to the connection (defaults to false)
