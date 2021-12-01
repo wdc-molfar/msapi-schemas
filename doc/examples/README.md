@@ -116,7 +116,7 @@ settings:
         exchange_name: ms_health
         interval: 1000 #ms
 
-    ```
+```
 
 **Секція JSON-схем `schemas`** може містити описи JSON-схем повторюваного використання: `TASK_MSG_SCHEMA`, `DATA_MSG_SCHEMA`.
 
