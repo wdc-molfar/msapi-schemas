@@ -1,0 +1,9 @@
+@startuml
+  component service
+  interface config
+  interface consume
+  interface produce
+  config --> service
+  consume -> service
+  service -> produce
+@enduml
